@@ -1,0 +1,2 @@
+*.gds !text !filter !merge !diff
+*.gds filter=lfs diff=lfs merge=lfs -text
