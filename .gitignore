@@ -5,6 +5,7 @@
 *.hex*
 *.lst
 *.vcd
+*.vvp
 *.gtkw
 /env
 /venv

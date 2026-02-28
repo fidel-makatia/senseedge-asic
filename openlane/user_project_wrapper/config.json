@@ -21,12 +21,12 @@
 
     "//": "Macros configurations",
     "MACROS": {
-        "user_proj_example": {
+        "senseedge_top": {
             "gds": [
-                "dir::../../gds/user_proj_example.gds"
+                "dir::../../gds/senseedge_top.gds"
             ],
             "lef": [
-                "dir::../../lef/user_proj_example.lef"
+                "dir::../../lef/senseedge_top.lef"
             ],
             "instances": {
                 "mprj": {
@@ -35,21 +35,21 @@
                 }
             },
             "nl": [
-                "dir::../../verilog/gl/user_proj_example.v"
+                "dir::../../verilog/gl/senseedge_top.v"
             ],
             "spef": {
                 "min_*": [
-                    "dir::../../spef/multicorner/user_proj_example.min.spef"
+                    "dir::../../spef/multicorner/senseedge_top.min.spef"
                 ],
                 "nom_*": [
-                    "dir::../../spef/multicorner/user_proj_example.nom.spef"
+                    "dir::../../spef/multicorner/senseedge_top.nom.spef"
                 ],
                 "max_*": [
-                    "dir::../../spef/multicorner/user_proj_example.max.spef"
+                    "dir::../../spef/multicorner/senseedge_top.max.spef"
                 ]
             },
             "lib": {
-                "*": "dir::../../lib/user_proj_example.lib"
+                "*": "dir::../../lib/senseedge_top.lib"
             }
         }
     },

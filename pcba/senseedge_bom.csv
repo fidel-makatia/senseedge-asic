@@ -1,0 +1,30 @@
+Reference,Value,Footprint,Quantity,Manufacturer,MPN,Description,Unit_Cost_100qty
+U1,Caravel_ASIC,QFN-64_9x9mm_P0.5mm,1,ChipFoundry,SenseEdge,Custom ASIC - FFT + NN inference engine,Sponsored
+U2,MCP3201,SOIC-8_3.9x4.9mm_P1.27mm,1,Microchip,MCP3201-CI/SN,12-bit SPI ADC 100kSPS,$1.85
+U3,ADXL1002,LGA-8_5x5mm,1,Analog Devices,ADXL1002BCPZ,MEMS accelerometer +/-50g analog output,$7.50
+U4,ESP32-C3-MINI-1,ESP32-C3-MINI-1,1,Espressif,ESP32-C3-MINI-1-N4,WiFi+BLE module 4MB flash,$1.90
+U5,AP2112K-3.3,SOT-23-5,1,Diodes Inc,AP2112K-3.3TRG1,3.3V 600mA LDO regulator,$0.35
+U6,AP2112K-1.8,SOT-23-5,1,Diodes Inc,AP2112K-1.8TRG1,1.8V 600mA LDO regulator,$0.35
+Y1,25MHz,HC49_SMD,1,Abracon,ABM3B-25.000MHZ-B2-T,25MHz crystal 18pF,$0.45
+J1,USB_C_Power,USB_C_Receptacle_HRO_TYPE-C-31-M-12,1,HRO,TYPE-C-31-M-12,USB-C receptacle power only,$0.25
+J2,M12_4pin,M12_Circular_4pin,1,Amphenol,T4110001041-000,M12-A 4-pin panel mount,$1.80
+D1,LED_RGB,LED_0606_RGB,1,Kingbright,APTF1616SEEZGQBDC,RGB LED common cathode 1.6x1.6mm,$0.15
+R1,5.1k,R_0402,1,Yageo,RC0402FR-075K1L,CC1 pulldown for USB-C,$0.005
+R2,5.1k,R_0402,1,Yageo,RC0402FR-075K1L,CC2 pulldown for USB-C,$0.005
+R3,10k,R_0402,1,Yageo,RC0402FR-0710KL,ESP32 EN pullup,$0.005
+R4,10k,R_0402,1,Yageo,RC0402FR-0710KL,ADXL1002 ST pulldown,$0.005
+R5,330,R_0402,1,Yageo,RC0402FR-07330RL,LED R current limit,$0.005
+R6,330,R_0402,1,Yageo,RC0402FR-07330RL,LED G current limit,$0.005
+R7,330,R_0402,1,Yageo,RC0402FR-07330RL,LED B current limit,$0.005
+C1,100nF,C_0402,1,Samsung,CL05B104KO5NNNC,U1 VDD decoupling,$0.005
+C2,100nF,C_0402,1,Samsung,CL05B104KO5NNNC,U1 VDDIO decoupling,$0.005
+C3,100nF,C_0402,1,Samsung,CL05B104KO5NNNC,U2 VDD decoupling,$0.005
+C4,100nF,C_0402,1,Samsung,CL05B104KO5NNNC,U3 VDD decoupling,$0.005
+C5,100nF,C_0402,1,Samsung,CL05B104KO5NNNC,U4 3V3 decoupling,$0.005
+C6,100nF,C_0402,1,Samsung,CL05B104KO5NNNC,U5 output decoupling,$0.005
+C7,100nF,C_0402,1,Samsung,CL05B104KO5NNNC,U6 output decoupling,$0.005
+C8,10uF,C_0805,1,Samsung,CL21A106KAYNNNE,3.3V bulk capacitor,$0.03
+C9,10uF,C_0805,1,Samsung,CL21A106KAYNNNE,1.8V bulk capacitor,$0.03
+C10,4.7uF,C_0603,1,Samsung,CL10A475KQ8NNNC,5V input bulk capacitor,$0.02
+C11,22pF,C_0402,1,Samsung,CL05C220JB5NNNC,Crystal load cap XTAL1,$0.005
+C12,22pF,C_0402,1,Samsung,CL05C220JB5NNNC,Crystal load cap XTAL2,$0.005
