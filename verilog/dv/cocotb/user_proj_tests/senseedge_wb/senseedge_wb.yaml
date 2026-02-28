@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# SenseEdge Wishbone integration test configuration
+
+Tests:
+    - {name: senseedge_wb, sim: RTL}

@@ -13,7 +13,7 @@
 // limitations under the License.
 // SPDX-License-Identifier: Apache-2.0
 
-// Include caravel global defines for the number of the user project IO pads 
+// Include caravel global defines for the number of the user project IO pads
 `include "defines.v"
 `define USE_POWER_PINS
 
@@ -21,8 +21,14 @@
     // Assume default net type to be wire because GL netlists don't have the wire definitions
     `default_nettype wire
     `include "gl/user_project_wrapper.v"
-    `include "gl/user_proj_example.v"
+    `include "gl/senseedge_top.v"
 `else
     `include "user_project_wrapper.v"
-    `include "user_proj_example.v"
+    `include "senseedge_top.v"
+    `include "spi_adc_if.v"
+    `include "fft_engine.v"
+    `include "feature_extract.v"
+    `include "nn_engine.v"
+    `include "wb_interface.v"
+    `include "alarm_logic.v"
 `endif
