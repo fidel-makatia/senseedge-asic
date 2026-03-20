@@ -542,7 +542,7 @@ Mechanical designs released under **CERN-OHL-P v2** (permissive).
 
 **Fidel Makatia** — PhD Student, Analog and Mixed-Signal IC Design
 
-Fidel is a hardware engineer and researcher specializing in analog/mixed-signal integrated circuit design. He holds a BSc in Electrical and Electronics Engineering from Kenyatta University, Kenya, and is currently pursuing his PhD with a focus on silicon-level signal processing and edge inference hardware.
+Fidel is a hardware engineer and researcher specializing in analog/mixed-signal integrated circuit design. He holds a BSc in Electrical and Electronics Engineering from Kenyatta University, Kenya, and is currently pursuing his PhD with a focus on Analog and mixed signals IC design.
 
 Fidel has a track record of delivering complex, first-of-their-kind hardware systems:
 
