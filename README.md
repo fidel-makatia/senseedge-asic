@@ -538,5 +538,32 @@ Mechanical designs released under **CERN-OHL-P v2** (permissive).
 
 ---
 
-**Author:** Fidel Makatia
+## Author
+
+**Fidel Makatia** — PhD Student, Analog and Mixed-Signal IC Design
+
+Fidel is a hardware engineer and researcher specializing in analog/mixed-signal integrated circuit design. He holds a BSc in Electrical and Electronics Engineering from Kenyatta University, Kenya, and is currently pursuing his PhD with a focus on silicon-level signal processing and edge inference hardware.
+
+Fidel has a track record of delivering complex, first-of-their-kind hardware systems:
+
+- **Lead Inventor, Tibavent Ventilator** — Designed and developed the first African-engineered ventilator during the COVID-19 crisis (April 2020), enabling local manufacturing across the continent when international supply chains were disrupted. The ventilator introduced remote tablet-based control, allowing a single clinician to manage multiple patients — addressing the critical doctor-to-patient ratio gap in African healthcare facilities.
+
+- **Team Leader, KUCUBE Nanosatellite** — Led the development of Kenya's first domestically designed and built nanosatellite, targeting prediction and mitigation of agricultural disasters.
+
+- **Electrical Team Lead, Digital Learning Device Program** — Led the electrical engineering team for the Kenya Ministry of ICT initiative to develop locally manufactured tablets for primary school education.
+
+- **Pioneer Chair, IEEE Texas A&M Semiconductor Summit** — Established and chaired the inaugural IEEE Semiconductor Summit at Texas A&M University.
+
+- **IEEE Leadership** — Pioneering chairperson of IEEE Kenyatta University Students' Branch and multiple IEEE society chapters (Circuits and Systems, Communications, Photonics). Currently serves as the Young Professionals Representative on the IEEE Circuits and Systems Society Board of Governors. Former student representative at IEEE Kenya Section.
+
+**Awards and Recognition:**
+- United Nations Person of the Year — Principal Innovator Award (2020)
+- UBORA Project of the Year (2020)
+- Head of State Commendation by H.E. the President of Kenya (December 2020)
+- IEEE MGA Larry K. Wilson Region 8 Award (2021)
+
+Fidel holds two patents and has published three papers in the IEEE Xplore Digital Library. He has presented at international conferences including the Optical Fibre Communications Conference (2021), the National Society of Black Physicists Conference (2020), and the AIHAC Conference by Amref (2020).
+
+---
+
 **Contest:** ChipFoundry Reference Application Design Contest 2026
