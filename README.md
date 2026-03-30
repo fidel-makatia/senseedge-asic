@@ -77,6 +77,8 @@ The hardware pipeline runs autonomously — ADC samples arrive via SPI, pass thr
 | Energy | Wind turbine gearbox and generator monitoring |
 | Water/Wastewater | Pump station condition monitoring |
 | Agriculture | Irrigation pump and grain dryer motor health |
+| Structural Health Monitoring | Bridge, building, and infrastructure vibration analysis |
+| Rotating Equipment Diagnostics | Turbine, generator, and spindle bearing diagnostics |
 
 ---
 
@@ -216,6 +218,31 @@ All features normalized to 8-bit unsigned for NN input.
 | STA | OpenSTA | Timing closure at 25 MHz |
 | DRC/LVS | Magic VLSI | Physical verification |
 | Precheck | cf precheck | Tapeout readiness |
+
+### Verification Results (RTL Simulation)
+
+All 7 unit testbenches pass with **46 total assertions and 0 failures** (Icarus Verilog 12.0).
+
+| Testbench | Module Under Test | Tests | Assertions | Result |
+|---|---|---|---|---|
+| `tb_spi_adc_if` | SPI ADC Interface | 4 | 4 | **PASS** |
+| `tb_fft_engine` | 64-Point FFT Engine | 5 | 6 | **PASS** |
+| `tb_feature_extract` | Feature Extraction | 4 | 7 | **PASS** |
+| `tb_nn_engine` | Neural Network Engine | 6 | 6 | **PASS** |
+| `tb_alarm_logic` | Alarm Logic | 6 | 8 | **PASS** |
+| `tb_wb_interface` | Wishbone Interface | 8 | 9 | **PASS** |
+| `tb_senseedge_top` | Full Integration | 9 | 6 | **PASS** |
+
+**Key verification highlights:**
+- **FFT accuracy:** DC input produces energy only at bin 0; single tone at bin 8 produces peak at bin 8 with 63995 magnitude; impulse input yields flat spectrum (all bins = 1000)
+- **NN classification:** All 4 fault classes correctly identified (Healthy, Bearing Wear, Imbalance, Misalignment) with full confidence (255)
+- **Alarm logic:** Consecutive fault filtering verified — alarm triggers only after N consecutive faults above confidence threshold; low-confidence faults correctly ignored
+- **Full integration:** End-to-end pipeline (SPI → FFT → Features → NN → Alarm → GPIO/IRQ) completes in 11,924 clock cycles with correct GPIO directions and IRQ assertion
+
+**Remaining verification (in progress):**
+- [ ] Gate-level simulation with SDF back-annotation
+- [ ] Static timing analysis at 25 MHz
+- [ ] `cf precheck` tapeout readiness check
 
 ---
 
