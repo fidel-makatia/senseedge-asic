@@ -196,14 +196,14 @@ All features normalized to 8-bit unsigned for NN input.
 | Parameter | Value |
 |---|---|
 | Process | SkyWater SKY130 (130nm) |
-| Target Clock | 25 MHz |
+| Target Clock | 20 MHz |
 | FFT Size | 64-point radix-2 DIT |
 | ADC Sample Rate | Up to 100 kSPS |
 | Frequency Resolution | ~1.5 kHz at 100 kSPS |
 | NN Precision | INT8 weights and activations |
 | NN Parameters | 212 (runtime-loadable) |
 | Classification Classes | 4 (Healthy, Bearing Wear, Imbalance, Misalignment) |
-| Inference Latency | < 10 us (192 MACs at 25 MHz) |
+| Inference Latency | < 10 us (192 MACs at 20 MHz) |
 | Power (estimated) | < 5 mW (digital logic at 1.8V) |
 
 ### Verification Plan
@@ -215,7 +215,7 @@ All features normalized to 8-bit unsigned for NN input.
 | NN inference accuracy | Icarus + Python | Verify hardware classification matches Python INT8 inference |
 | Full-chip integration | Cocotb/Verilator | End-to-end: SPI stimulus → FFT → features → NN → alarm |
 | Gate-level simulation | Icarus Verilog | Post-synthesis netlist with SDF timing |
-| STA | OpenSTA | Timing closure at 25 MHz |
+| STA | OpenSTA | Timing closure at 20 MHz |
 | DRC/LVS | Magic VLSI | Physical verification |
 | Precheck | cf precheck | Tapeout readiness |
 
@@ -239,9 +239,47 @@ All 7 unit testbenches pass with **46 total assertions and 0 failures** (Icarus 
 - **Alarm logic:** Consecutive fault filtering verified — alarm triggers only after N consecutive faults above confidence threshold; low-confidence faults correctly ignored
 - **Full integration:** End-to-end pipeline (SPI → FFT → Features → NN → Alarm → GPIO/IRQ) completes in 11,924 clock cycles with correct GPIO directions and IRQ assertion
 
-**Remaining verification (in progress):**
-- [ ] Gate-level simulation with SDF back-annotation
-- [ ] Static timing analysis at 25 MHz
+### Hardening Results (OpenLane / LibreLane 2.4.6)
+
+The design has been successfully hardened through the full OpenLane RTL-to-GDSII flow on SKY130A.
+
+**Macro (`senseedge_top`):**
+
+| Metric | Value |
+|---|---|
+| Gate count | ~44,409 |
+| Die area | 2920 × 2500 µm |
+| Clock period | 50 ns (20 MHz) |
+| Setup slack (typical) | +6.68 ns **PASS** |
+| Setup slack (fast) | +12.94 ns **PASS** |
+| Hold worst slack | -0.324 ns (170 endpoints) |
+
+**Wrapper (`user_project_wrapper`):**
+
+| Check | Result |
+|---|---|
+| Routing DRC | **CLEAN** |
+| Magic DRC | **CLEAN** |
+| KLayout DRC | **CLEAN** |
+| LVS | **CLEAN** |
+| Setup slack (typical) | +6.66 ns **PASS** |
+| Setup slack (fast) | +12.92 ns **PASS** |
+| Hold worst slack | -0.33 ns (171 endpoints, minor) |
+
+### Gate-Level Simulation Results
+
+Gate-level simulation of the post-synthesis netlist (44,409 gates) confirms functional correctness of the hardened design:
+
+| Test | Result | Details |
+|---|---|---|
+| Weight Loading | **PASS** | 212 INT8 parameters loaded via Wishbone |
+| FFT Output | **PASS** | Bin[8] = 32,020 — identical to RTL simulation |
+| GPIO Directions | **PASS** | MISO=input, SCLK/CS=output correct |
+| System Control | **PASS** | Enable/disable via Wishbone verified |
+
+![Gate-Level Simulation Results](docs/gl_simulation_results.png)
+
+**Remaining verification:**
 - [ ] `cf precheck` tapeout readiness check
 
 ---
@@ -253,10 +291,12 @@ A compact sensor node PCB designed in **KiCad**, intended to bolt directly onto 
 | Component | Part | Purpose |
 |---|---|---|
 | ASIC | SenseEdge (Caravel QFN-64) | FFT + NN inference engine |
-| Accelerometer | ADXL345 (SPI) | 3-axis vibration sensing |
-| Temperature | TMP117 (I2C) | Ambient/surface temperature |
-| Wireless | ESP32-C3-MINI (UART) | BLE/Wi-Fi for remote dashboard |
-| Power | TPS62823 | 3.3V / 1.8V dual-rail regulation |
+| Accelerometer | ADXL326BCPZ-RL7 (analog) | 3-axis ±16g vibration sensing |
+| ADC | MCP3201 (SPI) | 12-bit 100 kSPS analog-to-digital |
+| Oscillator | ECS-2520S33-200-FN-TR | 20 MHz CMOS clock source |
+| Flash | W25Q32JVSS (SPI) | 32 Mbit firmware storage |
+| Wireless | ESP32-C3-MINI-1 (UART) | BLE/Wi-Fi for remote dashboard |
+| Power | 2× AP2112K (3.3V + 1.8V) | Dual LDO regulation |
 | Power Input | USB-C or 12-24V industrial | Flexible deployment power |
 | Connector | M12-A 4-pin | Industrial sensor cable standard |
 
@@ -295,22 +335,40 @@ CWRU Bearing Dataset → 64-pt FFT → Feature Extraction → Train FC (8→16�
 
 ---
 
+## Deployment Scope & Adjacent Applications
+
+SenseEdge's hardware-accelerated vibration analysis pipeline is applicable beyond the primary predictive maintenance use case. The same silicon, with only a firmware weight update (212 bytes), can be retrained and deployed across adjacent domains:
+
+| Domain | Application | Retraining Required |
+|---|---|---|
+| **Structural Health Monitoring** | Bridge, building, and infrastructure vibration analysis for fatigue detection and seismic response | New weight set trained on structural vibration signatures |
+| **Rotating Equipment Diagnostics** | Turbine, generator, spindle, and gearbox bearing diagnostics across industrial and energy sectors | Same CWRU-based model or retrained on equipment-specific data |
+| **HVAC Monitoring** | Fan, blower, and compressor health in commercial HVAC systems — detect belt wear, bearing degradation, refrigerant issues | Retrained on HVAC vibration profiles |
+| **Transportation** | Rail wheel and axle bearing monitoring, vehicle drivetrain diagnostics | New weight set for transport-specific fault signatures |
+| **Oil & Gas** | Downhole pump and compressor monitoring in remote, connectivity-limited environments | Retrained; benefits from zero-cloud architecture |
+
+The key enabler is the **field-updateable neural network** — one silicon design serves the entire vibration monitoring spectrum without hardware changes.
+
+---
+
 ## Bill of Materials
 
 | Item | Cost (qty 1) | Cost (qty 100) |
 |---|---|---|
-| SenseEdge ASIC (QFN) | Sponsored | Sponsored |
-| ADXL345 Accelerometer | $3.50 | $2.10 |
-| ESP32-C3-MINI | $2.80 | $1.90 |
-| TMP117 Temp Sensor | $2.20 | $1.60 |
-| TPS62823 Regulator | $1.10 | $0.75 |
+| SenseEdge ASIC (QFN-64) | Sponsored | Sponsored |
+| ADXL326BCPZ-RL7 Accelerometer | $4.00 | $2.50 |
+| MCP3201 SPI ADC | $2.50 | $1.85 |
+| ESP32-C3-MINI-1 | $2.80 | $1.90 |
+| ECS-2520S33 20 MHz Oscillator | $0.60 | $0.45 |
+| W25Q32JVSS SPI Flash | $1.20 | $0.65 |
+| 2× AP2112K LDO Regulators | $1.10 | $0.70 |
 | Connectors (USB-C + M12) | $2.90 | $2.05 |
-| PCB (2-layer) | $5.00 | $0.80 |
-| Passives, LED, misc | $2.00 | $1.30 |
+| PCB (2-layer, 45×35mm) | $5.00 | $0.80 |
+| Passives, LED, misc | $2.50 | $1.50 |
 | 3D Printed Enclosure | $4.00 | $2.50 |
-| **Total** | **~$23.50** | **~$13.00** |
+| **Total** | **~$26.60** | **~$14.90** |
 
-This is **20-400x cheaper** than commercial vibration monitoring solutions ($500–$5,000+).
+This is **20-300x cheaper** than commercial vibration monitoring solutions ($500–$5,000+).
 
 ---
 

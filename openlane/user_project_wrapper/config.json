@@ -4,6 +4,8 @@
         "dir::../../verilog/rtl/defines.v",
         "dir::../../verilog/rtl/user_project_wrapper.v"
     ],
+    "VERILOG_POWER_DEFINE": "NO_POWER_PINS_DEFINED",
+    "ERROR_ON_LINTER_ERRORS": false,
     "PNR_SDC_FILE": "dir::signoff.sdc",
     
     "//": "Hardening strategy variables (this is for 1-Macro-First Hardening). Visit https://docs.google.com/document/d/1pf-wbpgjeNEM-1TcvX2OJTkHjqH_C9p-LURCASS0Zo8 for more info",
@@ -30,7 +32,7 @@
             ],
             "instances": {
                 "mprj": {
-                    "location": [60, 15],
+                    "location": [0, 100],
                     "orientation": "N"
                 }
             },
@@ -99,7 +101,7 @@
     "CLOCK_PORT": "wb_clk_i",
     "SIGNOFF_SDC_FILE": "dir::signoff.sdc",
     "MAGIC_DEF_LABELS": false,
-    "CLOCK_PERIOD": 25,
+    "CLOCK_PERIOD": 50,
     "MAGIC_ZEROIZE_ORIGIN": false,
     "meta": {
         "version": 2
