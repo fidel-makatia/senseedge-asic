@@ -14,48 +14,77 @@ Compact sensor node PCB for the SenseEdge predictive maintenance system.
 | Min Via | 0.3mm drill, 0.6mm pad |
 | Mounting | 4x M3 through-holes at corners |
 
-## Schematic Overview
+## Component Reference Designators
 
-### Power
-- **USB-C** (J1) provides 5V input
-- **AP2112K-3.3** (U5) regulates to 3.3V for VDDIO, ADC, accelerometer, and ESP32
-- **AP2112K-1.8** (U6) regulates to 1.8V for Caravel core VDD
-- **M12 connector** (J2) provides alternative 12-24V industrial power input
+| Ref | Part | Package | Description |
+|---|---|---|---|
+| U3 | Caravel ASIC (SenseEdge) | QFN-64 | FFT + NN inference engine |
+| U2 | ADXL326BCPZ-RL7 | 16-LFCSP (4x4mm) | 3-axis ±16g accelerometer |
+| J1 | MCP3201T-CI/SN | SOIC-8 | 12-bit SPI ADC |
+| U1 | ESP32-C3-MINI-1-N4 | Module | WiFi/BLE wireless |
+| U4 | W25Q32JVSSIQ | SOIC-8 | 32 Mbit SPI flash |
+| Y1 | ECS-2520S33-200-FN-TR | 2.5x2.0mm | 20 MHz CMOS oscillator |
+| U6 | AP2112K-3.3TRG1 | SOT-23-5 | 3.3V LDO regulator |
+| U5 | MIC5232-1.8YD5 | SOT-23-5 | 1.8V LDO regulator |
+| J2 | UJ20-C-H-G-SMT-1-P16-TR | SMD | USB-C connector (power) |
+| J3 | 22-28-4023 | Through-hole | 2-pin header (auxiliary) |
+| SW1 | 1825910-6 | 6x6mm | Tactile reset button |
+| D1 | APTF1616LSEKJ3ZGKQBC | 1616 | RGB LED (status/alarm) |
 
-### Signal Path
+## Signal Path
+
 ```
-ADXL1002 (U3) → [Analog] → MCP3201 (U2) → [SPI] → Caravel ASIC (U1)
-    Vibration          12-bit ADC              GPIO[0:2]
+ADXL326 (U2) → [Analog] → MCP3201 (J1) → [SPI] → Caravel ASIC (U3)
+  Vibration              12-bit ADC            GPIO[0:2]
+                                                  ↓
+                                            ESP32-C3 (U1) → WiFi/BLE
+                                              GPIO[5:6] (UART)
 ```
 
-### Communication
-- **UART** (GPIO 5/6) connects to **ESP32-C3** (U4) for WiFi/BLE
-- **Alarm GPIO** (GPIO 3) drives RGB LED (D1) directly
+## Power
 
-### Clock
-- **25 MHz crystal** (Y1) with 22pF load capacitors provides Caravel system clock
+- **USB-C** (J2) provides 5V input
+- **AP2112K-3.3** (U6) regulates to 3.3V for ADC, accelerometer, ESP32, and Caravel VDDIO
+- **MIC5232-1.8** (U5) regulates to 1.8V for Caravel core VDD
 
-## Component Selection Rationale
+## Clock
 
-| Component | Why |
-|---|---|
-| MCP3201 | Simple SPI protocol matching spi_adc_if.v, 12-bit, 100kSPS, $1.85 |
-| ADXL1002 | Wide bandwidth (11kHz), high g-range (+/-50g), analog output |
-| ESP32-C3-MINI | Smallest WiFi+BLE module, UART interface, $1.90 |
-| AP2112K | Ultra-low dropout, 600mA, SOT-23-5, $0.35 |
+- **ECS-2520S33-200-FN-TR** (Y1) — 20 MHz CMOS oscillator → U3 clock input (no load caps needed)
+
+## Communication
+
+- **UART** (GPIO[5]/GPIO[6]) connects to **ESP32-C3** (U1) for WiFi/BLE
+- **Alarm GPIO** (GPIO[3]) drives RGB LED (D1) red channel
+- **Status GPIO** (GPIO[4]) drives RGB LED (D1) green channel
+
+## Connectors
+
+| Ref | Part | Purpose |
+|---|---|---|
+| J2 | UJ20-C-H-G-SMT-1-P16-TR | USB-C power input (5V) |
+| J3 | 22-28-4023 | 2-pin auxiliary header |
 
 ## Assembly Notes
 
-1. Solder QFN-64 (U1) first using reflow or hot air
-2. Place remaining SMD components
-3. Hand-solder through-hole connectors (J1, J2) last
-4. Clean flux residue before conformal coating
+1. Solder QFN-64 (U3 — Caravel ASIC) first using reflow or hot air
+2. Place remaining SMD components (U1, U2, U4, U5, U6, J1)
+3. Reflow all SMD components
+4. Hand-solder through-hole connectors (J2 USB-C, J3 header) and SW1
+5. Clean flux residue before conformal coating
 
 ## Estimated BOM Cost
 
 | Quantity | Total BOM |
 |---|---|
-| 1 unit | ~$23.50 |
-| 100 units | ~$13.00 |
+| 1 unit | ~$24.20 |
+| 100 units | ~$13.15 |
 
 (Excludes Caravel ASIC — sponsored by ChipFoundry)
+
+## Output Files
+
+| Directory | Contents |
+|---|---|
+| `gerbers/` | Gerber files for PCB fabrication |
+| `drills/` | NC drill files (plated, non-plated, slot holes) |
+| `assembly/` | Pick & place files, assembly drawings |
