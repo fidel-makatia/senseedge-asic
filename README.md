@@ -297,12 +297,23 @@ A compact sensor node PCB designed in **KiCad**, intended to bolt directly onto 
 | Flash | W25Q32JVSS (SPI) | 32 Mbit firmware storage |
 | Wireless | ESP32-C3-MINI-1 (UART) | BLE/Wi-Fi for remote dashboard |
 | Power | 2× AP2112K (3.3V + 1.8V) | Dual LDO regulation |
-| Power Input | USB-C or 12-24V industrial | Flexible deployment power |
-| Connector | M12-A 4-pin | Industrial sensor cable standard |
+| Power Input | USB-C (5V) | Standard USB-C power delivery |
 
 **Board specs:** 45mm x 35mm, 2-layer FR4, M3 mounting holes for equipment attachment or DIN-rail clip.
 
+### Schematic
+
+![SenseEdge Schematic](docs/kicad_schema.png)
+
+### PCB Layout
+
+![SenseEdge PCB 2D Layout](docs/pcb_kicad_2D.png)
+
+### 3D Renders
+
 ![SenseEdge PCB 3D Render](docs/pcb_kicad_3D.png)
+
+![SenseEdge PCB 3D Render (alternate angle)](docs/pcb_kicad_3D_2.png)
 
 ---
 
@@ -364,11 +375,11 @@ The key enabler is the **field-updateable neural network** — one silicon desig
 | ECS-2520S33 20 MHz Oscillator | $0.60 | $0.45 |
 | W25Q32JVSS SPI Flash | $1.20 | $0.65 |
 | 2× AP2112K LDO Regulators | $1.10 | $0.70 |
-| Connectors (USB-C + M12) | $2.90 | $2.05 |
+| USB-C Connector | $0.50 | $0.30 |
 | PCB (2-layer, 45×35mm) | $5.00 | $0.80 |
 | Passives, LED, misc | $2.50 | $1.50 |
 | 3D Printed Enclosure | $4.00 | $2.50 |
-| **Total** | **~$26.60** | **~$14.90** |
+| **Total** | **~$24.20** | **~$13.15** |
 
 This is **20-300x cheaper** than commercial vibration monitoring solutions ($500–$5,000+).
 
