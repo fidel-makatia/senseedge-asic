@@ -302,6 +302,8 @@ A compact sensor node PCB designed in **KiCad**, intended to bolt directly onto 
 
 **Board specs:** 45mm x 35mm, 2-layer FR4, M3 mounting holes for equipment attachment or DIN-rail clip.
 
+![SenseEdge PCB 3D Render](docs/pcb_kicad_3D.png)
+
 ---
 
 ## Firmware
