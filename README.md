@@ -341,8 +341,12 @@ CWRU Bearing Dataset → 64-pt FFT → Feature Extraction → Train FC (8→16�
 ## Mechanical Enclosure
 
 - Designed in **FreeCAD**, IP54-rated snap-fit enclosure
-- 55mm x 45mm x 25mm, 3D printed ASA/PETG (industrial temperature range)
-- Cable gland for M12 connector, mounting ears with M3 bolts, LED light pipe
+- 69.5mm x 49.5mm x 20mm, 3D printed ASA/PETG (industrial temperature range)
+- USB-C port cutout, mounting ears with M3 bolts, LED light pipe, ventilation slots
+
+![SenseEdge Enclosure — Closed](docs/enclosure.png)
+
+![SenseEdge Enclosure — Open with PCB](docs/enclosure_withpcb.png)
 
 ---
 

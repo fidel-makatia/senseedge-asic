@@ -22,15 +22,15 @@ import sys
 # Enclosure parameters (all dimensions in millimetres)
 # ---------------------------------------------------------------------------
 
-OUTER_LENGTH = 55.0          # X dimension
-OUTER_WIDTH = 45.0           # Y dimension
-OUTER_HEIGHT = 25.0          # Z dimension (total: bottom + lid)
+OUTER_LENGTH = 69.5          # X dimension (65mm PCB + 2x2mm wall + 0.5mm clearance)
+OUTER_WIDTH = 49.5           # Y dimension (45mm PCB + 2x2mm wall + 0.5mm clearance)
+OUTER_HEIGHT = 20.0          # Z dimension (total: bottom + lid)
 WALL_THICKNESS = 2.0         # shell wall / floor / ceiling thickness
-CORNER_RADIUS = 3.0          # fillet radius on vertical edges
+CORNER_RADIUS = 2.0          # fillet radius on vertical edges
 
 # Shell split
-BOTTOM_HEIGHT = 17.0         # Z height of bottom shell
-LID_HEIGHT = 8.0             # Z height of top lid (BOTTOM + LID == OUTER_HEIGHT)
+BOTTOM_HEIGHT = 14.0         # Z height of bottom shell
+LID_HEIGHT = 6.0             # Z height of top lid (BOTTOM + LID == OUTER_HEIGHT)
 
 # Mounting ears (M3)
 MOUNTING_EAR_EXTENSION = 8.0        # how far ear protrudes from body
@@ -40,15 +40,17 @@ MOUNTING_HOLE_DIA = 3.2             # M3 clearance hole
 NUM_EARS_PER_SIDE = 2               # ears on each long (X) side
 
 # PCB standoffs (M2.5)
-PCB_LENGTH = 45.0                   # board X
-PCB_WIDTH = 35.0                    # board Y
-STANDOFF_HEIGHT = 5.0               # standoff Z above inner floor
+PCB_LENGTH = 65.0                   # board X
+PCB_WIDTH = 45.0                    # board Y
+STANDOFF_HEIGHT = 3.0               # standoff Z above inner floor
 STANDOFF_OUTER_DIA = 5.0            # standoff cylinder OD
 STANDOFF_HOLE_DIA = 2.5             # M2.5 pilot / tap hole
 
-# Cable gland (M12)
-CABLE_GLAND_DIA = 12.0              # hole on short side (Y-Z plane)
-CABLE_GLAND_Z_CENTRE = 10.0         # centre height from bottom outer face
+# USB-C port cutout (on short side)
+USBC_WIDTH = 10.0                   # USB-C opening width
+USBC_HEIGHT = 4.0                   # USB-C opening height
+USBC_Z_CENTRE = 7.5                 # centre height from bottom outer face
+USBC_Y_OFFSET = 0.0                 # Y offset from centre (adjust to match PCB)
 
 # LED light pipe
 LED_HOLE_DIA = 3.0                  # through-hole in lid top face
@@ -239,15 +241,14 @@ def build_bottom_shell() -> "Part.Shape":
                                   STANDOFF_HEIGHT)
         shell = shell.cut(tap_hole)
 
-    # 6. Cable gland hole (centred on the -X short face)
-    gland_x = -OUTER_LENGTH / 2
-    gland_y = 0.0
-    gland_z = CABLE_GLAND_Z_CENTRE
-    gland_cyl = Part.makeCylinder(
-        CABLE_GLAND_DIA / 2, WALL_THICKNESS * 3,
-        Base.Vector(gland_x - WALL_THICKNESS, gland_y, gland_z),
-        Base.Vector(1, 0, 0))
-    shell = shell.cut(gland_cyl)
+    # 6. USB-C port cutout (rectangular hole on -X short face)
+    usbc_x = -OUTER_LENGTH / 2 - WALL_THICKNESS
+    usbc_y = USBC_Y_OFFSET - USBC_WIDTH / 2
+    usbc_z = USBC_Z_CENTRE - USBC_HEIGHT / 2
+    usbc_cutout = Part.makeBox(
+        WALL_THICKNESS * 3, USBC_WIDTH, USBC_HEIGHT,
+        Base.Vector(usbc_x, usbc_y, usbc_z))
+    shell = shell.cut(usbc_cutout)
 
     # 7. Ventilation slots on each short side (-X and +X faces)
     for x_sign in (-1, 1):
@@ -332,7 +333,33 @@ def build_lid() -> "Part.Shape":
                               WALL_THICKNESS * 2)
     lid = lid.cut(led_hole)
 
-    # 5. Snap-fit clip slots (rectangular cut-outs on inner long walls)
+    # 5. Embossed text on top of lid
+    try:
+        text_shapes = []
+        # "SenseEdge" text
+        font_path = "/System/Library/Fonts/Supplemental/Arial.ttf"
+        text_wire = Part.makeWireString("SenseEdge", font_path, "", 5.0, 0.0)
+        if text_wire:
+            for wire_list in text_wire:
+                face = Part.Face(wire_list)
+                text_solid = face.extrude(Base.Vector(0, 0, 0.8))
+                text_shapes.append(text_solid)
+            if text_shapes:
+                text_compound = text_shapes[0]
+                for ts in text_shapes[1:]:
+                    text_compound = text_compound.fuse(ts)
+                # Centre the text on the lid top face
+                bb = text_compound.BoundBox
+                dx = -bb.XMin - bb.XLength / 2
+                dy = -bb.YMin - bb.YLength / 2
+                dz = z_base + LID_HEIGHT - 0.8
+                text_compound.translate(Base.Vector(dx, dy, dz))
+                lid = lid.fuse(text_compound)
+                print("  Text embossed on lid")
+    except Exception as exc:
+        print(f"  Text embossing skipped ({exc})")
+
+    # 6. Snap-fit clip slots (rectangular cut-outs on inner long walls)
     clip_positions_x = _distribute(NUM_CLIPS_PER_LONG_SIDE, OUTER_LENGTH,
                                    CLIP_WIDTH)
     clearance = 0.3  # printing clearance
