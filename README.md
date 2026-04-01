@@ -239,6 +239,10 @@ All 7 unit testbenches pass with **46 total assertions and 0 failures** (Icarus 
 - **Alarm logic:** Consecutive fault filtering verified — alarm triggers only after N consecutive faults above confidence threshold; low-confidence faults correctly ignored
 - **Full integration:** End-to-end pipeline (SPI → FFT → Features → NN → Alarm → GPIO/IRQ) completes in 11,924 clock cycles with correct GPIO directions and IRQ assertion
 
+### GDSII Layout
+
+![SenseEdge ASIC GDS Layout (SKY130)](docs/gds_new.png)
+
 ### Hardening Results (OpenLane / LibreLane 2.4.6)
 
 The design has been successfully hardened through the full OpenLane RTL-to-GDSII flow on SKY130A.
