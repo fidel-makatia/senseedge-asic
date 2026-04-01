@@ -309,11 +309,9 @@ A compact sensor node PCB designed in **KiCad**, intended to bolt directly onto 
 
 ![SenseEdge PCB 2D Layout](docs/pcb_kicad_2D.png)
 
-### 3D Renders
+### 3D Render
 
 ![SenseEdge PCB 3D Render](docs/pcb_kicad_3D.png)
-
-![SenseEdge PCB 3D Render (alternate angle)](docs/pcb_kicad_3D_2.png)
 
 ---
 
