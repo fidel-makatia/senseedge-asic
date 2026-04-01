@@ -1,0 +1,13 @@
+CAMtasticDXP Drill Report
+Serial Number:0000-00-00000
+Drill File: C:\Users\Fidel\Desktop\Chipfoundry\NC_drills\nonplated\cam.drl
+Format: 2.3
+Units: English (Inch)
+Step & Repeat Codes Used: NO
+
+
+TOOL		SIZE		COUNT
+====		======		=====
+
+ 7 		0.0256		2
+ 8 		0.1300		4
