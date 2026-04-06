@@ -62,7 +62,10 @@ jobs:
           set -e
           python3 .github/scripts/get_designs.py --design ${{ github.workspace }}
           for design in $(cat harden_sequence.txt); do
-            cf harden $design || exit 1
+            # Use script to provide a pseudo-TTY — works around a cf-cli bug
+            # where --docker-no-tty is placed after --dockerized (LibreLane
+            # requires it before). With a real TTY, Docker's -t flag works.
+            script -qec "cf harden $design" /dev/null || exit 1
           done
 
       - name: Upload Hardened Design
