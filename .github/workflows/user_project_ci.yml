@@ -158,3 +158,11 @@ jobs:
       - name: Run Precheck
         run: |
           cf precheck
+
+      - name: Upload Precheck Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: precheck-results-${{ matrix.pdk }}
+          path: ${{ github.workspace }}/precheck_results/
+          retention-days: 7
