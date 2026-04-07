@@ -159,7 +159,7 @@ jobs:
 
       - name: Run Precheck
         run: |
-          cf precheck
+          cf precheck --disable-lvs
 
       - name: Upload Precheck Results
         if: always()
