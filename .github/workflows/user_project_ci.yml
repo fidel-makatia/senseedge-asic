@@ -90,6 +90,8 @@ jobs:
         pdk: ["sky130A", "sky130B"]
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
