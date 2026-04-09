@@ -283,8 +283,39 @@ Gate-level simulation of the post-synthesis netlist (44,409 gates) confirms func
 
 ![Gate-Level Simulation Results](docs/gl_simulation_results.png)
 
-**Remaining verification:**
-- [ ] `cf precheck` tapeout readiness check
+### Precheck Results (Tapeout Readiness)
+
+The design passes the ChipFoundry MPW precheck on SKY130A:
+
+| Check | Result |
+|---|---|
+| Top Cell | **PASS** |
+| GPIO Defines | **PASS** |
+| XOR | **PASS** |
+| KLayout FEOL | **PASS** |
+| KLayout BEOL | **PASS** |
+| KLayout Offgrid | **PASS** |
+| KLayout Metal Density | **PASS** |
+| KLayout Pin Label | **PASS** |
+| KLayout ZeroArea | **PASS** |
+| Spike Check | **PASS** |
+| Illegal Cellname | **PASS** |
+| OEB | **PASS** |
+| LVS | **CLEAN** (verified locally) |
+
+### Verification & Integration Summary
+
+End-to-end status across all verification levels:
+
+| Level | Status | Evidence |
+|---|---|---|
+| RTL unit tests | **PASS** | 7 testbenches, 46 assertions, 0 failures |
+| RTL integration | **PASS** | Full pipeline SPI→FFT→Features→NN→Alarm in 11,924 cycles |
+| Gate-level simulation | **PASS** | 4/4 tests pass on 44,409-gate netlist; FFT bin[8]=32,020 matches RTL |
+| Static timing analysis | **PASS** | Setup slack +6.66 ns at typical corner (20 MHz target) |
+| Physical verification | **PASS** | DRC clean (Magic + KLayout), LVS clean |
+| Precheck (tapeout) | **PASS** | All checks pass (see table above) |
+| CI (automated) | **PASS** | RTL verification + precheck green on both sky130A and sky130B |
 
 ---
 
@@ -393,31 +424,31 @@ This is **20-300x cheaper** than commercial vibration monitoring solutions ($500
 
 ## Project Timeline
 
-| Week | Dates | Milestone |
-|---|---|---|
-| 1-2 | Feb 26 - Mar 11 | RTL design: all 7 modules |
-| 3 | Mar 12 - Mar 18 | Unit + integration testbenches |
-| 4 | Mar 19 - Mar 25 | **Proposal submission** |
-| 5-6 | Mar 26 - Apr 8 | OpenLane synthesis, place & route, STA |
-| 7 | Apr 9 - Apr 15 | Gate-level simulation, precheck |
-| 8 | Apr 16 - Apr 22 | KiCad PCBA layout, firmware |
-| 9 | Apr 23 - Apr 29 | Mechanical enclosure, demo video |
-| 10 | Apr 30 | **Final submission** |
+| Week | Dates | Milestone | Status |
+|---|---|---|---|
+| 1-2 | Feb 26 - Mar 11 | RTL design: all 7 modules | Done |
+| 3 | Mar 12 - Mar 18 | Unit + integration testbenches (46 assertions, 0 failures) | Done |
+| 4 | Mar 19 - Mar 25 | **Proposal submission** (shortlisted, 10/10 scores) | Done |
+| 5-6 | Mar 26 - Apr 8 | OpenLane hardening, STA, DRC/LVS clean, precheck pass | Done |
+| 5-6 | Mar 26 - Apr 8 | KiCad PCBA design, Gerbers, firmware, ML pipeline, enclosure | Done |
+| 7 | Apr 9 - Apr 15 | Gate-level simulation, CI green, final verification | Done |
+| 8-9 | Apr 16 - Apr 29 | Demo video, final polish | In progress |
+| 10 | Apr 30 | **Final submission** | |
 
 ---
 
 ## Deliverables
 
-- [ ] Complete RTL source (Verilog) with unit and integration testbenches
-- [ ] Verified GDSII layout passing OpenLane chipIgnite flow and precheck
-- [ ] Gate-level simulation results with SDF back-annotation
-- [ ] STA timing reports at 25 MHz
-- [ ] KiCad PCBA design (schematic, layout, BOM, Gerbers)
-- [ ] FreeCAD mechanical enclosure (STEP, STL for printing)
-- [ ] RISC-V firmware source (C)
-- [ ] Python training pipeline with CWRU dataset
+- [x] Complete RTL source (Verilog) with unit and integration testbenches
+- [x] Verified GDSII layout passing OpenLane flow and precheck (DRC/LVS clean)
+- [x] Gate-level simulation results (4/4 tests pass on 44,409-gate netlist)
+- [x] STA timing reports at 20 MHz (setup slack +6.66 ns typical)
+- [x] KiCad PCBA design (schematic, layout, BOM, Gerbers)
+- [x] FreeCAD mechanical enclosure (STEP, STL for printing)
+- [x] RISC-V firmware source (C)
+- [x] Python training pipeline with CWRU dataset
 - [ ] 3-minute demonstration video
-- [ ] Full documentation enabling third-party replication
+- [x] Full documentation enabling third-party replication
 
 ---
 
@@ -616,12 +647,12 @@ cf precheck --checks license --checks makefile  # Run specific checks only
 ---
 
 ## Checklist for Shuttle Submission
-- [ ] Top-level macro is named user_project_wrapper.
-- [ ] Full Chip Simulation passes for both RTL and GL.
-- [ ] Hardened Macros are LVS and DRC clean.
-- [ ] user_project_wrapper matches the required pin order/template.
-- [ ] Design passes the local cf precheck.
-- [ ] Documentation (this README) is updated with project-specific details.
+- [x] Top-level macro is named user_project_wrapper.
+- [x] Full Chip Simulation passes for both RTL and GL.
+- [x] Hardened Macros are LVS and DRC clean.
+- [x] user_project_wrapper matches the required pin order/template.
+- [x] Design passes the local cf precheck.
+- [x] Documentation (this README) is updated with project-specific details.
 
 ---
 
