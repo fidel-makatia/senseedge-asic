@@ -1,3 +1,2 @@
 spef/multicorner/*.spef filter=lfs diff=lfs merge=lfs -text
-*.gds binary
 *.gds filter=lfs diff=lfs merge=lfs -text
