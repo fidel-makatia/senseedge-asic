@@ -1,0 +1,7 @@
+Running pin_label_purposes_overlapping_drawing.rb.drc on file=/tmp/tmph3329h8i/repo/gds/user_project_wrapper.gds, topcell=user_project_wrapper, output to /tmp/tmph3329h8i/repo/precheck_results/25_APR_2026___12_48_40/outputs/reports/klayout_pin_label_purposes_overlapping_drawing_check.xml
+  deep:true tiled:false threads:2
+ERROR: In /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/pin_label_purposes_overlapping_drawing.rb.drc: 'source': Stream has unknown format: /tmp/tmph3329h8i/repo/gds/user_project_wrapper.gds in Layout::read
+ERROR: RuntimeError: 'source': Stream has unknown format: /tmp/tmph3329h8i/repo/gds/user_project_wrapper.gds in Layout::read in Executable::execute
+  /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/pin_label_purposes_overlapping_drawing.rb.drc:70:in `execute'
+  :/built-in-macros/drc_interpreters.lym:31:in `instance_eval'
+  :/built-in-macros/drc_interpreters.lym:31:in `execute'
