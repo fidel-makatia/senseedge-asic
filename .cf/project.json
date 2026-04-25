@@ -43,5 +43,94 @@
       "36": "13'h0402",
       "37": "13'h0402"
     }
+  },
+  "precheck": {
+    "version": "1.3.2",
+    "timestamp": "2026-04-25T14:24:11.960329+00:00",
+    "pdk": "sky130A",
+    "passed": false,
+    "checks": {
+      "topcell_check": {
+        "status": "fail",
+        "duration_s": 0.0,
+        "details": "Top Cell raised an exception: Stream has unknown format: /tmp/tmp2h04zu9g/repo/gds/user_project_wrapper.gds in Layout.read"
+      },
+      "gpio_defines": {
+        "status": "pass",
+        "duration_s": 1.19
+      },
+      "xor": {
+        "status": "fail",
+        "duration_s": 1.78,
+        "details": "Top cell name user_project_wrapper not found"
+      },
+      "magic_drc": {
+        "status": "pass",
+        "duration_s": 0.75
+      },
+      "klayout_feol": {
+        "status": "fail",
+        "duration_s": 1.76,
+        "details": "klayout_feol failed (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/klayout_feol_check.log"
+      },
+      "klayout_beol": {
+        "status": "fail",
+        "duration_s": 1.78,
+        "details": "klayout_beol failed (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/klayout_beol_check.log"
+      },
+      "klayout_offgrid": {
+        "status": "fail",
+        "duration_s": 1.87,
+        "details": "klayout_offgrid failed (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/klayout_offgrid_check.log"
+      },
+      "klayout_met_min_ca_density": {
+        "status": "fail",
+        "duration_s": 1.75,
+        "details": "klayout_met_min_ca_density failed (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/klayout_met_min_ca_density_check.log"
+      },
+      "klayout_pin_label_purposes_overlapping_drawing": {
+        "status": "fail",
+        "duration_s": 1.84,
+        "details": "klayout_pin_label_purposes_overlapping_drawing failed (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/klayout_pin_label_purposes_overlapping_drawing_check.log"
+      },
+      "klayout_zeroarea": {
+        "status": "fail",
+        "duration_s": 1.73,
+        "details": "klayout_zeroarea failed (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/klayout_zeroarea_check.log"
+      },
+      "spike_check": {
+        "status": "fail",
+        "duration_s": 1.72,
+        "details": "Spike check failed (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/spike_check.log"
+      },
+      "illegal_cellname_check": {
+        "status": "fail",
+        "duration_s": 0.0,
+        "details": "Illegal Cellname raised an exception: Stream has unknown format: /tmp/tmp2h04zu9g/repo/gds/user_project_wrapper.gds in Layout.read"
+      },
+      "lvs": {
+        "status": "fail",
+        "duration_s": 2.93,
+        "details": "LVS FAILED (stat=1), see /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/LVS_check.log"
+      },
+      "oeb": {
+        "status": "fail",
+        "duration_s": 2.63,
+        "details": "0 errors, 0 warnings across 0 GPIOs",
+        "report": {
+          "report_relpath": "/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/outputs/reports/cvc.oeb.report",
+          "design_type": "caravel",
+          "gpios": [],
+          "messages": [],
+          "summary": {
+            "total": 0,
+            "errors": 0,
+            "warnings": 0,
+            "no_issues_banner": true
+          }
+        }
+      }
+    },
+    "input_file_hash": "d3f5e4883641c275ebd2e5bbb88df364b79ae449"
   }
 }

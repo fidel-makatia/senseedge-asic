@@ -1,0 +1,31 @@
+
+Magic 8.3 revision 471 - Compiled on Wed Apr 22 16:23:58 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Sourcing design .magicrc for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Input style sky130(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading sky130A Device Generator Menu ...
+Loading "/usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/magic_drc_check.tcl" from command line.
+Warning: Calma reading is not undoable!  I hope that's OK.
+Error while reading cell "(UNNAMED)" (byte position 4): Unexpected record type in input: 
+    Expected HEADER record but got 114.
+freeMagic called with NULL argument.
+[INFO]: Loading user_project_wrapper
+
+Cell user_project_wrapper couldn't be read
+No such file or directory
+Creating new cell
+DRC style is now "drc(full)"
+Loading DRC CIF style.
+No errors found.
+[INFO]: COUNT: 0
+[INFO]: Should be divided by 3 or 4
+[INFO]: DRC Checking DONE (/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/outputs/reports/magic_drc_check.drc.report)
+[INFO]: Saving mag view with DRC errors(/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/outputs/user_project_wrapper.magic.drc.mag)
+[INFO]: Saved

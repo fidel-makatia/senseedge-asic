@@ -1,0 +1,178 @@
+/usr/local/lib/python3.9/site-packages/cf_precheck/be_checks/run_oeb_check: line 61: /usr/local/lib/python3.9/site-packages/cf_precheck/be_checks/set_lvs_env.py: No such file or directory
+DESIGN NAME: user_project_wrapper
+WORK_ROOT   : /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb
+LOG_ROOT    : /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs
+SIGNOFF_ROOT: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/outputs/reports
+ 
+Running extract...
+TOP LAYOUT: user_project_wrapper
+LAYOUT FILE: /tmp/tmp2h04zu9g/repo/gds/user_project_wrapper.gds
+EXTRACT_FLATGLOB: 
+EXTRACT_ABSTRACT: *__fill_*
+ *__fakediode_*
+ *__tapvpwrvgnd_*
+WORK_ROOT   : /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb
+LOG_ROOT    : /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs
+SIGNOFF_ROOT: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/outputs/reports
+LOG FILE: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs/ext.log
+Adding subcutout style to tech file.
+/opt/pdks/sky130A/libs.tech/magic/sky130A.tech: version 1.0.493
+WORK_ROOT   : /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb
+LOG_ROOT    : /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/logs
+SIGNOFF_ROOT: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/outputs/reports
+ 
+Running hierarchical comparison between verilog and layout...
+No verilog files...
+[INFO] Changing from /tmp/tmp2h04zu9g/repo/gds/user_project_wrapper.gds
+	to /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/layout.txt
+ERROR: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/gds2txt.py:15: RuntimeError: Stream has unknown format: /tmp/tmp2h04zu9g/repo/gds/user_project_wrapper.gds in Layout.read
+  /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/gds2txt.py:15 (class RuntimeError)
+gzip: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/layout.txt: No such file or directory
+gzip: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/layout.txt.gz: No such file or directory
+gzip: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/layout.txt.gz: No such file or directory
+Hierarchy check for  passed.
+Extracting to /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/ext
+ 
+
+Magic 8.3 revision 471 - Compiled on Wed Apr 22 16:23:58 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Sourcing design magicrc.well for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Loading tech file /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/sky130A.tech
+Input style sky130(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading "/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/ext/abstract.tcl" from command line.
+Abstracting
+CIF input style is now "sky130()"
+Abstracting /tmp/tmp2h04zu9g/repo/gds/user_project_wrapper.gds
+Warning: Calma reading is not undoable!  I hope that's OK.
+Error while reading cell "(UNNAMED)" (byte position 4): Unexpected record type in input: 
+    Expected HEADER record but got 114.
+freeMagic called with NULL argument.
+
+TIME: read GDS: 00:00:00 
+
+
+TIME: create subcut: 00:00:00 
+
+
+TIME: create abstract: 00:00:00 
+
+Using technology "sky130A", version 1.0.493
+
+Magic 8.3 revision 471 - Compiled on Wed Apr 22 16:23:58 UTC 2026.
+Starting magic under Tcl interpreter
+Using the terminal as the console.
+Using NULL graphics device.
+Processing system .magicrc file
+Sourcing design magicrc.well for technology sky130A ...
+2 Magic internal units = 1 Lambda
+Loading tech file /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/sky130A.tech
+Input style sky130(): scaleFactor=2, multiplier=2
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Scaled tech values by 2 / 1 to match internal grid scaling
+Loading "/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/ext/extract.tcl" from command line.
+Extracting with top ports unique (digital)
+CIF input style is now "sky130()"
+Flattening 
+
+Extracting /tmp/tmp2h04zu9g/repo/gds/user_project_wrapper.gds
+Warning: Calma reading is not undoable!  I hope that's OK.
+Error while reading cell "(UNNAMED)" (byte position 4): Unexpected record type in input: 
+    Expected HEADER record but got 114.
+freeMagic called with NULL argument.
+
+TIME: read GDS: 00:00:00 
+
+
+TIME: add subcut: 00:00:00 
+
+
+TIME: set abstract: 00:00:00 
+
+Cell user_project_wrapper couldn't be read
+No such file or directory
+Creating new cell
+The following types are not handled by extraction and will be treated as non-electrical types:
+    ubm 
+Extraction style is now "ngspice()"
+
+TIME: extract: 00:00:00 
+
+
+TIME: netlist: 00:00:00 
+
+Using technology "sky130A", version 1.0.493
+Creating layout hierarchy in /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/ext/user_project_wrapper.hier...
+awk: /usr/local/lib/python3.9/site-packages/cf_precheck/be_checks/scripts/ext.hier.awk:2: fatal: cannot open file `/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/ext/*.ext' for reading: No such file or directory
+
+Error: extraction did not complete successfully
+gzip: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/ext/user_project_wrapper.gds.spice: No such file or directory
+ 
+Running CVC for oeb check...
+Creating /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/user_project_wrapper.cdl.gz
+
+gzip: /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/outputs/reports/user_project_wrapper.gds.spice.gz: unexpected end of file
+Default cvcrc in default.cvcrc
+CVC: Circuit Validation Check  Version 1.1.7
+CVC: Log output to /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/cvc.oeb.log
+CVC: Error output to /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/cvc.oeb.error.gz
+CVC: Debug output to /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/cvc.oeb.debug.gz
+CVC: Start: Sat Apr 25 14:24:11 2026
+
+Using the following parameters for CVC (Circuit Validation Check) from /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/cvcrc.oeb
+CVC_TOP = 'user_project_wrapper'
+CVC_NETLIST = '/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/user_project_wrapper.cdl.gz'
+CVC_MODE = 'user_project_wrapper'
+CVC_MODEL_FILE = '/usr/local/lib/python3.9/site-packages/cf_precheck/be_checks/tech/sky130A/cvc.models'
+CVC_POWER_FILE = '/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/cvc.power.user_project_wrapper'
+CVC_FUSE_FILE = ''
+CVC_REPORT_FILE = '/tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/cvc.oeb.log'
+CVC_REPORT_TITLE = 'CVC user_project_wrapper'
+CVC_CIRCUIT_ERROR_LIMIT = '100'
+CVC_SEARCH_LIMIT = '100'
+CVC_LEAK_LIMIT = '0.0002'
+CVC_SOI = 'false'
+CVC_SCRC = 'false'
+CVC_VTH_GATES = 'false'
+CVC_MIN_VTH_GATES = 'false'
+CVC_IGNORE_VTH_FLOATING = 'false'
+CVC_IGNORE_NO_LEAK_FLOATING = 'false'
+CVC_LEAK_OVERVOLTAGE = 'true'
+CVC_LOGIC_DIODES = 'false'
+CVC_ANALOG_GATES = 'true'
+CVC_BACKUP_RESULTS = 'false'
+CVC_MOS_DIODE_ERROR_THRESHOLD = '0'
+CVC_SHORT_ERROR_THRESHOLD = '0'
+CVC_BIAS_ERROR_THRESHOLD = '0'
+CVC_FORWARD_ERROR_THRESHOLD = '0'
+CVC_FLOATING_ERROR_THRESHOLD = '0'
+CVC_GATE_ERROR_THRESHOLD = '0'
+CVC_LEAK?_ERROR_THRESHOLD = '0'
+CVC_EXPECTED_ERROR_THRESHOLD = '0'
+CVC_OVERVOLTAGE_ERROR_THRESHOLD = '0'
+CVC_PARALLEL_CIRCUIT_PORT_LIMIT = '0'
+CVC_CELL_ERROR_LIMIT_FILE = ''
+CVC_CELL_CHECKSUM_FILE = ''
+CVC_LARGE_CIRCUIT_SIZE = '10000000'
+CVC_NET_CHECK_FILE = ''
+CVC_MODEL_CHECK_FILE = ''
+End of parameters
+
+CVC: Reading device model settings...
+CVC: Reading power settings...
+CVC: Parsing netlist /tmp/tmp2h04zu9g/repo/precheck_results/25_APR_2026___14_23_49/tmp_oeb/user_project_wrapper.cdl.gz
+
+Cdl fixed data size 1
+Usage CDL: Time: 0  Memory: 4824  I/O: 16  Swap: 0
+CVC: Counting and linking...
+Fatal error:could not find subcircuit: user_project_wrapper
+ gpio/user/analog |   in   |   out  | analog |  oeb min/sim/max  | configuration
+
+No warnings or errors detected
