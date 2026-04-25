@@ -1,0 +1,5 @@
+ERROR: In /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/met_min_ca_density.lydrc: 'source': Stream has unknown format: /tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds in Layout::read
+ERROR: RuntimeError: 'source': Stream has unknown format: /tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds in Layout::read in Executable::execute
+  /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/met_min_ca_density.lydrc:3:in `execute'
+  :/built-in-macros/drc_interpreters.lym:31:in `instance_eval'
+  :/built-in-macros/drc_interpreters.lym:31:in `execute'

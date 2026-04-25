@@ -1,0 +1,51 @@
+2026-04-25 13:04:40 [INFO] Extracting compressed files in: /tmp/tmp_e6j08nb/repo
+2026-04-25 13:04:40 [INFO] Project type: digital
+2026-04-25 13:04:40 [INFO] GDS hash (user_project_wrapper): d3f5e4883641c275ebd2e5bbb88df364b79ae449
+2026-04-25 13:04:40 [INFO] Tools: KLayout v0.29.2 | Magic v8.3.471
+2026-04-25 13:04:40 [INFO] PDK: SKY130A unknown
+2026-04-25 13:04:40 [INFO] Running 13 checks: [topcell_check, gpio_defines, xor, klayout_feol, klayout_beol, klayout_offgrid, klayout_met_min_ca_density, klayout_pin_label_purposes_overlapping_drawing, klayout_zeroarea, spike_check, illegal_cellname_check, lvs, oeb]
+2026-04-25 13:04:40 [ERROR] Top Cell raised an exception: Stream has unknown format: /tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds in Layout.read
+2026-04-25 13:04:40 [INFO] GPIO defines: parsing verilog/rtl/user_defines.v
+2026-04-25 13:04:41 [INFO] GPIO defines report: /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/gpio_defines.report
+2026-04-25 13:04:43 [ERROR] Top cell name user_project_wrapper not found
+2026-04-25 13:04:43 [INFO] Running: klayout -b -r /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/sky130A_mr.drc -rd input=/tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds -rd topcell=user_project_wrapper -rd report=/tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/klayout_feol_check.xml -rd thr=2 -rd feol=true
+2026-04-25 13:04:45 [ERROR] klayout_feol failed (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/klayout_feol_check.log
+2026-04-25 13:04:45 [INFO] Running: klayout -b -r /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/sky130A_mr.drc -rd input=/tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds -rd topcell=user_project_wrapper -rd report=/tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/klayout_beol_check.xml -rd thr=2 -rd beol=true
+2026-04-25 13:04:47 [ERROR] klayout_beol failed (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/klayout_beol_check.log
+2026-04-25 13:04:47 [INFO] Running: klayout -b -r /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/sky130A_mr.drc -rd input=/tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds -rd topcell=user_project_wrapper -rd report=/tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/klayout_offgrid_check.xml -rd thr=2 -rd offgrid=true
+2026-04-25 13:04:49 [ERROR] klayout_offgrid failed (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/klayout_offgrid_check.log
+2026-04-25 13:04:49 [INFO] Running: klayout -b -r /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/met_min_ca_density.lydrc -rd input=/tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds -rd topcell=user_project_wrapper -rd report=/tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/klayout_met_min_ca_density_check.xml -rd thr=2
+2026-04-25 13:04:51 [ERROR] klayout_met_min_ca_density failed (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/klayout_met_min_ca_density_check.log
+2026-04-25 13:04:51 [INFO] Running: klayout -b -r /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/pin_label_purposes_overlapping_drawing.rb.drc -rd input=/tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds -rd topcell=user_project_wrapper -rd report=/tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/klayout_pin_label_purposes_overlapping_drawing_check.xml -rd thr=2 -rd top_cell_name=user_project_wrapper
+2026-04-25 13:04:53 [ERROR] klayout_pin_label_purposes_overlapping_drawing failed (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/klayout_pin_label_purposes_overlapping_drawing_check.log
+2026-04-25 13:04:53 [INFO] Running: klayout -b -r /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/zeroarea.rb.drc -rd input=/tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds -rd topcell=user_project_wrapper -rd report=/tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/klayout_zeroarea_check.xml -rd thr=2 -rd cleaned_output=/tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/user_project_wrapper_no_zero_areas.gds
+2026-04-25 13:04:55 [ERROR] klayout_zeroarea failed (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/klayout_zeroarea_check.log
+2026-04-25 13:04:55 [INFO] Running: bash /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/gdsArea0 -V -m /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/outputs/reports/spike_check.xml /tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds
+2026-04-25 13:04:57 [ERROR] Spike check failed (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/spike_check.log
+2026-04-25 13:04:57 [ERROR] Illegal Cellname raised an exception: Stream has unknown format: /tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds in Layout.read
+2026-04-25 13:04:57 [INFO] Loading LVS environment from /tmp/tmp_e6j08nb/repo/lvs/user_project_wrapper/lvs_config.json
+2026-04-25 13:04:57 [INFO] EXTRACT_FLATGLOB: 
+2026-04-25 13:04:57 [INFO] EXTRACT_ABSTRACT: *__fill_* *__fakediode_* *__tapvpwrvgnd_*
+2026-04-25 13:04:57 [WARNING] Missing LVS configuration variable EXTRACT_CREATE_SUBCUT
+2026-04-25 13:04:57 [INFO] LVS_FLATTEN: 
+2026-04-25 13:04:57 [INFO] LVS_NOFLATTEN: 
+2026-04-25 13:04:57 [INFO] LVS_IGNORE: 
+2026-04-25 13:04:57 [INFO] LVS_SPICE_FILES: /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap*.spice /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice
+2026-04-25 13:04:57 [INFO] LVS_VERILOG_FILES: /tmp/tmp_e6j08nb/repo/verilog/gl/senseedge_top.v /tmp/tmp_e6j08nb/repo/verilog/gl/user_project_wrapper.v
+2026-04-25 13:04:57 [INFO] LAYOUT_FILE: /tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds
+2026-04-25 13:04:57 [INFO] Running: run_be_checks --nooeb
+2026-04-25 13:04:57 [INFO] LVS output directory: /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40
+2026-04-25 13:05:00 [ERROR] LVS FAILED (stat=1), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/LVS_check.log
+2026-04-25 13:05:00 [INFO] Loading LVS environment from /tmp/tmp_e6j08nb/repo/lvs/user_project_wrapper/lvs_config.json
+2026-04-25 13:05:00 [INFO] EXTRACT_FLATGLOB: 
+2026-04-25 13:05:00 [INFO] EXTRACT_ABSTRACT: *__fill_* *__fakediode_* *__tapvpwrvgnd_*
+2026-04-25 13:05:00 [WARNING] Missing LVS configuration variable EXTRACT_CREATE_SUBCUT
+2026-04-25 13:05:00 [INFO] LVS_FLATTEN: 
+2026-04-25 13:05:00 [INFO] LVS_NOFLATTEN: 
+2026-04-25 13:05:00 [INFO] LVS_IGNORE: 
+2026-04-25 13:05:00 [INFO] LVS_SPICE_FILES: /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_ef_sc_hd__decap*.spice /opt/pdks/sky130A/libs.ref/sky130_fd_sc_hd/spice/sky130_fd_sc_hd.spice
+2026-04-25 13:05:00 [INFO] LVS_VERILOG_FILES: /tmp/tmp_e6j08nb/repo/verilog/gl/senseedge_top.v /tmp/tmp_e6j08nb/repo/verilog/gl/user_project_wrapper.v
+2026-04-25 13:05:00 [INFO] LAYOUT_FILE: /tmp/tmp_e6j08nb/repo/gds/user_project_wrapper.gds
+2026-04-25 13:05:00 [INFO] Running: run_oeb_check 
+2026-04-25 13:05:00 [INFO] OEB output directory: /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40
+2026-04-25 13:05:03 [ERROR] OEB FAILED (stat=5), see /tmp/tmp_e6j08nb/repo/precheck_results/25_APR_2026___13_04_40/logs/OEB_check.log
