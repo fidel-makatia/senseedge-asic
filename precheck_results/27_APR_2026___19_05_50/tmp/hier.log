@@ -1,0 +1,9 @@
+BEGIN: Mon Apr 27 19:06:07 2026
+Creating /tmp/tmpd5bjpsmi/repo/precheck_results/27_APR_2026___19_05_50/tmp/verilog.cells from the following files...
+	/tmp/tmpd5bjpsmi/repo/verilog/gl/senseedge_top.v
+	/tmp/tmpd5bjpsmi/repo/verilog/gl/user_project_wrapper.v
+[INFO] Changing from /tmp/tmpd5bjpsmi/repo/gds/user_project_wrapper.gds
+	to /tmp/tmpd5bjpsmi/repo/precheck_results/27_APR_2026___19_05_50/tmp/layout.txt
+Hierarchy check for user_project_wrapper failed. See /tmp/tmpd5bjpsmi/repo/precheck_results/27_APR_2026___19_05_50/tmp/hier.csv
+END: Mon Apr 27 19:06:09 2026
+Runtime: 0:00:02 (hh:mm:ss)
