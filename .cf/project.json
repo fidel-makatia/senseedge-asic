@@ -7,7 +7,7 @@
     "user_project_wrapper_hash": "",
     "submission_state": "Draft",
     "github_repo_url": "https://github.com/fidel-makatia/senseedge-asic",
-    "platform_project_id": "8d8be19d-474c-4aca-ba8d-f0c6d182cadd",
+    "platform_project_id": "be329ec5-cb6e-4b3e-8c37-582aaadeb65f",
     "gpio_config": {
       "5": "13'h1808",
       "6": "13'h0402",
