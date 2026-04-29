@@ -7,6 +7,13 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![ChipFoundry Marketplace](https://img.shields.io/badge/ChipFoundry-Marketplace-6E40C9.svg)](https://platform.chipfoundry.io/marketplace)
 
+### Demo Video
+
+[![SenseEdge Demo](https://img.shields.io/badge/▶%20Watch%20Demo-Google%20Drive-blue?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/12ssU55fItJOSZBmB7fNIawz_4b3taXyu/view?usp=sharing)
+
+> 3-minute walkthrough: silicon architecture, PCBA, and live fault classification demo.
+> Local copy: [`docs/senseedge.mp4`](docs/senseedge.mp4)
+
 </div>
 
 ## Table of Contents
@@ -432,7 +439,7 @@ This is **20-300x cheaper** than commercial vibration monitoring solutions ($500
 | 5-6 | Mar 26 - Apr 8 | OpenLane hardening, STA, DRC/LVS clean, precheck pass | Done |
 | 5-6 | Mar 26 - Apr 8 | KiCad PCBA design, Gerbers, firmware, ML pipeline, enclosure | Done |
 | 7 | Apr 9 - Apr 15 | Gate-level simulation, CI green, final verification | Done |
-| 8-9 | Apr 16 - Apr 29 | Demo video, final polish | In progress |
+| 8-9 | Apr 16 - Apr 29 | Demo video, final polish | Done |
 | 10 | Apr 30 | **Final submission** | |
 
 ---
@@ -447,7 +454,7 @@ This is **20-300x cheaper** than commercial vibration monitoring solutions ($500
 - [x] FreeCAD mechanical enclosure (STEP, STL for printing)
 - [x] RISC-V firmware source (C)
 - [x] Python training pipeline with CWRU dataset
-- [ ] 3-minute demonstration video
+- [x] 3-minute demonstration video ([Google Drive](https://drive.google.com/file/d/12ssU55fItJOSZBmB7fNIawz_4b3taXyu/view?usp=sharing) | [`docs/senseedge.mp4`](docs/senseedge.mp4))
 - [x] Full documentation enabling third-party replication
 
 ---
