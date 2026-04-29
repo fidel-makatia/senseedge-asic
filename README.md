@@ -9,7 +9,7 @@
 
 ### Demo Video
 
-[![SenseEdge Demo](https://img.shields.io/badge/▶%20Watch%20Demo-Google%20Drive-blue?style=for-the-badge&logo=google-drive)](https://drive.google.com/file/d/12ssU55fItJOSZBmB7fNIawz_4b3taXyu/view?usp=sharing)
+[![SenseEdge Demo](https://img.shields.io/badge/Watch%20Demo-Google%20Drive-blue?style=for-the-badge&logo=google-drive&logoColor=white)](https://drive.google.com/file/d/12ssU55fItJOSZBmB7fNIawz_4b3taXyu/view?usp=sharing)
 
 > 3-minute walkthrough: silicon architecture, PCBA, and live fault classification demo.
 > Local copy: [`docs/senseedge.mp4`](docs/senseedge.mp4)
