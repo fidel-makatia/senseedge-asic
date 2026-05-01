@@ -579,4 +579,10 @@ module user_project_wrapper (user_clock2,
     wbs_sel_i[2],
     wbs_sel_i[1],
     wbs_sel_i[0]}));
+
+ // GPIOs 8-29 are unused by SenseEdge. Tie io_oeb high (input mode) and
+ // io_out low to match the tie-hi/tie-lo cells inserted by OpenLane in the GDS.
+ assign io_oeb[29:8] = {22{1'b1}};
+ assign io_out[29:8] = {22{1'b0}};
+
 endmodule
