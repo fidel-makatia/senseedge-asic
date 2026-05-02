@@ -16,7 +16,15 @@ module user_project_wrapper (user_clock2,
     wbs_adr_i,
     wbs_dat_i,
     wbs_dat_o,
-    wbs_sel_i);
+    wbs_sel_i,
+    vccd1,
+    vccd2,
+    vdda1,
+    vdda2,
+    vssa1,
+    vssa2,
+    vssd1,
+    vssd2);
  input user_clock2;
  input wb_clk_i;
  input wb_rst_i;
@@ -36,6 +44,14 @@ module user_project_wrapper (user_clock2,
  input [31:0] wbs_dat_i;
  output [31:0] wbs_dat_o;
  input [3:0] wbs_sel_i;
+ inout vccd1;
+ inout vccd2;
+ inout vdda1;
+ inout vdda2;
+ inout vssa1;
+ inout vssa2;
+ inout vssd1;
+ inout vssd2;
 
 
  senseedge_top mprj (.wb_clk_i(wb_clk_i),
@@ -579,10 +595,5 @@ module user_project_wrapper (user_clock2,
     wbs_sel_i[2],
     wbs_sel_i[1],
     wbs_sel_i[0]}));
-
- // GPIOs 8-29 are unused by SenseEdge. Tie io_oeb high (input mode) and
- // io_out low to match the tie-hi/tie-lo cells inserted by OpenLane in the GDS.
- assign io_oeb[29:8] = {22{1'b1}};
- assign io_out[29:8] = {22{1'b0}};
 
 endmodule
