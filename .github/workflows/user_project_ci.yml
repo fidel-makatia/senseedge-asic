@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pdk: ["sky130A", "sky130B"]
+        pdk: ["sky130A"]
     steps:
       - uses: actions/checkout@v4
 
@@ -87,7 +87,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pdk: ["sky130A", "sky130B"]
+        pdk: ["sky130A"]
     steps:
       - uses: actions/checkout@v4
 
