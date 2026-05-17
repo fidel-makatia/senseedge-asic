@@ -1,4 +1,5 @@
 /.idea/
+.DS_Store
 /precheck_results/
 */tmp
 */*/tmp
