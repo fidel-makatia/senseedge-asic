@@ -1,0 +1,15 @@
+Loading input: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Top cell: caravel_2605c0e9
+
+Diff/Tap/FOM and LI/LI1M Overlap Summary:
+  Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+  Top cell: caravel_2605c0e9
+
+Report file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_foml_check.xml
+Execution time: 173.48 seconds
+DRC checks completed
+DRC Rules Summary:
+- Checking diff (65,20) vs fom (23,28) overlap
+- Checking tap (65,44) vs fom (23,28) overlap
+- Checking li (67,20) vs li1m (56,28) overlap
+Any overlaps will be flagged as violations.

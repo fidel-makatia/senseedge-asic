@@ -1,0 +1,90 @@
+"polygons" in: special_CL_checks.drc:51
+    Polygons (raw): 422669 (flat)  1000 (hierarchical)
+    Elapsed: 0.880s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:52
+    Polygons (raw): 1526727 (flat)  1209 (hierarchical)
+    Elapsed: 0.540s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:53
+    Polygons (raw): 853 (flat)  36 (hierarchical)
+    Elapsed: 0.040s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:55
+    Polygons (raw): 1426913 (flat)  503 (hierarchical)
+    Elapsed: 0.480s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:56
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 0.030s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:57
+    Polygons (raw): 54311 (flat)  588 (hierarchical)
+    Elapsed: 0.210s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:58
+    Polygons (raw): 5945 (flat)  40 (hierarchical)
+    Elapsed: 0.030s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:60
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 0.000s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:61
+    Polygons (raw): 1 (flat)  1 (hierarchical)
+    Elapsed: 0.180s  Memory: 2390.00M
+"polygons" in: special_CL_checks.drc:62
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 0.030s  Memory: 2390.00M
+DRC section
+START: nwell over lvtn
+"enclosing" in: special_CL_checks.drc:86
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 34.200s  Memory: 2644.00M
+"output" in: special_CL_checks.drc:86
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.030s  Memory: 2644.00M
+END: nwell overlap lvtn
+START clvthm (nwell AND hvtp) >= 0.38um
+"&" in: special_CL_checks.drc:97
+    Polygons (raw): 2771325 (flat)  1299361 (hierarchical)
+    Elapsed: 79.880s  Memory: 3520.00M
+"width" in: special_CL_checks.drc:98
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 55.600s  Memory: 3559.00M
+"output" in: special_CL_checks.drc:99
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.430s  Memory: 3559.00M
+END: clvthm (nwell AND hvtp) >= 0.38um
+START clvthm (nwell OR (ldntm OR rpm OR hvi)) >= 0.84um
+"or" in: special_CL_checks.drc:108
+    Polygons (raw): 5021 (flat)  2892 (hierarchical)
+    Elapsed: 0.430s  Memory: 3559.00M
+"or" in: special_CL_checks.drc:108
+    Polygons (raw): 5021 (flat)  2892 (hierarchical)
+    Elapsed: 0.170s  Memory: 3559.00M
+"or" in: special_CL_checks.drc:108
+    Polygons (raw): 3890 (flat)  2850 (hierarchical)
+    Elapsed: 1.240s  Memory: 3559.00M
+"width" in: special_CL_checks.drc:109
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.420s  Memory: 3559.00M
+"output" in: special_CL_checks.drc:110
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.200s  Memory: 3559.00M
+END: clvthm (nwell AND (ldntm OR rpm OR hvi)) >= 0.84um
+START: 75/20 (hvi)
+"-" in: special_CL_checks.drc:119
+    Polygons (raw): 54311 (flat)  588 (hierarchical)
+    Elapsed: 0.010s  Memory: 3559.00M
+"width" in: special_CL_checks.drc:120
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 1.000s  Memory: 3578.00M
+"output" in: special_CL_checks.drc:121
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.020s  Memory: 3578.00M
+END: 75/20 (hvi)
+START: nwell/urpm separation
+"separation" in: special_CL_checks.drc:128
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.450s  Memory: 3578.00M
+"output" in: special_CL_checks.drc:128
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.030s  Memory: 3578.00M
+END: nwell/urpm separation
+Writing report database: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_special_cl_check.xml ..
+Total elapsed: 204.100s  Memory: 3578.00M
+ 
+release 2025.08.27.1  SPECIAL

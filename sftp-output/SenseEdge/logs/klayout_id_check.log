@@ -1,0 +1,153 @@
+Found cell: B8_user_id_textblock
+  Subcell: B8_alpha_9 at (148870, 10800) M0
+  Subcell: B8_alpha_0 at (106250, 10800) M0
+  Subcell: B8_alpha_0 at (42500, 10800) M0
+  Subcell: B8_alpha_E at (127500, 10800) M0
+  Subcell: B8_alpha_C at (85000, 10800) M0
+  Subcell: B8_alpha_5 at (63750, 10800) M0
+  Subcell: B8_alpha_6 at (21250, 10800) M0
+  Subcell: B8_alpha_2 at (0, 10800) M0
+Found cell: B8_user_id_programming
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (25300, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (14720, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (12420, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (20240, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (7360, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (16100, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (17020, 24480) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (23000, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (8740, 19040) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (22540, 24480) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (22540, 19040) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (20700, 24480) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (25300, 24480) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (26680, 19040) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (21160, 19040) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (9200, 19040) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (6900, 19040) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (15180, 24480) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (9660, 24480) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (6900, 8160) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (13800, 8160) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (11960, 8160) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (13340, 8160) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (15180, 8160) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (7360, 8160) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (6900, 13600) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (9660, 8160) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (22080, 8160) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (23000, 13600) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (24380, 13600) MX
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (19320, 8160) M0
+  Subcell: B8_sky130_fd_sc_hd__conb_1 at (27140, 8160) M0
+gle at lower-left (14865, 6885)
+  Found rectangle at lower-left (22225, 6885)
+  Found rectangle at lower-left (7045, 9265)
+  Found rectangle at lower-left (10725, 9265)
+  Found rectangle at lower-left (13025, 9265)
+  Found rectangle at lower-left (13485, 9265)
+  Found rectangle at lower-left (16245, 9265)
+  Found rectangle at lower-left (19465, 9265)
+  Found rectangle at lower-left (28205, 9265)
+  Found rectangle at lower-left (24065, 11985)
+  Found rectangle at lower-left (25445, 11985)
+  Found rectangle at lower-left (7965, 14705)
+  Found rectangle at lower-left (8425, 17765)
+  Found rectangle at lower-left (9805, 17765)
+  Found rectangle at lower-left (12565, 17765)
+  Found rectangle at lower-left (14865, 17765)
+  Found rectangle at lower-left (17165, 17765)
+  Found rectangle at lower-left (21305, 17765)
+  Found rectangle at lower-left (23145, 17765)
+  Found rectangle at lower-left (25445, 17765)
+  Found rectangle at lower-left (7045, 20145)
+  Found rectangle at lower-left (10265, 20145)
+  Found rectangle at lower-left (22225, 20145)
+  Found rectangle at lower-left (22685, 20145)
+  Found rectangle at lower-left (26825, 20145)
+  Found rectangle at lower-left (10725, 23205)
+  Found rectangle at lower-left (16245, 23205)
+  Found rectangle at lower-left (18085, 23205)
+  Found rectangle at lower-left (23605, 23205)
+  Found rectangle at lower-left (20845, 25585)
+  Found rectangle at lower-left (26365, 25585)
+Found 32 conb cells and 32 rectangles - counts match
+  Matched: conb (25300, 19040) -> rect (25445, 17765) HI
+  Matched: conb (14720, 19040) -> rect (14865, 17765) HI
+  Matched: conb (12420, 19040) -> rect (12565, 17765) HI
+  Matched: conb (20240, 19040) -> rect (21305, 17765) LOW
+  Matched: conb (7360, 19040) -> rect (8425, 17765) LOW
+  Matched: conb (16100, 19040) -> rect (17165, 17765) LOW
+  Matched: conb (17020, 24480) -> rect (18085, 23205) LOW
+  Matched: conb (23000, 19040) -> rect (23145, 17765) HI
+  Matched: conb (8740, 19040) -> rect (9805, 17765) LOW
+  Matched: conb (22540, 24480) -> rect (23605, 23205) LOW
+  Matched: conb (22540, 19040) -> rect (22685, 20145) HI
+  Matched: conb (20700, 24480) -> rect (20845, 25585) HI
+  Matched: conb (25300, 24480) -> rect (26365, 25585) LOW
+  Matched: conb (26680, 19040) -> rect (26825, 20145) HI
+  Matched: conb (21160, 19040) -> rect (22225, 20145) LOW
+  Matched: conb (9200, 19040) -> rect (10265, 20145) LOW
+  Matched: conb (6900, 19040) -> rect (7045, 20145) HI
+  Matched: conb (15180, 24480) -> rect (16245, 23205) LOW
+  Matched: conb (9660, 24480) -> rect (10725, 23205) LOW
+  Matched: conb (6900, 8160) -> rect (7045, 9265) HI
+  Matched: conb (13800, 8160) -> rect (14865, 6885) LOW
+  Matched: conb (11960, 8160) -> rect (13025, 9265) LOW
+  Matched: conb (13340, 8160) -> rect (13485, 9265) HI
+  Matched: conb (15180, 8160) -> rect (16245, 9265) LOW
+  Matched: conb (7360, 8160) -> rect (8425, 6885) LOW
+  Matched: conb (6900, 13600) -> rect (7965, 14705) LOW
+  Matched: conb (9660, 8160) -> rect (10725, 9265) LOW
+  Matched: conb (22080, 8160) -> rect (22225, 6885) HI
+  Matched: conb (23000, 13600) -> rect (24065, 11985) LOW
+  Matched: conb (24380, 13600) -> rect (25445, 11985) LOW
+  Matched: conb (19320, 8160) -> rect (19465, 9265) HI
+  Matched: conb (27140, 8160) -> rect (28205, 9265) LOW
+  Row 1, Col 1 -> Loc 27: LOW -> 0
+  Row 1, Col 2 -> Loc 20: LOW -> 0
+  Row 1, Col 3 -> Loc 15: HI -> 1
+  Row 2, Col 1 -> Loc 3: HI -> 1
+  Row 2, Col 2 -> Loc 28: LOW -> 0
+  Row 2, Col 3 -> Loc 11: LOW -> 0
+  Row 2, Col 4 -> Loc 0: HI -> 1
+  Row 2, Col 5 -> Loc 1: LOW -> 0
+  Row 2, Col 6 -> Loc 7: HI -> 1
+  Row 2, Col 7 -> Loc 4: LOW -> 0
+  Row 3, Col 1 -> Loc 13: LOW -> 0
+  Row 3, Col 2 -> Loc 9: LOW -> 0
+  Row 4, Col 1 -> Loc 31: LOW -> 0
+  Row 5, Col 1 -> Loc 17: LOW -> 0
+  Row 5, Col 2 -> Loc 24: LOW -> 0
+  Row 5, Col 3 -> Loc 14: HI -> 1
+  Row 5, Col 4 -> Loc 25: HI -> 1
+  Row 5, Col 5 -> Loc 8: LOW -> 0
+  Row 5, Col 6 -> Loc 22: LOW -> 0
+  Row 5, Col 7 -> Loc 16: HI -> 1
+  Row 5, Col 8 -> Loc 26: HI -> 1
+  Row 6, Col 1 -> Loc 6: HI -> 1
+  Row 6, Col 2 -> Loc 2: LOW -> 0
+  Row 6, Col 3 -> Loc 10: LOW -> 0
+  Row 6, Col 4 -> Loc 18: HI -> 1
+  Row 6, Col 5 -> Loc 29: HI -> 1
+  Row 7, Col 1 -> Loc 19: LOW -> 0
+  Row 7, Col 2 -> Loc 30: LOW -> 0
+  Row 7, Col 3 -> Loc 21: LOW -> 0
+  Row 7, Col 4 -> Loc 12: LOW -> 0
+  Row 8, Col 1 -> Loc 5: HI -> 1
+  Row 8, Col 2 -> Loc 23: LOW -> 0
+Binary:  00100110000001011100000011101001
+Electrical ID extracted: 2605C0E9
+Found 1 electrical ID block(s)
+Project ID Check Report
+==================================================
+
+Project ID: 2605c0e9
+
+Visual ID: 2605C0E9
+Visual ID MATCHED Project ID
+
+Electrical ID: 2605C0E9
+Electrical ID MATCHED Project ID
+
+Overall Status: PASS

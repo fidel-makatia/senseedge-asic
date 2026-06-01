@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>Cell Name Character Check</description>
+ <original-file/>
+ <generator>drc: script='/tools/tapeout-tools/rules/cell_name_check_script.drc'</generator>
+ <top-cell>caravel_2605c0e9</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>NO_INVALID_CELLS</name>
+   <description>0 errors found - no cells contain invalid characters</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>caravel_2605c0e9</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

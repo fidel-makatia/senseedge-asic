@@ -1,0 +1,74 @@
+Loading input: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Top cell: caravel_2605c0e9
+/tools/tapeout-tools/rules/metal_drawn_fill_checks.drc:142: warning: already initialized constant DRC::DRCEngine::CHECK_MET4
+/tools/tapeout-tools/rules/metal_drawn_fill_checks.drc:122: warning: previous definition of CHECK_MET4 was here
+Starting Metal Layers DRC checks
+START: METAL4 Layer Checks
+"polygons" in: metal_drawn_fill_checks.drc:308
+    Polygons (raw): 78093 (flat)  20949 (hierarchical)
+    Elapsed: 1.270s  Memory: 2390.00M
+"polygons" in: metal_drawn_fill_checks.drc:309
+    Polygons (raw): 4897323 (flat)  4897323 (hierarchical)
+    Elapsed: 6.580s  Memory: 2421.00M
+m4 fill Width
+"width" in: metal_drawn_fill_checks.drc:312
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 59.530s  Memory: 3437.00M
+"output" in: metal_drawn_fill_checks.drc:312
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.040s  Memory: 3437.00M
+m4 Fill Space to m4 Drawn
+"separation" in: metal_drawn_fill_checks.drc:315
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 838.850s  Memory: 3511.00M
+"output" in: metal_drawn_fill_checks.drc:315
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.030s  Memory: 3511.00M
+m4 Fill Space to m4 Fill
+"space" in: metal_drawn_fill_checks.drc:318
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 25.750s  Memory: 3633.00M
+"output" in: metal_drawn_fill_checks.drc:318
+    Edge pairs: 0 (flat)  0 (hierarchical)
+    Elapsed: 0.040s  Memory: 3633.00M
+m4 Fill area
+"with_area" in: metal_drawn_fill_checks.drc:321
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 5.180s  Memory: 3633.00M
+"output" in: metal_drawn_fill_checks.drc:321
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 0.030s  Memory: 3633.00M
+m4 Fill holes
+"holes" in: metal_drawn_fill_checks.drc:324
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 2.360s  Memory: 3633.00M
+"with_area" in: metal_drawn_fill_checks.drc:324
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 0.040s  Memory: 3633.00M
+"output" in: metal_drawn_fill_checks.drc:324
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 0.000s  Memory: 3633.00M
+m4 fill overlap m4 drawn
+"&" in: metal_drawn_fill_checks.drc:327
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 850.380s  Memory: 3633.00M
+"output" in: metal_drawn_fill_checks.drc:327
+    Polygons (raw): 0 (flat)  0 (hierarchical)
+    Elapsed: 0.030s  Memory: 3633.00M
+END: METAL4 Layer Checks
+
+Metal Layers DRC Summary:
+  Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+  Top cell: caravel_2605c0e9
+  LI checks: DISABLED
+  METAL1 checks: DISABLED
+  METAL2 checks: DISABLED
+  METAL3 checks: DISABLED
+  METAL4 checks: ENABLED
+  METAL5 checks: DISABLED
+
+Report file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_metal4_drawn_vs_fill_check.xml
+Execution time: 836.02 seconds
+DRC checks completed
+Writing report database: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_metal4_drawn_vs_fill_check.xml ..
+Total elapsed: 1823.330s  Memory: 3561.00M

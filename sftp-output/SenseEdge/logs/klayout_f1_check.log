@@ -1,0 +1,53 @@
+minimum fom density = 37.1261%
+maximum fom density = 50.7112%
+================================================================================
+KLAYOUT FOM DENSITY CHECK (TilingProcessor Version)
+================================================================================
+Started: 2026-05-29 16:41:40 +0000
+Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Top cell: caravel_2605c0e9
+Parameters:
+  - Min FOM density: 28.0%
+  - Max FOM density: 62.0%
+  - Window size: 700.0 um x 700.0 um
+  - Step size: 70.0 um
+  - Output density report: true
+  - Verbose output: false
+  - Debug output: false
+  - XML report file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_fom_density_700_check.xml
+Layout dimensions: 3588.07 um x 5188.0 um
+================================================================================
+
+Processing tiles with TilingProcessor...
+finish received: success = true
+Processing results...
+calculating window step densities (= 2730)...
+FOM density check completed:
+- Window size: 700.0 um x 700.0 um
+- Step size: 70.0 um
+- Density limits: 28.0% - 62.0%
+- Measured density range: 37.13% - 50.71%
+- Total tiles processed: 2730
+- Total violations found: 0
+
+================================================================================
+FOM DENSITY REPORT
+================================================================================
+Tile X      Tile Y      Width    Height   Density    Status
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+SUMMARY:
+Total tiles: 2730
+Passing: 2730 (100.0%)
+Failing (low density): 0 (0.0%)
+Failing (high density): 0 (0.0%)
+Measured density range: 37.13% - 50.71%
+PASS: Density range delta 13.59% is within allowed delta of 30.0%
+================================================================================
+
+================================================================================
+GENERATING XML REPORT
+================================================================================
+No violations found - XML report generated with success message
+================================================================================
+FOM density analysis complete. Total violations: 0

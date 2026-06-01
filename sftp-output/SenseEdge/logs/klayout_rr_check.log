@@ -1,0 +1,4 @@
+R1C DRC Check: 0 shapes found on layer 201:20
+R1C DRC check completed. Report saved to: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_rram_layers_check.xml
+Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Top cell: caravel_2605c0e9

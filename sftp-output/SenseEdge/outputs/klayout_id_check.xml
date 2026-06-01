@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project_id_check_report>
+  <summary>
+    <project_id>2605c0e9</project_id>
+    <visual_id>
+      <value>2605C0E9</value>
+      <expected>2605c0e9</expected>
+      <match>true</match>
+    </visual_id>
+    <electrical_id>
+      <value>2605C0E9</value>
+      <expected>2605c0e9</expected>
+      <match>true</match>
+    </electrical_id>
+    <overall_status>PASS</overall_status>
+  </summary>
+</project_id_check_report>

@@ -1,0 +1,115 @@
+Loading input layout: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/gds/user_project_wrapper.gds
+Using digital/analog user area boundary
+User area boundary: (0, 0) to (2920, 3520)
+Starting boundary check algorithm...
+Step 1: Loading layouts...
+User layout bounding box (micron): (-44, -38) to (2963, 3558)
+Loading reference golden wrapper: /tools/tapeout-tools/golden_wrappers/user_project_wrapper.gds
+Reference layout bounding box (micron): (-44, -38) to (2963, 3558)
+Step 2: Defining areas...
+Areas defined: user area, PR boundary, metal 4, metal 5
+Step 3: Processing layouts with boundary trimming...
+Processing user layout...
+User layout has 43 total layers
+Processing only 32 relevant layers for boundary checking
+  Layer 68/16: Starting with 976666 polygons
+  Layer 68/16: After removing user area: 0 polygons
+  Layer 66/20: Starting with 696810 polygons
+  Layer 66/20: After removing user area: 0 polygons
+  Layer 68/20: Starting with 992523 polygons
+  Layer 68/20: After removing user area: 0 polygons
+  Layer 67/20: Starting with 2222075 polygons
+  Layer 67/20: After removing user area: 0 polygons
+  Layer 67/16: Starting with 10315 polygons
+  Layer 67/16: After removing user area: 0 polygons
+  Layer 69/20: Starting with 22850 polygons
+  Layer 69/20: After removing user area: 530 polygons
+  Layer 70/20: Starting with 13450 polygons
+  Layer 70/20: After removing user area: 107 polygons
+  Layer 71/20: Starting with 622 polygons
+  Layer 71/20: After removing user area: 266 polygons
+  Layer 70/16: Starting with 155 polygons
+  Layer 70/16: After removing user area: 107 polygons
+  Layer 69/16: Starting with 1023 polygons
+  Layer 69/16: After removing user area: 530 polygons
+  Layer 71/16: Starting with 184 polygons
+  Layer 71/16: After removing user area: 266 polygons
+  Layer 72/20: Starting with 172 polygons
+  Layer 72/20: After removing user area: 328 polygons
+  Layer 72/16: Starting with 172 polygons
+  Layer 72/16: After removing user area: 328 polygons
+User layout processing complete: 13 layers processed, 30 layers skipped
+Processing reference layout...
+Reference layout has 43 total layers
+Processing only 32 relevant layers for boundary checking
+  Reference layer 68/16: 976666 polygons
+  Layer 68/16: Starting with 976666 polygons
+  Layer 68/16: After removing user area: 0 polygons
+  Reference layer 68/20: 992523 polygons
+  Layer 68/20: Starting with 992523 polygons
+  Layer 68/20: After removing user area: 0 polygons
+  Reference layer 67/20: 2222075 polygons
+  Layer 67/20: Starting with 2222075 polygons
+  Layer 67/20: After removing user area: 0 polygons
+  Reference layer 66/20: 696810 polygons
+  Layer 66/20: Starting with 696810 polygons
+  Layer 66/20: After removing user area: 0 polygons
+  Reference layer 67/16: 10315 polygons
+  Layer 67/16: Starting with 10315 polygons
+  Layer 67/16: After removing user area: 0 polygons
+  Reference layer 69/20: 22850 polygons
+  Layer 69/20: Starting with 22850 polygons
+  Layer 69/20: After removing user area: 530 polygons
+  Reference layer 70/20: 13450 polygons
+  Layer 70/20: Starting with 13450 polygons
+  Layer 70/20: After removing user area: 107 polygons
+  Reference layer 71/20: 622 polygons
+  Layer 71/20: Starting with 622 polygons
+  Layer 71/20: After removing user area: 266 polygons
+  Reference layer 70/16: 155 polygons
+  Layer 70/16: Starting with 155 polygons
+  Layer 70/16: After removing user area: 107 polygons
+  Reference layer 69/16: 1023 polygons
+  Layer 69/16: Starting with 1023 polygons
+  Layer 69/16: After removing user area: 530 polygons
+  Reference layer 71/16: 184 polygons
+  Layer 71/16: Starting with 184 polygons
+  Layer 71/16: After removing user area: 266 polygons
+  Reference layer 72/20: 172 polygons
+  Layer 72/20: Starting with 172 polygons
+  Layer 72/20: After removing user area: 328 polygons
+  Reference layer 72/16: 172 polygons
+  Layer 72/16: Starting with 172 polygons
+  Layer 72/16: After removing user area: 328 polygons
+Reference layout processing complete: 13 layers processed, 30 layers skipped
+User layout processed: 1890 polygons across 8 layers
+Reference layout processed: 1890 polygons across 8 layers
+Step 4: Saving processed layouts to tapeout/outputs...
+Created output directory: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/gds
+Saving processed user layout to: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/gds/user_processed_boundary_check.gds
+Adding 8 processed user layers to GDS...
+  Adding layer 69/20 with 530 polygons
+  Adding layer 70/20 with 107 polygons
+  Adding layer 71/20 with 136 polygons
+  Adding layer 70/16 with 107 polygons
+  Adding layer 69/16 with 530 polygons
+  Adding layer 71/16 with 136 polygons
+  Adding layer 72/20 with 172 polygons
+  Adding layer 72/16 with 172 polygons
+✓ User processed layout saved with 8 layers
+Saving processed reference layout to: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/gds/reference_processed_boundary_check.gds
+Adding 8 processed reference layers to GDS...
+  Adding layer 69/20 with 530 polygons
+  Adding layer 70/20 with 107 polygons
+  Adding layer 71/20 with 136 polygons
+  Adding layer 70/16 with 107 polygons
+  Adding layer 69/16 with 530 polygons
+  Adding layer 71/16 with 136 polygons
+  Adding layer 72/20 with 172 polygons
+  Adding layer 72/16 with 172 polygons
+✓ Reference processed layout saved with 8 layers
+Step 5: Performing XOR between modified layouts...
+XOR completed: 0 differences found
+✓ XOR check PASSED: No violations found in PR boundary areas
+✓ Boundary check PASSED: XOR check found no violations in PR boundary areas
+Boundary check completed

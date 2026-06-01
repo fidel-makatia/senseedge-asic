@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>Open SRAM Macro Detection</description>
+ <original-file/>
+ <generator>drc: script='/tools/tapeout-tools/rules/open_sram_check.drc'</generator>
+ <top-cell>caravel_2605c0e9</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>NO_OPEN_SRAM</name>
+   <description>No open_ram macros detected - no cells found containing 'sky130_sram'</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>caravel_2605c0e9</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

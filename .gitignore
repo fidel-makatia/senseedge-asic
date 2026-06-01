@@ -17,3 +17,7 @@
 /logs
 openlane2-venv
 design_info.yaml
+
+# decap_40_12 cross-PDK transplant dead-end artifacts (abandoned, see project notes)
+*.dup_hdr_bug.bak
+senseedge_top_dedup.gds

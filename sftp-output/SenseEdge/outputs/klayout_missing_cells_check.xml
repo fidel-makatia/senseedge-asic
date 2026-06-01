@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>Missing Cells Check</description>
+ <original-file/>
+ <generator>drc: script='/tools/tapeout-tools/rules/missing_cells_check.drc'</generator>
+ <top-cell>caravel_2605c0e9</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>NO_MISSING_CELLS</name>
+   <description>0 errors found - no missing cells detected</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>caravel_2605c0e9</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

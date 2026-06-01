@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpio_check_report>
+  <summary>
+    <gpio_validation>
+      <has_invalid_configs>false</has_invalid_configs>
+      <has_mismatched_configs>false</has_mismatched_configs>
+      <invalid_count>0</invalid_count>
+      <mismatched_count>0</mismatched_count>
+    </gpio_validation>
+    <overall_status>PASS</overall_status>
+  </summary>
+  <gpio_configuration>
+    <mode_reference>
+      <management_modes>
+        <mode hex="0403">GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        <mode hex="0c01">GPIO_MODE_MGMT_STD_INPUT_PULLDOWN</mode>
+        <mode hex="0801">GPIO_MODE_MGMT_STD_INPUT_PULLUP</mode>
+        <mode hex="1809">GPIO_MODE_MGMT_STD_OUTPUT</mode>
+        <mode hex="1801">GPIO_MODE_MGMT_STD_BIDIRECTIONAL</mode>
+        <mode hex="000b">GPIO_MODE_MGMT_STD_ANALOG</mode>
+      </management_modes>
+      <user_modes>
+        <mode hex="0402">GPIO_MODE_USER_STD_INPUT_NOPULL</mode>
+        <mode hex="0c00">GPIO_MODE_USER_STD_INPUT_PULLDOWN</mode>
+        <mode hex="0800">GPIO_MODE_USER_STD_INPUT_PULLUP</mode>
+        <mode hex="1808">GPIO_MODE_USER_STD_OUTPUT</mode>
+        <mode hex="1800">GPIO_MODE_USER_STD_BIDIRECTIONAL</mode>
+        <mode hex="1802">GPIO_MODE_USER_STD_OUT_MONITORED</mode>
+        <mode hex="000a">GPIO_MODE_USER_STD_ANALOG</mode>
+      </user_modes>
+    </mode_reference>
+    <gpio_pins>
+      <gpio_pin number="5">
+        <label>GPIO_5</label>
+        <layout>
+          <config>1809</config>
+          <mode>GPIO_MODE_MGMT_STD_OUTPUT</mode>
+        </layout>
+        <rtl>
+          <config>1809</config>
+          <mode>GPIO_MODE_MGMT_STD_OUTPUT</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="6">
+        <label>GPIO_6</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="7">
+        <label>GPIO_7</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="8">
+        <label>GPIO_8</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="9">
+        <label>GPIO_9</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="10">
+        <label>GPIO_10</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="11">
+        <label>GPIO_11</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="12">
+        <label>GPIO_12</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="13">
+        <label>GPIO_13</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="14">
+        <label>GPIO_14</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="15">
+        <label>GPIO_15</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="16">
+        <label>GPIO_16</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="17">
+        <label>GPIO_17</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="18">
+        <label>GPIO_18</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="19">
+        <label>GPIO_19</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="20">
+        <label>GPIO_20</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="21">
+        <label>GPIO_21</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="22">
+        <label>GPIO_22</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="23">
+        <label>GPIO_23</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="24">
+        <label>GPIO_24</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="25">
+        <label>GPIO_25</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="26">
+        <label>GPIO_26</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="27">
+        <label>GPIO_27</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="28">
+        <label>GPIO_28</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="29">
+        <label>GPIO_29</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="30">
+        <label>GPIO_30</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="31">
+        <label>GPIO_31</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="32">
+        <label>GPIO_32</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="33">
+        <label>GPIO_33</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="34">
+        <label>GPIO_34</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="35">
+        <label>GPIO_35</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="36">
+        <label>GPIO_36</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+      <gpio_pin number="37">
+        <label>GPIO_37</label>
+        <layout>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </layout>
+        <rtl>
+          <config>0403</config>
+          <mode>GPIO_MODE_MGMT_STD_INPUT_NOPULL</mode>
+        </rtl>
+        <result>Matches</result>
+      </gpio_pin>
+    </gpio_pins>
+  </gpio_configuration>
+</gpio_check_report>

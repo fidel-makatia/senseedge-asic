@@ -1,0 +1,78 @@
+GPIO Configuration Report
+================================================================================
+
+This report shows the GPIO configuration for your project based on:
+1. Layout analysis (GPIO defaults blocks)
+2. RTL definitions (user_defines.v)
+
+Note: GPIO 0-4 have fixed configurations and are not user-configurable.
+      GPIO 5-37 can be configured to either user or management areas.
+
+GPIO Mode Reference:
+----------------------------------------
+GPIO 0-4: Fixed configuration (not user-configurable)
+
+GPIO 5-37: Configurable GPIOs (can be set to user or management area):
+
+Management Area Modes:
+  0403: Input, no pull-up/down
+  0c01: Input with pull-down
+  0801: Input with pull-up
+  1809: Output
+  1801: Bidirectional
+  000b: Analog
+
+User Area Modes:
+  0402: Input, no pull-up/down
+  0c00: Input with pull-down
+  0800: Input with pull-up
+  1808: Output
+  1800: Bidirectional
+  1802: Output with monitoring
+  000a: Analog
+
+GPIO Configuration Details:
+--------------------------------------------------------------------------------
+GPIO     Layout       Layout Mode                         RTL          RTL Mode                            Status         
+--------------------------------------------------------------------------------
+GPIO_5   1809         GPIO_MODE_MGMT_STD_OUTPUT           1809         GPIO_MODE_MGMT_STD_OUTPUT           Matches        
+GPIO_6   0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_7   0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_8   0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_9   0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_10  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_11  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_12  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_13  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_14  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_15  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_16  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_17  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_18  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_19  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_20  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_21  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_22  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_23  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_24  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_25  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_26  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_27  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_28  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_29  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_30  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_31  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_32  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_33  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_34  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_35  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_36  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+GPIO_37  0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     0403         GPIO_MODE_MGMT_STD_INPUT_NOPULL     Matches        
+
+Legend:
+  Layout: GPIO configuration extracted from layout (GPIO defaults blocks)
+  RTL: GPIO configuration from user_defines.v file
+  Status: Comparison result between layout and RTL
+
+Note: This configuration is based on the user_defines.v file
+      from the caravel_user_project template repository.

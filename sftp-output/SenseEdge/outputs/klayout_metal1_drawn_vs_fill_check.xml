@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>Metal Layers DRC</description>
+ <original-file/>
+ <generator>drc: script='/tools/tapeout-tools/rules/metal_drawn_fill_checks.drc'</generator>
+ <top-cell>caravel_2605c0e9</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>m1.fill.1</name>
+   <description>m1.fill.1 : min. m1 fill width : 0.14um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m1.fill.2</name>
+   <description>m1.fill.2 : min. fill to metal space : 0.28um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m1.fill.3</name>
+   <description>m1.fill.3 : min. fill to fill space : 0.14um</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m1.fill.4</name>
+   <description>m1.fill.4 : min. m1 area &lt; 0.083um²</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m1.fill.5</name>
+   <description>m1.fill.5 : min. m1 fill holes area &lt;  0.14um²</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m1.fill.6</name>
+   <description>m1.fill.6: m1 fill overlapping m1 drawn</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>caravel_2605c0e9</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

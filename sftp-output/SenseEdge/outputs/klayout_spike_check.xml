@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>Path Spike Detection Report</description>
+ <original-file/>
+ <generator>path_spike_checker.rb</generator>
+ <top-cell>caravel_2605c0e9</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>poly centerline spikes</name>
+   <description>poly centerline spikes: 0 backtracking errors (centerline point backtracks on previous segment)</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>li centerline spikes</name>
+   <description>li centerline spikes: 0 backtracking errors (centerline point backtracks on previous segment)</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m1 centerline spikes</name>
+   <description>m1 centerline spikes: 0 backtracking errors (centerline point backtracks on previous segment)</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m2 centerline spikes</name>
+   <description>m2 centerline spikes: 0 backtracking errors (centerline point backtracks on previous segment)</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m3 centerline spikes</name>
+   <description>m3 centerline spikes: 0 backtracking errors (centerline point backtracks on previous segment)</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m4 centerline spikes</name>
+   <description>m4 centerline spikes: 0 backtracking errors (centerline point backtracks on previous segment)</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>m5 centerline spikes</name>
+   <description>m5 centerline spikes: 0 backtracking errors (centerline point backtracks on previous segment)</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>caravel_2605c0e9</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

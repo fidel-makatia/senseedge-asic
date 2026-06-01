@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<report-database>
+ <description>Diff/Tap/FOM and LI/LI1M Overlap DRC</description>
+ <original-file/>
+ <generator>drc: script='/tools/tapeout-tools/rules/fom_li_overlap.drc'</generator>
+ <top-cell>caravel_2605c0e9</top-cell>
+ <tags>
+ </tags>
+ <categories>
+  <category>
+   <name>diff/fom overlap</name>
+   <description>diff and fom layers must not overlap</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>tap/fom overlap</name>
+   <description>tap and fom layers must not overlap</description>
+   <categories>
+   </categories>
+  </category>
+  <category>
+   <name>li/li1m overlap</name>
+   <description>li and li1m layers must not overlap</description>
+   <categories>
+   </categories>
+  </category>
+ </categories>
+ <cells>
+  <cell>
+   <name>caravel_2605c0e9</name>
+   <variant/>
+   <layout-name/>
+   <references>
+   </references>
+  </cell>
+ </cells>
+ <items>
+ </items>
+</report-database>

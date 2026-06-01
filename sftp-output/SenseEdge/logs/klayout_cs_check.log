@@ -1,0 +1,5 @@
+Cell Name Check: 0 errors found - no cells contain CF_SRAM
+CF_SRAM cell name check completed. Report saved to: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_CF_SRAM_check.xml
+Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Top cell: caravel_2605c0e9
+Total cells checked: 1375

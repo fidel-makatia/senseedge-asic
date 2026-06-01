@@ -1,0 +1,16 @@
+Starting Path Spike Detection
+Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Report file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_spike_check.xml
+Verbose mode: false
+Analyzing cell: caravel_2605c0e9
+  Found 0 total shapes, 0 paths, 0 spikes in poly
+  Found 0 total shapes, 0 paths, 0 spikes in li
+  Found 0 total shapes, 0 paths, 0 spikes in m1
+  Found 0 total shapes, 0 paths, 0 spikes in m2
+  Found 0 total shapes, 0 paths, 0 spikes in m3
+  Found 0 total shapes, 0 paths, 0 spikes in m4
+  Found 0 total shapes, 0 paths, 0 spikes in m5
+Path spike detection completed in 40.209612671 seconds
+RESULT: PASSED - No path spikes detected
+Report saved to: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_spike_check.xml
+Load the report in KLayout via Tools > Marker Browser > Load

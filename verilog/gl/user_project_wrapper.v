@@ -5,6 +5,14 @@ module user_project_wrapper (user_clock2,
     wbs_cyc_i,
     wbs_stb_i,
     wbs_we_i,
+    vssa2,
+    vdda2,
+    vssa1,
+    vdda1,
+    vssd2,
+    vccd2,
+    vssd1,
+    vccd1,
     analog_io,
     io_in,
     io_oeb,
@@ -16,15 +24,7 @@ module user_project_wrapper (user_clock2,
     wbs_adr_i,
     wbs_dat_i,
     wbs_dat_o,
-    wbs_sel_i,
-    vccd1,
-    vccd2,
-    vdda1,
-    vdda2,
-    vssa1,
-    vssa2,
-    vssd1,
-    vssd2);
+    wbs_sel_i);
  input user_clock2;
  input wb_clk_i;
  input wb_rst_i;
@@ -32,6 +32,14 @@ module user_project_wrapper (user_clock2,
  input wbs_cyc_i;
  input wbs_stb_i;
  input wbs_we_i;
+ inout vssa2;
+ inout vdda2;
+ inout vssa1;
+ inout vdda1;
+ inout vssd2;
+ inout vccd2;
+ inout vssd1;
+ inout vccd1;
  inout [28:0] analog_io;
  input [37:0] io_in;
  output [37:0] io_oeb;
@@ -44,17 +52,11 @@ module user_project_wrapper (user_clock2,
  input [31:0] wbs_dat_i;
  output [31:0] wbs_dat_o;
  input [3:0] wbs_sel_i;
- inout vccd1;
- inout vccd2;
- inout vdda1;
- inout vdda2;
- inout vssa1;
- inout vssa2;
- inout vssd1;
- inout vssd2;
 
 
- senseedge_top mprj (.wb_clk_i(wb_clk_i),
+ senseedge_top mprj (.vccd1(vccd2),
+    .vssd1(vssd2),
+    .wb_clk_i(wb_clk_i),
     .wb_rst_i(wb_rst_i),
     .wbs_ack_o(wbs_ack_o),
     .wbs_cyc_i(wbs_cyc_i),
@@ -595,5 +597,4 @@ module user_project_wrapper (user_clock2,
     wbs_sel_i[2],
     wbs_sel_i[1],
     wbs_sel_i[0]}));
-
 endmodule

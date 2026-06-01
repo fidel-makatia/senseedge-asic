@@ -51,6 +51,14 @@
     "PL_TARGET_DENSITY_PCT": 35,
     "pdk::sky130*": {
         "RT_MAX_LAYER": "met4",
+        "//": "decap_12 has known high-poly-density issue per ChipFoundry PV (David, 2026-05-26). Swap to decap_40_12 (requires PDK 3e0e31dc... or newer).",
+        "DECAP_CELL": [
+            "sky130_ef_sc_hd__decap_40_12",
+            "sky130_fd_sc_hd__decap_8",
+            "sky130_fd_sc_hd__decap_6",
+            "sky130_fd_sc_hd__decap_4",
+            "sky130_fd_sc_hd__decap_3"
+        ],
         "scl::sky130_fd_sc_hd": {
             "CLOCK_PERIOD": 50
         },

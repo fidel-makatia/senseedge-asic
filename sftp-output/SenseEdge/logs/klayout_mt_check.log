@@ -1,0 +1,25 @@
+met_tiled_density.drc:: sourcing design file=/mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas topcell= ...
+done.
+flattening chip boundary...
+done.
+step size = 70
+llx=5.965 lly=6.0 urx=3594.035 ury=5194.0
+x_cnt = 51
+y_cnt = 74
+dbu = 0.001
+bbox_area = 18614907.16
+calculating subtile areas (= 3774)...
+tiles per step = 10
+calculating window step densities (= 2730)...
+m1 minimum met_tiled density  = 0.9456
+m1 maximum met_tiled density  = 0.9967
+m2 minimum met_tiled density  = 0.9455
+m2 maximum met_tiled density  = 0.9967
+m3 minimum met_tiled density  = 0.9498
+m3 maximum met_tiled density  = 0.9983
+m4 minimum met_tiled density  = 0.9329
+m4 maximum met_tiled density  = 0.9974
+finish received: success = true
+finish received: success = true
+finish received: success = true
+finish received: success = true

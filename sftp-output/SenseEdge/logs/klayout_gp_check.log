@@ -1,0 +1,50 @@
+
+    ✓ Matched to GPIO_23 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 4530000) with suffix: 0403
+    ✓ Matched to GPIO_24 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 3680000) with suffix: 0403
+    ✓ Matched to GPIO_25 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 3460000) with suffix: 0403
+    ✓ Matched to GPIO_26 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 3240000) with suffix: 0403
+    ✓ Matched to GPIO_27 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 3030000) with suffix: 0403
+    ✓ Matched to GPIO_28 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 2800000) with suffix: 0403
+    ✓ Matched to GPIO_29 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 2600000) with suffix: 0403
+    ✓ Matched to GPIO_30 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 2390000) with suffix: 0403
+    ✓ Matched to GPIO_31 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 1740000) with suffix: 0403
+    ✓ Matched to GPIO_32 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 1530000) with suffix: 0403
+    ✓ Matched to GPIO_33 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 1300000) with suffix: 0403
+    ✓ Matched to GPIO_34 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 1090000) with suffix: 0403
+    ✓ Matched to GPIO_35 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 870000) with suffix: 0403
+    ✓ Matched to GPIO_36 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (27000, 660000) with suffix: 0403
+    ✓ Matched to GPIO_37 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (3137000, 1590000) with suffix: 0403
+    ✓ Matched to GPIO_6 by coordinates
+  Processing block: B8_gpio_defaults_block_1809 at (3137000, 1350000) with suffix: 1809
+    ✓ Matched to GPIO_5 by coordinates
+  Processing block: B8_gpio_defaults_block_0403 at (3137000, 1130000) with suffix: 0403
+    No coordinate match found, trying fallback methods...
+    ✗ Could not assign GPIO label - too many blocks
+  Processing block: B8_gpio_defaults_block_0801 at (3137000, 910000) with suffix: 0801
+    No coordinate match found, trying fallback methods...
+    ✗ Could not assign GPIO label - too many blocks
+  Processing block: B8_gpio_defaults_block_0403 at (3137000, 680000) with suffix: 0403
+    No coordinate match found, trying fallback methods...
+    ✗ Could not assign GPIO label - too many blocks
+  Processing block: B8_gpio_defaults_block_1803 at (3137000, 230000) with suffix: 1803
+    No coordinate match found, trying fallback methods...
+    ✗ Could not assign GPIO label - too many blocks
+  Processing block: B8_gpio_defaults_block_1803 at (3137000, 460000) with suffix: 1803
+    No coordinate match found, trying fallback methods...
+    ✗ Could not assign GPIO label - too many blocks
+Final results: 33 matched, 5 unmatched

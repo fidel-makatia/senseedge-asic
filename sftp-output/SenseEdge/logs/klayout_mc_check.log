@@ -1,0 +1,6 @@
+Missing Cells Check: 0 errors found - no missing cells detected
+Missing cells check completed. Report saved to: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_missing_cells_check.xml
+Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Top cell: caravel_2605c0e9
+Total cells checked: 1375
+Total cell instances checked: 1321908

@@ -1,0 +1,4 @@
+Open SRAM Macro Detection: No open_ram macros detected
+  - Total cells in layout: 1375
+  - No cells found containing 'sky130_sram'
+Open SRAM macro detection completed successfully!

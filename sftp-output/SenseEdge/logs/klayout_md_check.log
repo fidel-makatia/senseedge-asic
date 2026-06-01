@@ -1,0 +1,62 @@
+Loading input: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+Top cell: caravel_2605c0e9
+Starting Global Metal Density checks
+
+Validating seal ring...
+Seal ring validation passed - proceeding with density checks
+
+START: LI Density Checks
+li.global: Density = 50.88% (Check area: 18614446.42, Metal area: 9471185.11)
+END: LI Density Checks
+
+START: METAL1 Density Checks
+met1.global: Density = 42.48% (Check area: 18614446.42, Metal area: 7906539.78)
+END: METAL1 Density Checks
+
+START: METAL2 Density Checks
+met2.global: Density = 45.9% (Check area: 18614446.42, Metal area: 8543936.49)
+END: METAL2 Density Checks
+
+START: METAL3 Density Checks
+met3.global: Density = 47.42% (Check area: 18614446.42, Metal area: 8827768.61)
+END: METAL3 Density Checks
+
+START: METAL4 Density Checks
+met4.global: Density = 53.91% (Check area: 18614446.42, Metal area: 10034739.2)
+END: METAL4 Density Checks
+
+START: METAL5 Density Checks
+met5.global: Density = 50.23% (Check area: 18614446.42, Metal area: 9350083.72)
+END: METAL5 Density Checks
+
+================================================================================
+GLOBAL METAL DENSITY CHECK RESULTS
+================================================================================
+LI Global Density = 50.88% to limits of 33.0% - 62.0% - PASS
+METAL1 Global Density = 42.48% to limits of 33.0% - 62.0% - PASS
+METAL2 Global Density = 45.9% to limits of 33.0% - 62.0% - PASS
+METAL3 Global Density = 47.42% to limits of 33.0% - 62.0% - PASS
+METAL4 Global Density = 53.91% to limits of 33.0% - 62.0% - PASS
+METAL5 Global Density = 50.23% to limits of 43.0% - 78.0% - PASS
+
+Summary:
+  Input file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/oas/caravel_2605c0e9.oas
+  Top cell: caravel_2605c0e9
+  LI checks: ENABLED (min: 33.0%, max: 62.0%)
+  METAL1 checks: ENABLED (min: 33.0%, max: 62.0%)
+  METAL2 checks: ENABLED (min: 33.0%, max: 62.0%)
+  METAL3 checks: ENABLED (min: 33.0%, max: 62.0%)
+  METAL4 checks: ENABLED (min: 33.0%, max: 62.0%)
+  METAL5 checks: ENABLED (min: 43.0%, max: 78.0%)
+
+Report file: /mnt/shuttle/ci2605/fidel-omusilibwa/SenseEdge/tapeout/outputs/klayout_mgld_check.xml
+Execution time: 1339.38 seconds
+
+OVERALL RESULT: PASS - All density checks passed
+================================================================================
+
+================================================================================
+GENERATING XML REPORT
+================================================================================
+No violations found - XML report generated with success message
+================================================================================
