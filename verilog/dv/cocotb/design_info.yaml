@@ -1,0 +1,9 @@
+CARAVEL_ROOT: /Users/fidelmakatia/chipfoundry/senseedge/caravel
+MCW_ROOT: /Users/fidelmakatia/chipfoundry/senseedge/mgmt_core_wrapper
+PDK: sky130A
+PDK_ROOT: /Users/fidelmakatia/chipfoundry/senseedge/dependencies/pdks
+USER_PROJECT_ROOT: /Users/fidelmakatia/chipfoundry/senseedge
+caravan: false
+clk: 25
+emailto:
+- null
