@@ -1,5 +1,0 @@
-Running gdsArea0 on file=/tmp/tmp_fvalhs8/repo/gds/user_project_wrapper.gds (passive, no gdsFileOut)
-  args: '-V','-m','/tmp/tmp_fvalhs8/repo/precheck_results/28_APR_2026___18_29_44/outputs/reports/spike_check.xml','/tmp/tmp_fvalhs8/repo/gds/user_project_wrapper.gds'
-ERROR: RuntimeError: Stream has unknown format: /tmp/tmp_fvalhs8/repo/gds/user_project_wrapper.gds in Layout::read
-  /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/gdsArea0[rb]:316:in `read'
-  /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/gdsArea0[rb]:316:in `<main>'

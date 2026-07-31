@@ -1,9 +1,0 @@
-BEGIN: Tue Apr 28 18:30:00 2026
-Creating /tmp/tmp_fvalhs8/repo/precheck_results/28_APR_2026___18_29_44/tmp/verilog.cells from the following files...
-	/tmp/tmp_fvalhs8/repo/verilog/gl/senseedge_top.v
-	/tmp/tmp_fvalhs8/repo/verilog/gl/user_project_wrapper.v
-[INFO] Changing from /tmp/tmp_fvalhs8/repo/gds/user_project_wrapper.gds
-	to /tmp/tmp_fvalhs8/repo/precheck_results/28_APR_2026___18_29_44/tmp/layout.txt
-Hierarchy check for user_project_wrapper failed. See /tmp/tmp_fvalhs8/repo/precheck_results/28_APR_2026___18_29_44/tmp/hier.csv
-END: Tue Apr 28 18:30:02 2026
-Runtime: 0:00:02 (hh:mm:ss)

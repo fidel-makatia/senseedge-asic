@@ -1,4 +1,0 @@
-ERROR: RuntimeError: Stream has unknown format: /tmp/tmp_fvalhs8/repo/gds/user_project_wrapper.gds in Layout::read
-  /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/gds_size.rb:59:in `read'
-  /usr/local/lib/python3.9/site-packages/cf_precheck/drc_scripts/gds_size.rb:59:in `<main>'
-Reading file /tmp/tmp_fvalhs8/repo/gds/user_project_wrapper.gds for cell user_project_wrapper
