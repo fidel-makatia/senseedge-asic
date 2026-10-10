@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""SenseEdge NN training — HARDWARE-EXACT, signed-INT8 input domain.
+"""SenseEdge NN training — HARDWARE-EXACT for the corrected RTL (branch fix/audit-defects).
+
+History: the fabricated revision read the feature bytes as signed and evaluated the last
+product of each neuron unsigned; this script once modelled that.  The corrected RTL reads
+unsigned inputs and forms every product signed, and this script now models that.
+
+Original notes on the fabricated revision follow.
+
 
 Why this file exists
 --------------------
@@ -72,8 +79,10 @@ def gen_data(n_per_class=500, seed=42):
 
 
 def to_hw_int8(X_uint8):
-    """Reinterpret unsigned feature bytes as the signed values the MAC sees."""
-    return np.int8(np.clip(np.round(X_uint8), 0, 255).astype(np.uint8)).astype(np.float64)
+    """Corrected RTL (branch fix/audit-defects): the MAC reads the feature bytes as the
+    unsigned values [0, 255] that feature_extract.v emits.  The name is kept so that the
+    rest of the script is unchanged; the function is now the identity on the byte grid."""
+    return np.clip(np.round(X_uint8), 0, 255).astype(np.float64)
 
 
 # --------------------------------------------------------------------------
@@ -143,7 +152,9 @@ def to_int16(x):
     return ((x + 32768) & 0xFFFF) - 32768   # signed 16-bit wrap, like acc[15:0]
 
 def hw_infer(X_uint8, W1q, b1q, W2q, b2q):
-    Xi = np.int8(np.clip(np.round(X_uint8),0,255).astype(np.uint8)).astype(np.int64)  # signed input
+    # Bit-exact model of the corrected nn_engine.v: unsigned inputs, every product signed,
+    # 16-bit wrap then ReLU, 24-bit outputs (see verilog/dv/audit/ref_models.py::nn_infer).
+    Xi = np.clip(np.round(X_uint8), 0, 255).astype(np.int64)                           # unsigned input
     preds = np.empty(len(Xi), np.int64)
     for i, x in enumerate(Xi):
         acc1 = x @ W1q.T.astype(np.int64) + b1q.astype(np.int64)     # 24-bit acc (numpy int64 ok)
@@ -174,7 +185,7 @@ def main():
     W1q, b1q, W2q, b2q, shift = quantize(W1, b1, W2, b2, Xs[tr])
     # accuracy of the EXACT hardware datapath on held-out data:
     hw_acc = (hw_infer(Xu[va], W1q, b1q, W2q, b2q) == y[va]).mean()
-    print(f"float(signed-domain) val acc = {fa*100:.1f}%")
+    print(f"float val acc = {fa*100:.1f}%")
     print(f"HARDWARE-EXACT val acc       = {hw_acc*100:.1f}%   (L1 down-shift={shift})")
 
     packed = np.concatenate([W1q.flatten(), b1q.flatten(),
@@ -182,10 +193,10 @@ def main():
     assert packed.size == 212
     np.savez(a.output, layer1_weights=W1q, layer1_biases=b1q,
              layer2_weights=W2q, layer2_biases=b2q, all_weights=packed,
-             input_domain=np.array(["signed_int8"]))
+             input_domain=np.array(["unsigned_u8_corrected_rtl"]))
     with open(a.hex, "w") as f:                          # $readmemh, two-hex bytes
         for v in packed.astype(np.uint8): f.write(f"{v:02x}\n")
-    print(f"saved {a.output} and {a.hex}  ({packed.size} params, signed-int8 input domain)")
+    print(f"saved {a.output} and {a.hex}  ({packed.size} params, unsigned input domain, corrected RTL)")
 
 if __name__ == "__main__":
     main()

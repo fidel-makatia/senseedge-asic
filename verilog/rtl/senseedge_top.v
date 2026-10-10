@@ -2,6 +2,7 @@
 // SenseEdge - Top-Level Module
 // Predictive Maintenance ASIC with Hardware FFT and Neural Network Inference
 // Integrates: SPI ADC → FFT → Feature Extraction → NN Inference → Alarm
+// Corrected RTL (branch fix/audit-defects): weight readback port wired between wb_interface and nn_engine.
 
 `default_nettype none
 
@@ -95,10 +96,12 @@ module senseedge_top (
     wire [2:0]  wb_feature_rd_addr;
     wire [7:0]  wb_feature_rd_data;
 
-    // WB ↔ NN weight loading
+    // WB ↔ NN weight loading and readback
     wire        wt_wr_en;
     wire [7:0]  wt_wr_addr;
     wire [7:0]  wt_wr_data;
+    wire [5:0]  wt_rd_waddr;
+    wire [31:0] wt_rd_wdata;
 
     // =========================================================================
     // GPIO Pin Assignments
@@ -247,7 +250,9 @@ module senseedge_top (
         .busy        (nn_busy),
         .wt_wr_en    (wt_wr_en),
         .wt_wr_addr  (wt_wr_addr),
-        .wt_wr_data  (wt_wr_data)
+        .wt_wr_data  (wt_wr_data),
+        .wt_rd_waddr (wt_rd_waddr),
+        .wt_rd_wdata (wt_rd_wdata)
     );
 
     // --- Alarm Logic ---
@@ -293,6 +298,8 @@ module senseedge_top (
         .wt_wr_en         (wt_wr_en),
         .wt_wr_addr       (wt_wr_addr),
         .wt_wr_data       (wt_wr_data),
+        .wt_rd_waddr      (wt_rd_waddr),
+        .wt_rd_wdata      (wt_rd_wdata),
         .classification_done(nn_done),
         .alarm_irq_in     (alarm_irq),
         .irq              (irq)

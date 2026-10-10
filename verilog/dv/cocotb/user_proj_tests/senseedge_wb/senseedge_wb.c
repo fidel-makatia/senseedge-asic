@@ -1,126 +1,102 @@
 // SPDX-License-Identifier: Apache-2.0
-// SenseEdge - Caravel Firmware for Wishbone Integration Test
-// Configures the SenseEdge ASIC: loads NN weights, sets alarm thresholds,
-// enables the acquisition pipeline, and reads classification results.
+// SenseEdge - Caravel co-simulation firmware (corrected RTL, branch fix/audit-defects)
+//
+// The management core is the only bus master the silicon has, so this is the test that
+// matters: word-aligned Wishbone writes with byte selects, through the real Caravel.
+//   1. load the 212 weights as 53 words and read every word back
+//   2. configure divider and alarm, enable the chain
+//   3. wait for the decision flag, read the 32 bins, 8 features and the class register
+//   4. compare everything with the values the RTL produced for the same record
+//      (verilog/dv/audit: tone at bin 8, amplitude 500, divider 4, diagonal weight image)
+// Management GPIO: 1 = running, 0 = weights verified, 1 = PASS; on any failure the GPIO
+// toggles forever and the cocotb side times out.
 
 #include <firmware_apis.h>
 
-// SenseEdge register offsets (from user project base address)
-#define SE_CTRL          0x00
-#define SE_STATUS        0x04
-#define SE_CLASS_RESULT  0x08
-#define SE_ALARM_CFG     0x0C
-#define SE_FFT_DATA      0x10
-#define SE_FEATURE_DATA  0x14
-#define SE_IRQ_FLAGS     0x18
-#define SE_CLK_DIV       0x1C
-#define SE_NN_WEIGHTS    0x20
+#define SE_BASE         0x30000000u
+#define SE_REG(off)     (*(volatile unsigned int *)(SE_BASE + (off)))
+#define SE_CTRL         0x00
+#define SE_STATUS       0x04
+#define SE_CLASS        0x08
+#define SE_ALARM_CFG    0x0C
+#define SE_FFT_DATA     0x10
+#define SE_FEAT_DATA    0x14
+#define SE_IRQ_FLAGS    0x18
+#define SE_CLK_DIV      0x1C
+#define SE_WEIGHT(w)    (0x20 + 4 * (w))
 
-void main() {
-    // Enable management GPIO as output indicator
+static const unsigned short exp_bins[32] = {
+    0, 0, 0, 0, 0, 0, 0, 0, 16010, 0, 0, 0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0 };
+static const unsigned char exp_feat[8] = { 0, 62, 0, 0, 64, 62, 1, 62 };
+#define EXP_CLASS 1
+#define EXP_CONF  255
+
+static void fail_forever(void)
+{
+    volatile int i;
+    while (1) { ManagmentGpio_write(1); for (i = 0; i < 200; i++); ManagmentGpio_write(0); for (i = 0; i < 200; i++); }
+}
+
+void main(void)
+{
+    int i, w, errors = 0;
+    unsigned int v;
+    unsigned char wimg[212];
+
     ManagmentGpio_outputEnable();
     ManagmentGpio_write(0);
     enableHkSpi(0);
 
-    // Configure GPIOs:
-    // io[0] = SPI MISO (input from ADC)
-    // io[1] = SPI CLK  (output to ADC)
-    // io[2] = SPI CS_N (output to ADC)
-    // io[3] = Alarm    (output)
-    // io[4] = Status LED (output)
-    // io[30-37] = unused outputs (for LA visibility)
     GPIOs_configure(0, GPIO_MODE_USER_STD_INPUT_NOPULL);   // MISO
-    GPIOs_configure(1, GPIO_MODE_USER_STD_OUTPUT);         // SPI CLK
-    GPIOs_configure(2, GPIO_MODE_USER_STD_OUTPUT);         // SPI CS
-    GPIOs_configure(3, GPIO_MODE_USER_STD_OUTPUT);         // Alarm
-    GPIOs_configure(4, GPIO_MODE_USER_STD_OUTPUT);         // Status LED
-    GPIOs_configure(5, GPIO_MODE_USER_STD_OUTPUT);         // UART TX
-    GPIOs_configure(6, GPIO_MODE_USER_STD_INPUT_NOPULL);   // UART RX
-
+    GPIOs_configure(1, GPIO_MODE_USER_STD_OUTPUT);         // SCLK
+    GPIOs_configure(2, GPIO_MODE_USER_STD_OUTPUT);         // CS_N
+    GPIOs_configure(3, GPIO_MODE_USER_STD_OUTPUT);         // alarm
+    GPIOs_configure(4, GPIO_MODE_USER_STD_OUTPUT);         // status LED
+    GPIOs_configure(5, GPIO_MODE_USER_STD_OUTPUT);
+    GPIOs_configure(6, GPIO_MODE_USER_STD_INPUT_NOPULL);
     GPIOs_loadConfigs();
-
-    // Enable Wishbone user interface
     User_enableIF();
 
-    // Signal: configuration phase started
-    ManagmentGpio_write(1);
+    ManagmentGpio_write(1);                                 // running
 
-    // --- Phase 1: Load NN weights ---
-    // Simple identity-like weights for testing
-    int i;
-
-    // Layer 1 weights (128 bytes): zero all
-    for (i = 0; i < 128; i++)
-        USER_writeWord(0, SE_NN_WEIGHTS + i);
-
-    // Set diagonal weights: neuron K responds to input K
-    USER_writeWord(127, SE_NN_WEIGHTS + 0);    // w[0][0]
-    USER_writeWord(127, SE_NN_WEIGHTS + 9);    // w[1][1]
-    USER_writeWord(127, SE_NN_WEIGHTS + 18);   // w[2][2]
-    USER_writeWord(127, SE_NN_WEIGHTS + 27);   // w[3][3]
-
-    // Layer 1 biases (16 bytes): zero
-    for (i = 128; i < 144; i++)
-        USER_writeWord(0, SE_NN_WEIGHTS + i);
-
-    // Layer 2 weights (64 bytes): zero all
-    for (i = 144; i < 208; i++)
-        USER_writeWord(0, SE_NN_WEIGHTS + i);
-
-    // Class K responds to hidden neuron K
-    USER_writeWord(127, SE_NN_WEIGHTS + 144);  // class0 <- hidden0
-    USER_writeWord(127, SE_NN_WEIGHTS + 161);  // class1 <- hidden1
-    USER_writeWord(127, SE_NN_WEIGHTS + 178);  // class2 <- hidden2
-    USER_writeWord(127, SE_NN_WEIGHTS + 195);  // class3 <- hidden3
-
-    // Layer 2 biases (4 bytes): zero
-    for (i = 208; i < 212; i++)
-        USER_writeWord(0, SE_NN_WEIGHTS + i);
-
-    // --- Phase 2: Configure system ---
-    // Set clock divider for SPI (fast for simulation)
-    USER_writeWord(4, SE_CLK_DIV);
-
-    // Set alarm config: threshold=100, consecutive_faults=3
-    USER_writeWord(0x00000364, SE_ALARM_CFG);
-
-    // Signal: weights loaded
-    ManagmentGpio_write(0);
-
-    // --- Phase 3: Enable acquisition ---
-    USER_writeWord(1, SE_CTRL);
-
-    // Wait for pipeline to complete
-    // Poll status register for completion (nn_busy goes low)
-    int timeout = 100000;
-    while (timeout > 0) {
-        unsigned int status = USER_readWord(SE_STATUS);
-        // bits: [0]=enable [1]=fft_busy [2]=nn_busy [3]=fe_busy [4]=alarm
-        if ((status & 0x06) == 0 && (status & 0x01)) {
-            // FFT and NN not busy, still enabled
-            // Check if we've had at least one classification
-            unsigned int irq_flags = USER_readWord(SE_IRQ_FLAGS);
-            if (irq_flags & 0x01) break;  // classification_done flag
-        }
-        timeout--;
+    // --- 1. weights: neuron k <- input k, class k <- hidden k ---
+    for (i = 0; i < 212; i++) wimg[i] = 0;
+    wimg[0] = 127; wimg[9] = 127; wimg[18] = 127; wimg[27] = 127;
+    wimg[144] = 127; wimg[161] = 127; wimg[178] = 127; wimg[195] = 127;
+    for (w = 0; w < 53; w++)
+        SE_REG(SE_WEIGHT(w)) = (unsigned int)wimg[4*w] | ((unsigned int)wimg[4*w+1] << 8) |
+                               ((unsigned int)wimg[4*w+2] << 16) | ((unsigned int)wimg[4*w+3] << 24);
+    for (w = 0; w < 53; w++) {
+        unsigned int e = (unsigned int)wimg[4*w] | ((unsigned int)wimg[4*w+1] << 8) |
+                         ((unsigned int)wimg[4*w+2] << 16) | ((unsigned int)wimg[4*w+3] << 24);
+        if (SE_REG(SE_WEIGHT(w)) != e) errors++;
     }
+    if (SE_REG(0xF4) != 0) errors++;                        // above the window reads zero
+    if (errors) fail_forever();
+    ManagmentGpio_write(0);                                 // weights verified
 
-    // --- Phase 4: Read results ---
-    unsigned int class_result = USER_readWord(SE_CLASS_RESULT);
-    unsigned int class_id   = class_result & 0x03;
-    unsigned int confidence = (class_result >> 2) & 0xFF;
+    // --- 2. configure and enable ---
+    SE_REG(SE_CLK_DIV)  = 4;
+    SE_REG(SE_ALARM_CFG) = (3 << 8) | 100;
+    SE_REG(SE_IRQ_FLAGS) = 0x3;
+    SE_REG(SE_CTRL) = 1;
 
-    // Signal result via management GPIO
-    // GPIO high = test complete
-    ManagmentGpio_write(1);
+    // --- 3. wait for the decision flag ---
+    for (i = 0; i < 400000; i++)
+        if (SE_REG(SE_IRQ_FLAGS) & 0x1) break;
+    if (!(SE_REG(SE_IRQ_FLAGS) & 0x1)) fail_forever();
+    SE_REG(SE_CTRL) = 0;                                    // stop so that the read-back is of this window
 
-    // Read and report FFT bins (first 4)
-    USER_writeWord(0, SE_FFT_DATA); // Reset read pointer
-    for (i = 0; i < 4; i++) {
-        unsigned int fft_val = USER_readWord(SE_FFT_DATA);
-        // Value available for cocotb to read via LA
-    }
+    // --- 4. compare ---
+    SE_REG(SE_FFT_DATA) = 0;
+    for (i = 0; i < 32; i++) { v = SE_REG(SE_FFT_DATA) & 0xFFFF; if (v != exp_bins[i]) errors++; }
+    SE_REG(SE_FEAT_DATA) = 0;
+    for (i = 0; i < 8; i++)  { v = SE_REG(SE_FEAT_DATA) & 0xFF;   if (v != exp_feat[i]) errors++; }
+    v = SE_REG(SE_CLASS);
+    if ((v & 0x3) != EXP_CLASS || ((v >> 2) & 0xFF) != EXP_CONF) errors++;
+    if (errors) fail_forever();
 
-    // Done - hold
-    while(1);
+    ManagmentGpio_write(1);                                 // PASS
+    while (1);
 }

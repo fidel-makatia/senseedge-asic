@@ -85,9 +85,10 @@ def generate_header(l1w, l1b, l2w, l2b):
     header.append("//   [144..207] Layer 2 weights  (4 neurons x 16 inputs, row-major)")
     header.append("//   [208..211] Layer 2 biases   (4 values)")
     header.append("//")
-    header.append("// Load into hardware via Wishbone register SE_NN_WEIGHTS:")
-    header.append("//   for (int i = 0; i < 212; i++)")
-    header.append("//       reg_write(SE_NN_WEIGHTS, NN_WEIGHT(i, all_weights[i]));")
+    header.append("// Load into hardware as 53 words (corrected RTL, branch fix/audit-defects):")
+    header.append("//   for (int w = 0; w < 53; w++)")
+    header.append("//       SE_WRITE(SE_NN_WEIGHT_WORD(w), NN_WEIGHT_WORD(all_weights[4*w], all_weights[4*w+1],")
+    header.append("//                                                   all_weights[4*w+2], all_weights[4*w+3]));")
     header.append("")
     header.append("#ifndef NN_WEIGHTS_H")
     header.append("#define NN_WEIGHTS_H")
@@ -140,8 +141,7 @@ def generate_header(l1w, l1b, l2w, l2b):
     # --- Flat all_weights array for sequential loading ---
     header.append("// All 212 parameters in flat array for sequential weight loading")
     header.append("// Layout: L1 weights[128] | L1 biases[16] | L2 weights[64] | L2 biases[4]")
-    header.append("// Load via: for (int i = 0; i < 212; i++)")
-    header.append("//               reg_write(SE_NN_WEIGHTS, NN_WEIGHT(i, all_weights[i]));")
+    header.append("// Load via 53 word writes, four bytes each (see senseedge_regs.h)")
     header.append("static const int8_t all_weights[212] = {")
 
     # Format with section comments
@@ -218,8 +218,9 @@ def main():
     print("\nTo load weights into hardware:")
     print("  #include \"nn_weights.h\"")
     print("  #include \"senseedge_regs.h\"")
-    print("  for (int i = 0; i < 212; i++)")
-    print("      reg_write(SE_NN_WEIGHTS, NN_WEIGHT(i, all_weights[i]));")
+    print("  for (int w = 0; w < 53; w++)")
+    print("      SE_WRITE(SE_NN_WEIGHT_WORD(w), NN_WEIGHT_WORD(all_weights[4*w], all_weights[4*w+1],")
+    print("                                                  all_weights[4*w+2], all_weights[4*w+3]));")
 
     return 0
 

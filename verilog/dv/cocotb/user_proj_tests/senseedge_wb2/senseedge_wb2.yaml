@@ -1,0 +1,2 @@
+Tests:
+    - {name: senseedge_wb2, sim: RTL}
