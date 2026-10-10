@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: Apache-2.0
 // SenseEdge Firmware for Caravel RISC-V Management Core
+// Corrected for the RTL of branch fix/audit-defects: word-wide weight load with read-back,
+// absolute-address user-space access, hardware UART on pad 6, no division (rv32i).
 //
 // This firmware initializes the SenseEdge predictive maintenance pipeline:
 //   1. Configure GPIO pins for SPI ADC, alarm, UART
 //   2. Load pre-trained INT8 neural network weights
 //   3. Set ADC sample rate and alarm thresholds
 //   4. Enable the hardware pipeline
-//   5. Poll for classification results and transmit via UART
+//   5. Poll for classification results and transmit via the hardware UART (pad 6)
 
 #include <firmware_apis.h>
 #include "senseedge_regs.h"
@@ -14,42 +16,20 @@
 
 // ---------- Configuration ----------
 
-#define ADC_CLK_DIVIDER     250     // 25MHz / 250 = 100kHz SPI clock -> ~6.25 kSPS
+#define ADC_CLK_DIVIDER     249     // divider D: f_s = f_clk / (35 (D+1)); 20 MHz, D=249 -> 2.29 kS/s
 #define ALARM_THRESHOLD     150     // Confidence threshold for fault alarm
 #define ALARM_FAULT_COUNT   3       // Consecutive faults before alarm triggers
 
-// UART bit-bang configuration (on GPIO 5)
-#define UART_BAUD_DELAY     217     // ~115200 baud at 25 MHz (25M / 115200 = 217)
-#define UART_GPIO           5
-
-// ---------- UART Bit-Bang ----------
-
-static void uart_delay(void)
-{
-    volatile int i;
-    for (i = 0; i < UART_BAUD_DELAY; i++);
-}
+// ---------- UART ----------
+// The management core's hardware UART: TX on pad 6, RX on pad 5 (unused here), at the
+// core's default baud divider.  The first revision bit-banged pad 5 from software; in
+// Caravel co-simulation its bit time varied from 7.5k to 11.8k cycles with the code path,
+// because the core executes from SPI flash without an instruction cache, so no receiver
+// could lock to it.  The board must connect the radio's RX to pad 6.
 
 static void uart_send_byte(uint8_t byte)
 {
-    int bit;
-
-    // Start bit (low)
-    GPIOs_writeLow(UART_GPIO, 0);
-    uart_delay();
-
-    // Data bits (LSB first)
-    for (bit = 0; bit < 8; bit++) {
-        if (byte & (1 << bit))
-            GPIOs_writeHigh(UART_GPIO, 1);
-        else
-            GPIOs_writeLow(UART_GPIO, 0);
-        uart_delay();
-    }
-
-    // Stop bit (high)
-    GPIOs_writeHigh(UART_GPIO, 1);
-    uart_delay();
+    UART_sendChar((char)byte);
 }
 
 static void uart_send_string(const char *str)
@@ -72,21 +52,23 @@ static void uart_send_hex(uint32_t val)
     }
 }
 
+// No division or modulo: the management core is rv32i and the Caravel firmware build links
+// without libgcc's __udivsi3/__umodsi3 (the original version failed to link).
 static void uart_send_dec(uint32_t val)
 {
-    char buf[10];
-    int i = 0;
+    static const uint32_t pow10[10] = { 1000000000u, 100000000u, 10000000u, 1000000u, 100000u,
+                                        10000u, 1000u, 100u, 10u, 1u };
+    int i, started = 0;
 
     if (val == 0) {
         uart_send_byte('0');
         return;
     }
-    while (val > 0) {
-        buf[i++] = '0' + (val % 10);
-        val /= 10;
+    for (i = 0; i < 10; i++) {
+        unsigned int d = 0;
+        while (val >= pow10[i]) { val -= pow10[i]; d++; }
+        if (d || started) { uart_send_byte((uint8_t)('0' + d)); started = 1; }
     }
-    while (--i >= 0)
-        uart_send_byte(buf[i]);
 }
 
 // ---------- Classification Result Names ----------
@@ -109,6 +91,7 @@ void main(void)
     uint32_t confidence;
     uint32_t irq_flags;
     uint32_t cycle_count;
+    uint32_t weight_errors;
 
     // --- Phase 1: GPIO Configuration ---
     ManagmentGpio_outputEnable();
@@ -126,12 +109,12 @@ void main(void)
     GPIOs_configure(3, GPIO_MODE_USER_STD_OUTPUT);
     // GPIO 4: Status LED
     GPIOs_configure(4, GPIO_MODE_USER_STD_OUTPUT);
-    // GPIO 5: UART TX (output to ESP32)
-    GPIOs_configure(5, GPIO_MODE_USER_STD_OUTPUT);
-    // GPIO 6: UART RX (input from ESP32)
-    GPIOs_configure(6, GPIO_MODE_USER_STD_INPUT_NOPULL);
+    // GPIO 5: UART RX (management core), GPIO 6: UART TX (management core)
+    GPIOs_configure(5, GPIO_MODE_MGMT_STD_INPUT_NOPULL);
+    GPIOs_configure(6, GPIO_MODE_MGMT_STD_OUTPUT);
 
     GPIOs_loadConfigs();
+    UART_enableTX(1);
 
     // Enable Wishbone user interface
     User_enableIF();
@@ -140,33 +123,44 @@ void main(void)
     ManagmentGpio_write(1);
 
     // --- Phase 2: Load Neural Network Weights ---
-    // Write all 212 parameters to the NN weight registers
-    // The hardware expects: address in [15:8], data in [7:0]
-    for (i = 0; i < NN_TOTAL_PARAMS; i++) {
-        USER_writeWord(NN_WEIGHT(i, (uint8_t)all_weights[i]), SE_NN_WEIGHTS);
+    // 53 word writes, four INT8 parameters per word, then read every word back.
+    weight_errors = 0;
+    for (i = 0; i < SE_NN_WEIGHT_WORDS; i++) {
+        uint32_t word = NN_WEIGHT_WORD(all_weights[4 * i], all_weights[4 * i + 1],
+                                       all_weights[4 * i + 2], all_weights[4 * i + 3]);
+        SE_WRITE(SE_NN_WEIGHT_WORD(i), word);
+    }
+    for (i = 0; i < SE_NN_WEIGHT_WORDS; i++) {
+        uint32_t word = NN_WEIGHT_WORD(all_weights[4 * i], all_weights[4 * i + 1],
+                                       all_weights[4 * i + 2], all_weights[4 * i + 3]);
+        if (SE_READ(SE_NN_WEIGHT_WORD(i)) != word)
+            weight_errors++;
     }
 
-    // Signal: weights loaded
+    // Signal: weights loaded (and verified)
     ManagmentGpio_write(2);
 
     // --- Phase 3: Configure System ---
     // Set ADC clock divider for desired sample rate
-    USER_writeWord(ADC_CLK_DIVIDER, SE_CLK_DIV);
+    SE_WRITE(SE_CLK_DIV, ADC_CLK_DIVIDER);
 
     // Set alarm configuration: threshold and consecutive fault count
-    USER_writeWord(ALARM_CFG(ALARM_THRESHOLD, ALARM_FAULT_COUNT), SE_ALARM_CFG);
+    SE_WRITE(SE_ALARM_CFG, ALARM_CFG(ALARM_THRESHOLD, ALARM_FAULT_COUNT));
 
     // Clear any pending IRQ flags
-    USER_writeWord(0x3, SE_IRQ_FLAGS);
+    SE_WRITE(SE_IRQ_FLAGS, 0x3);
 
     // --- Phase 4: Enable Pipeline ---
-    USER_writeWord(0x1, SE_CTRL);
+    SE_WRITE(SE_CTRL, 0x1);
 
     // Signal: system running
     ManagmentGpio_write(3);
 
     // Send startup message via UART
-    uart_send_string("SenseEdge v1.0 Online\r\n");
+    uart_send_string("SenseEdge v1.1 Online\r\n");
+    uart_send_string("WEIGHTS verified, word errors: ");
+    uart_send_dec(weight_errors);
+    uart_send_string("\r\n");
     uart_send_string("Monitoring vibration...\r\n");
 
     // --- Phase 5: Main Classification Loop ---
@@ -174,7 +168,7 @@ void main(void)
         // Poll for classification done IRQ
         cycle_count = 0;
         do {
-            irq_flags = USER_readWord(SE_IRQ_FLAGS);
+            irq_flags = SE_READ(SE_IRQ_FLAGS);
             cycle_count++;
             if (cycle_count > 1000000) {
                 // Timeout — pipeline may be stuck
@@ -184,15 +178,15 @@ void main(void)
         } while (!(irq_flags & IRQ_CLASS_DONE));
 
         // Clear IRQ flags
-        USER_writeWord(irq_flags, SE_IRQ_FLAGS);
+        SE_WRITE(SE_IRQ_FLAGS, irq_flags);
 
         // Read classification result
-        result = USER_readWord(SE_CLASS_RESULT);
+        result = SE_READ(SE_CLASS_RESULT);
         class_id = GET_CLASS_ID(result);
         confidence = GET_CONFIDENCE(result);
 
         // Read status (check alarm)
-        status = USER_readWord(SE_STATUS);
+        status = SE_READ(SE_STATUS);
 
         // Transmit result via UART
         // Format: CLASS:<name> CONF:<value> ALARM:<0/1>\r\n

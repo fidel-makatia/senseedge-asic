@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SenseEdge Register Map Definitions
-// Matches wb_interface.v register layout
+// Matches wb_interface.v register layout (corrected RTL, branch fix/audit-defects)
 
 #ifndef SENSEEDGE_REGS_H
 #define SENSEEDGE_REGS_H
@@ -17,7 +17,14 @@
 #define SE_FEATURE_DATA     (SE_BASE + 0x14)  // R:   8-bit feature value (auto-increment)
 #define SE_IRQ_FLAGS        (SE_BASE + 0x18)  // R/W: [0]=class_done [1]=alarm_irq
 #define SE_CLK_DIV          (SE_BASE + 0x1C)  // R/W: [15:0]=ADC clock divider
-#define SE_NN_WEIGHTS       (SE_BASE + 0x20)  // W:   NN weight write (addr in [15:8], data in [7:0])
+#define SE_NN_WEIGHTS       (SE_BASE + 0x20)  // R/W: 53 words, 0x20..0xF0; byte lane k of word w = weight[4w+k]
+#define SE_NN_WEIGHT_WORD(w) (SE_NN_WEIGHTS + 4 * (w))
+#define SE_NN_WEIGHT_WORDS  53
+
+// Direct user-space access.  The Caravel firmware helpers take a word offset, not an
+// absolute address; these macros take the absolute addresses defined above.
+#define SE_WRITE(addr, val)  (*(volatile uint32_t *)(addr) = (uint32_t)(val))
+#define SE_READ(addr)        (*(volatile uint32_t *)(addr))
 
 // Status register bit positions
 #define STATUS_ENABLE       (1 << 0)
@@ -43,8 +50,10 @@
 // Pack alarm config: threshold in [7:0], fault count in [11:8]
 #define ALARM_CFG(threshold, faults)  (((faults) << 8) | ((threshold) & 0xFF))
 
-// Pack NN weight write: address in [15:8], data in [7:0]
-#define NN_WEIGHT(addr, data)  (((addr) << 8) | ((data) & 0xFF))
+// Pack four consecutive INT8 weights into one weight word (little-endian byte lanes)
+#define NN_WEIGHT_WORD(b0, b1, b2, b3) \
+    ((((uint32_t)(b0) & 0xFF)      ) | (((uint32_t)(b1) & 0xFF) <<  8) | \
+     (((uint32_t)(b2) & 0xFF) << 16) | (((uint32_t)(b3) & 0xFF) << 24))
 
 // NN weight memory layout
 #define NN_L1_WEIGHTS_START   0    // Layer 1 weights: [0..127] (16 neurons x 8 inputs)
