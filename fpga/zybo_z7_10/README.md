@@ -102,3 +102,5 @@ application. The register-map update of the paper is the same 53-word write at r
 To replay any record from the audit harness (`verilog/dv/audit/build/codes.hex`), write its
 codes to 0x2000 onward, set EMU_LEN to the number of codes, and read bins and features back
 through 0x10 and 0x14; the expected values come from `verilog/dv/audit/ref_models.py`.
+
+See `TEST_RUNS.md` for the ordered list of runs, what each one records, and which paper slot it fills.
