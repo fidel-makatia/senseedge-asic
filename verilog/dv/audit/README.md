@@ -93,6 +93,11 @@ benches refuse a short `codes.hex`).
 
 ## FPGA demonstration (to be run on hardware)
 
+A ready deployment for the Digilent Zybo Z7-10 is in `fpga/zybo_z7_10/` (AXI-Lite wrapper
+with the Zynq PS as bus master, on-chip MCP3201 emulator for self-test, scripted Vivado
+build, bare-metal program, Icarus simulation of the wrapper). The steps below describe the
+general procedure for any board.
+
 1. Instantiate `senseedge_top` behind a Wishbone master with word-aligned addresses and
    byte selects (a soft RISC-V or a bridge from a host). Drive `wb_clk_i` at 20 MHz.
 2. Connect pads 0-2 to the node's ADC (MISO, SCLK, CS_N), pad 3 to the alarm LED.
