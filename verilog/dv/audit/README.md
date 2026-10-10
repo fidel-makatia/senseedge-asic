@@ -69,18 +69,22 @@ read mux. No process-specific cell is used, so the RTL ports to an FPGA unchange
 | G3 | `senseedge_top` mapped to `sky130_fd_sc_hd` (dfflibmap + abc with the PDK liberty), simulated with the PDK's own cell models in functional mode | same: 53/53 words; 8/8 windows equal the reference and identical to the RTL run |
 | S | seven stress scenarios of `tb_stress.v` (back-to-back master, weight rewrite during capture, reset mid-window, read ports hammered while busy, empty-select and out-of-window writes, divider 0) on RTL, generic netlist and sky130 netlist | 7/7 scenarios pass on all three: identical bins, features and class to the baseline, IRQ flag set and cleared, no stall; divider 0 completes a window in 3030 clocks |
 | CV2 | Caravel co-simulation 2 (`cf verify senseedge_wb2`): through the management core, weight set A, four fault windows (class 1 each; the alarm asserts on the fourth with $N=3$ and the alarm pad goes high), then healthy windows (class 0, alarm cleared, pad low), then weight set B loaded over the bus and the same bin-8 record classified 2: a decision changed by a register-map update alone | **PASS**, 10 windows, 17.7 ms simulated |
-| CV3 | Caravel co-simulation of the unmodified production firmware (`cf verify senseedge_fw`), its bit-banged UART decoded on GPIO 5 by the test side: banner, weight read-back report, and one CLASS line per window checked against the RTL prediction | PENDING-CV3 |
+| CV3 | Caravel co-simulation of the unmodified production firmware (`cf verify senseedge_fw`), its bit-banged UART decoded on GPIO 5 by the test side: banner, weight read-back report, and one CLASS line per window checked against the RTL prediction | **PASS**: banner, `WEIGHTS verified, word errors: 0`, then `CLASS:HEALTHY CONF:255 ALARM:0` for each of 3 windows, exactly as predicted on the RTL for that record; 61.5 ms simulated |
 | CV | Caravel co-simulation (`cf verify senseedge_wb`): the real management core as Wishbone master running `senseedge_wb.c`, which loads 53 weight words, reads them back, runs one window on a data-sheet-timed ADC model driven from the cocotb side, and compares all 32 bins, 8 features and the class register with the RTL values | **PASS**: 53 words equal, bins/features/class (1, 255) equal, 357,471 cycles |
 
 The co-simulation is the strongest pre-FPGA evidence: it exercises the only bus master the
 silicon and the FPGA demo will have, with its word-aligned addresses and byte selects, and
 the firmware helpers' offset semantics are bypassed by absolute-address access.
 
-Two further defects of the shipped production firmware surfaced only when it was compiled
-for the real core (it never had been): the bit-banged UART called the GPIO write helpers
-with two arguments where they take one data word, and left pad 5 in user mode where the
-management core cannot drive it; and the decimal printer used division, which the rv32i
-build cannot link. Both are fixed in `firmware/senseedge_fw.c`.
+Three further defects of the shipped production firmware surfaced only when it was
+compiled for and run on the real core (it never had been). The bit-banged UART called the
+GPIO write helpers with two arguments where they take one data word, and left pad 5 in user
+mode where the management core cannot drive it. The decimal printer used division, which
+the rv32i build cannot link. And once those were fixed, the bit-banged bit time was found
+to vary between 7.5k and 11.8k cycles from bit to bit (measured on the pad in co-simulation),
+because the core executes from SPI flash without an instruction cache, so no receiver could
+lock to it. The firmware now uses the management core's hardware UART on pad 6; the board
+must wire the radio's RX to pad 6 (the test plan had already asked for this swap).
 
 Lesson recorded while running these: the gate-level runner and the RTL runner must not
 share a build directory. A stimulus file overwritten mid-run produced unknown values that
