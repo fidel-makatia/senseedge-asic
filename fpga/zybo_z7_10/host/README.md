@@ -31,7 +31,7 @@ host/
 | Split | by sequence, stratified by class and condition, 30 % test, seed 0 | unseen load: 3 hp held out (10 files), 0-2 hp train |
 | Why | the only public set with the chip's own four conditions on one rig | the benchmark everyone reports; its pitfalls are known (Smith & Randall 2015) |
 
-Fetch: `~/datasets/mafaulda/fetch2.sh` (resumable curl of the six class archives, then
+Fetch: `~/datasets/mafaulda/fetch3.sh` (one `curl` per class archive, verified by size and `unzip -t`, then
 `unzip` each into `~/datasets/mafaulda/extracted/`) and `~/datasets/cwru/fetch.sh` (the 40
 files). Neither dataset is redistributed here.
 
@@ -44,7 +44,7 @@ python3 prepare_records.py cwru     --root ~/datasets/cwru/raw           --out r
 #    other sample rates: --div 142 (4.0 kS/s), --div 70 (8.0 kS/s); --policy tracked (f_s = 32 f_rot)
 #    gain target 512 (a quarter of half scale) is the rule used for every result below: at 8 kS/s the
 #    default 1024 clipped 20 % of the inner-race samples for the same accuracy
-# 2. the model is bit-exact to the RTL (proved on 1024 random/tone/corner windows and 1024 dataset windows)
+# 2. the model is bit-exact to the RTL (proved on 1024 random/tone/corner windows, 1024 CWRU and 1024 MaFaulDa windows)
 python3 ../../../verilog/dv/audit/check_fft_model.py --records records/cwru_d249.npz
 # 3. weights on the integer grid of nn_engine.v; test-split metrics are what the board must reproduce
 python3 ../../../ml/train_on_records.py --records records/mafaulda_d249.npz --name mafaulda_d249 --seeds 16
@@ -60,16 +60,17 @@ python3 weight_update.py --records records/mafaulda_d249.npz --weights ../../../
 ```
 
 Replay speed: a block of 64 windows is 8 KB over the UART; at 115200 baud about 0.9 s per block
-including the run at D = 9 (1.1 ms per window). The MaFaulDa test split (about 100 k windows)
-takes about 25 minutes; CWRU (3.6 k windows) about one minute. Compile the program with
+including the run at D = 9 (1.1 ms per window). The MaFaulDa test split at D = 249 (103 840 windows)
+takes about 25 minutes, at D = 70 (369 340) about 90, tracked (53 066) about 13; CWRU (3.6 k to
+12.8 k windows) one to four minutes. Compile the program with
 `-DSE_BAUD=921600` and pass `--baud 921600` for an 8x faster transfer.
 
 ## What the board run measures (and what the paper quotes)
 
 | Measurement | Script | Paper slot |
 |---|---|---|
-| Bit-exactness of the hardware on recorded vibration: features and decision of every window, bins of every 20th block, alarm of every window, against the reference chain | `replay.py` | Table VI last row; IX-D |
-| Accuracy on MaFaulDa (window, balanced, sequence-majority, 95 % CI by sequence bootstrap, confusion matrix, per condition: severity and speed) with the on-chip network | `replay.py`, `evaluate.py` | VIII (dataset protocol), Table VII "Accuracy" |
+| Bit-exactness of the hardware on recorded vibration: features and decision of every window, bins of every 20th block, alarm of every window, against the reference chain | `replay.py` | Table VII last row; IX-D |
+| Accuracy on MaFaulDa (window, balanced, sequence-majority, 95 % CI by sequence bootstrap, confusion matrix, per condition: severity and speed) with the on-chip network | `replay.py`, `evaluate.py` | VIII (dataset protocol), Table VIII "Accuracy" |
 | Accuracy on CWRU, unseen load, at three sample rates (D = 249, 142, 70) | `replay.py` with the three record files and weight sets | VIII sample-rate policy |
 | Register-map model update: same windows, two weight sets, decisions and alarm as predicted | `weight_update.py` | VIII-D, IX-D |
 | Divider independence and replay time per window | `divider_check.py` | IX-C |
@@ -91,4 +92,21 @@ gain target 512, window accuracy with the 95 % sequence-bootstrap interval:
 | `cwru_d70_g512` | 8.0 kS/s (D=70) | 80.5 % (72.3-88.1) | 83.7 % | 100 % | 99.4 / 79.2 / 83.1 / 73.1 |
 
 The intervals are wide because the unit is the held-out file (ten of them); the three rates are
-three values of one register. MaFaulDa rows follow when its archives are in.
+three values of one register.
+
+MaFaulDa, four classes, 590 of 1951 sequences held out (stratified by class and condition, seed 0),
+best of 16 seeds, gain target 512:
+
+| records | f_s | test windows | window | balanced | sequence majority | recall H / BW / IMB / MIS |
+|---|---|---|---|---|---|---|
+| `mafaulda_d249` | 2.29 kS/s (D=249, the reset value) | 103 840 | 71.7 % (69.0-74.1) | 73.6 % | 76.6 % | 71.8 / 68.2 / 81.9 / 72.4 |
+| `mafaulda_d70` | 8.0 kS/s (D=70) | 369 340 | 63.9 % (61.4-66.1) | 66.5 % | 71.7 % | 76.2 / 66.3 / 71.0 / 52.6 |
+| `mafaulda_tracked` | 32 f_rot per sequence (D = 286 to 1477) | 53 066 | 67.6 % (64.2-70.6) | 73.5 % | 67.8 % | 77.5 / 59.6 / 85.0 / 72.0 |
+
+What the per-condition tables (`ml/records/mafaulda_*_train.md`) say: ball faults of either bearing
+92-100 %; imbalance rises with the mass (66 % at 6 g, 97 % at 35 g) and misalignment with the offset
+(52 % at 0.5 mm, 91 % at 1.9 mm); the misses are cage faults without added mass (7-27 %) and healthy
+against mild misalignment, whose 1x/2x lines (12-120 Hz) share the lowest bins at 35.8 Hz resolution.
+8 kS/s is worse because an 8 ms window spans less than half a revolution and the shaft harmonics fall
+into one 125 Hz bin. The tracked policy (bin = half an order) equals the fixed rate in balanced
+accuracy but not in the sequence vote. The reset value D = 249 is the right setting for this rig.
