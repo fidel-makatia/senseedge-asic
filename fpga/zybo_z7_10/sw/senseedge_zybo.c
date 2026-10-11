@@ -40,7 +40,9 @@
 #endif
 #ifdef SE_BAUD
 #include "xuartps.h"
-#ifdef XPAR_PS7_UART_1_DEVICE_ID
+#if defined(SDT)
+#define SE_UART_ID SE_UART_BASE            /* system-device-tree BSPs (Vitis 2023.2+): LookupConfig takes the base address */
+#elif defined(XPAR_PS7_UART_1_DEVICE_ID)
 #define SE_UART_ID XPAR_PS7_UART_1_DEVICE_ID
 #else
 #define SE_UART_ID XPAR_XUARTPS_0_DEVICE_ID

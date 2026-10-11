@@ -35,6 +35,7 @@ def main():
     ap.add_argument("--records", required=True); ap.add_argument("--weights", required=True)
     ap.add_argument("--class", dest="cls", type=int, default=1); ap.add_argument("--n", type=int, default=16)
     ap.add_argument("--div", type=int, default=9); ap.add_argument("--thr", type=int, default=100); ap.add_argument("--ncons", type=int, default=3)
+    ap.add_argument("--out", help="write the decisions and alarm flags as JSON (for paper_figures.py)")
     a = ap.parse_args()
     d = np.load(a.records)
     seq, label, split = d["seq"], d["label"], d["seq_split"]
@@ -64,6 +65,12 @@ def main():
     print(f"decisions changed by the register-map write alone: {changed} of {len(codes)}; "
           f"alarm under A {max(report['A']['alarm'])}, under B {max(report['B']['alarm'])}; "
           f"RESULT: {'PASS' if all(v['ok'] for v in report.values()) else 'FAIL'}")
+    if a.out:
+        import json
+        report.update(dict(changed=changed, n=len(codes), sequence=int(cand[0]), label=int(a.cls), div=a.div, threshold=a.thr,
+                           n_consec=a.ncons, ok=all(report[k]["ok"] for k in ("A", "B", "A again"))))
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.out).write_text(json.dumps(report, indent=1))
 
 
 if __name__ == "__main__":

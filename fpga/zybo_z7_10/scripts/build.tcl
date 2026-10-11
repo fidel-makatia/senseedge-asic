@@ -86,6 +86,9 @@ if {[get_property PROGRESS [get_runs impl_1]] != "100%"} { error "implementation
 file mkdir "$root/build"
 write_hw_platform -fixed -include_bit -force "$root/build/senseedge_zybo.xsa"
 file copy -force [lindex [glob "$proj_dir/senseedge_zybo.runs/impl_1/*.bit"] 0] "$root/build/senseedge_zybo.bit"
+open_run impl_1
 report_utilization -file "$root/build/utilization.txt"
+report_utilization -hierarchical -hierarchical_depth 3 -file "$root/build/utilization_hier.txt"
 report_timing_summary -file "$root/build/timing.txt"
+report_power -file "$root/build/power.txt"
 puts "DONE: $root/build/senseedge_zybo.xsa  $root/build/senseedge_zybo.bit"

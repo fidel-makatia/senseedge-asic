@@ -25,6 +25,7 @@ def main():
     add_link_args(ap)
     ap.add_argument("--records", required=True); ap.add_argument("--weights", required=True)
     ap.add_argument("--divs", default="249,9,4"); ap.add_argument("--n", type=int, default=32)
+    ap.add_argument("--out", help="write the measurements as JSON (for paper_figures.py)")
     a = ap.parse_args()
     d = np.load(a.records)
     rng = np.random.RandomState(0)
@@ -37,6 +38,7 @@ def main():
     link.load_weights(W)
     link.load_record(codes)
     ok_all = True
+    runs = []
     for div in [int(v) for v in a.divs.split(",")]:
         link.config(div, 100, 3)
         t0 = time.time()
@@ -47,8 +49,15 @@ def main():
         t_win = 64 * 35 * (div + 1) / F_CLK
         print(f"D={div:3d}: f_s = {F_CLK / (35 * (div + 1)):8.1f} S/s, window {1e3 * t_win:7.2f} ms; {len(res)} windows in {dt:.2f} s "
               f"({1e3 * dt / len(res):.2f} ms each incl. transfer); bins/features/decisions {'identical to the reference' if ok else 'MISMATCH'}")
+        runs.append(dict(div=div, fs=F_CLK / (35 * (div + 1)), ms_window_pred=1e3 * t_win, ms_per_window=1e3 * dt / max(1, len(res)),
+                         seconds=dt, windows=len(res), ok=bool(ok)))
     link.quit(); link.close()
     print("DIVIDER CHECK:", "PASS" if ok_all else "FAIL")
+    if a.out:
+        import json
+        Path(a.out).parent.mkdir(parents=True, exist_ok=True)
+        Path(a.out).write_text(json.dumps(dict(n=len(codes), ok=bool(ok_all), records=str(a.records), weights=str(a.weights),
+                                               baud=a.baud, runs=runs), indent=1))
 
 
 if __name__ == "__main__":
