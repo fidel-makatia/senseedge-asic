@@ -1,0 +1,36 @@
+{
+ "n": 32,
+ "ok": true,
+ "records": "records/cwru_d249_g512.npz",
+ "weights": "C:\\Users\\fidel\\OneDrive\\Desktop\\SenseEdge\\senseedge-asic\\ml\\records\\cwru_d249_g512_weights.npz",
+ "baud": 115200,
+ "runs": [
+  {
+   "div": 249,
+   "fs": 2285.714285714286,
+   "ms_window_pred": 28.0,
+   "ms_per_window": 35.00650078058243,
+   "seconds": 1.1202080249786377,
+   "windows": 32,
+   "ok": true
+  },
+  {
+   "div": 9,
+   "fs": 57142.857142857145,
+   "ms_window_pred": 1.1199999999999999,
+   "ms_per_window": 8.006870746612549,
+   "seconds": 0.25621986389160156,
+   "windows": 32,
+   "ok": true
+  },
+  {
+   "div": 4,
+   "fs": 114285.71428571429,
+   "ms_window_pred": 0.5599999999999999,
+   "ms_per_window": 7.507525384426117,
+   "seconds": 0.24024081230163574,
+   "windows": 32,
+   "ok": true
+  }
+ ]
+}

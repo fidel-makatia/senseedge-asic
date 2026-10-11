@@ -32,6 +32,20 @@ Wrapper register map (AXI-Lite at `0x43C00000`): `0x0000–0x00FF` the chip's re
 | `ml/train_on_records.py`: the six kept weight sets (three CWRU, three MaFaulDa) vs `nn_engine.v` on 400 test vectors each | 6 x 400/400 bit-exact |
 | `sim/run_sim.sh`: the self-test sequence | PASS |
 
+## Reproduced on the board machine (11 Oct 2026, Windows 11, Icarus 12.0)
+
+| Check | Result |
+|---|---|
+| `verilog/dv/audit/run_audit.py` (experiments A–E) | ALL PASS: 2400/2400 NN vectors, 4096/4096 ADC codes, 32/32 tones, 53/53 weight words, 8/8 bus windows, 728 clocks buffer-full to decision |
+| `check_fft_model.py --records cwru_d249_g512.npz` | 1024/1024 windows bit-exact (32 bins + 8 features) |
+| Board at 921600 baud (`SE_BAUD=921600 vitis -s scripts/vitis_build.py`) | self-test spectrum PASS; CWRU D = 249 replay 3,608/3,608 bit-exact at **164 windows/s** (65 at 115200) |
+
+Two things to know when repeating these: (1) never run two of the audit scripts at once — they
+share `verilog/dv/audit/build/` and the stimulus file of one overwrites the other's (the
+truncated outputs then look like RTL mismatches); (2) the Vitis workspace must sit at a short
+path (`scripts/vitis_build.py` uses `%USERPROFILE%\se_ws`) or the BSP build fails on Windows'
+250-character object-path limit.
+
 ## What the FPGA does not provide
 
 No silicon power or energy figure: the Vivado estimate goes only into the like-for-like FPGA
@@ -40,9 +54,20 @@ values is the gate-level rows of Table VII (`verilog/dv/audit/run_gl.py`), not t
 
 ## Status
 
-| Run | Status (11 Oct 2026) |
+Runs 1–7 were done on the board on 11 Oct 2026 (Vivado/Vitis 2026.1 on Windows, Zybo Z7-10 on
+COM10, 115200 baud). Every file named below is under `host/results/`; the figures and LaTeX
+tables are written by `host/paper_figures.py` and `host/paper_tables.py` into
+`host/results/figures/` and `host/results/tables/`. `host/run_board_tests.py --port COM10`
+repeats runs 2–7 in one command.
+
+| Run | Result (11 Oct 2026) |
 |---|---|
-| 1 | not run: no Vivado on the authoring machine (macOS); TCL untested |
-| 2 | sequence verified in Icarus (`sim/run_sim.sh`, PASS) |
-| 3–7 | host side and firmware verified in simulation and against the mock; pending the board |
+| 1 | `scripts/build_zybo.tcl` (installs the Digilent board files from the AMD store, then `build.tcl`): bitstream in 6 min. Whole design 11,200 LUT (63.6 %), 6,317 FF, 1.5 BRAM, 6 DSP; the macro alone 10,718 LUT / 5,640 FF / 6 DSP (FFT 8,762 LUT, NN 1,366). WNS +8.38 ns, WHS +0.04 ns at 20 MHz. `report_power`: 27 mW for the PL wrapper, 1.40 W for the PS7. `build/utilization*.txt`, `timing.txt`, `power.txt` |
+| 2 | UART: `wrapper id 0x5E5E0002, protocol 1`, `weights: 53 words written, 0 read-back errors`, `self-test: ... PASS, identical to the RTL audit values`, `*** SELF-TEST PASSED ***`, then `CLASS:BEARING_WEAR CONF:255` with the alarm on the fourth fault decision (`selftest_uart.txt`). Over the protocol: 32/32 bins, 8/8 features, class 1 / 255 equal to `ref_models.chain` (`selftest_spectrum.json`) |
+| 3 | not applicable to the board: `test_protocol_mock.py` forces `--mock` and checks the mock chip's arithmetic. The protocol is exercised on the board by run 2 (identify, weight round trip, record, run, read-back) and by every block of runs 4–7 |
+| 4 | CWRU, 3 hp held out: 2.29 kS/s **75.86 %** window (CI 57.5–88.4), 77.7 % balanced, 90 % sequence; 4.0 kS/s **65.07 %** (47.0–80.7), 60.9 %, 80 %; 8.0 kS/s **80.54 %** (72.3–88.1), 83.7 %, 100 %. Confusion matrices identical to the host model. Bit-exact: 3,608 + 6,324 + 12,764 = **22,696 windows, 0 mismatches** in features, class, confidence and alarm; bins checked on 1,149 windows, 0 mismatches. 65 windows/s (`fpga_cwru_d*_g512.{csv,json,md}`) |
+| 5 | MaFaulDa: not run (archives not fetched on this machine) |
+| 6 | D = 4, 9, 249 on the same 32 windows: identical bins, features and decisions; 7.51 / 8.01 / 35.01 ms per window incl. transfer against 0.56 / 1.12 / 28.00 ms capture time (`divider_check.json`) |
+| 7 | IR007 test sequence, 16 windows: set A → 14× class 1, 2× class 3, alarm from window 3; set B → 14× class 0, 2× class 2, no alarm; set A again → identical to the first run; 0 read-back errors each load; 16 of 16 decisions moved by the register-map write alone (`weight_update.json`) |
 | 8 | pending a sensor |
+| 9 | Streaming (`host/stream_demo.py`, replayed at the deployment divider so the time axis is machine time): a healthy sequence followed by a fault sequence; per window the chip's 32 bins, 8 features, decision, confidence and the hardware alarm. CWRU normal → IR007 at 2.29 kS/s: hardware alarm **4 windows = 112 ms** after the onset (N = 3), 312/359 healthy and 363/363 fault windows decided correctly over 20 s; alarm depth N = 0..7 in hardware: delay N+1 windows, false alarms in 6/6, 2/6, then 0/6 healthy blocks; 914/914 windows bit-exact. CWRU normal → OR007 at 8.0 kS/s: alarm **32 ms** after the onset, 0/20 healthy blocks with a false alarm from N = 2; 2,744/2,744 bit-exact. Figures `fig_<ds>_onset`, `_timeline`, `_alarm_depth`, `_class_spectra` (`stream_cwru_d249.json`, `stream_cwru_d70.json`) |

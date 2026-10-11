@@ -1,0 +1,30 @@
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+Resource (whole design) & Used & Available & Util. (\%) \\
+\midrule
+LUT & 11,200 & 17,600 & 63.64 \\
+Flip-flops & 6,317 & 35,200 & 17.95 \\
+BRAM (36 Kb tiles) & 1.5 & 60 & 2.50 \\
+DSP48E1 & 6 & 80 & 7.50 \\
+\midrule
+Setup slack at 20 MHz (WNS) & \multicolumn{3}{r}{+8.382 ns} \\
+Hold slack (WHS) & \multicolumn{3}{r}{+0.040 ns} \\
+Power estimate, PL (SenseEdge wrapper) & \multicolumn{3}{r}{27 mW} \\
+Power estimate, PS7 & \multicolumn{3}{r}{1.40 W} \\
+\bottomrule
+\end{tabular}
+% xc7z010clg400-1, whole design incl. Zynq PS wrapper and AXI interconnect; power from report_power (vectorless)
+
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Block & LUT & FF & BRAM & DSP \\
+\midrule
+senseedge\_top (whole macro) & 10,718 & 5,640 & 0 & 6 \\
+FFT engine & 8,762 & 3,163 & 0 & 4 \\
+NN engine & 1,366 & 2,042 & 0 & 1 \\
+Wishbone + registers & 384 & 153 & 0 & 0 \\
+Feature extraction & 162 & 226 & 0 & 1 \\
+SPI ADC capture & 60 & 47 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+% report_utilization -hierarchical on the implemented design

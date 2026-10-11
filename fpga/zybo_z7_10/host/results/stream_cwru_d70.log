@@ -1,0 +1,12 @@
+board 0x5E5E0002; healthy normal_3hp (seq 3, 1270 windows), fault OR007_3hp (seq 15, 1282 windows); D = 70 (8048.3 S/s, 8.0 ms per window)
+onset block: 64 windows in 0.85 s; decisions [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1, 3, 3, 3, 3, 1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3, 3, 1, 3, 3, 3, 3, 1, 1, 3, 3, 3, 3, 3, 3, 1, 3, 3, 3]; alarm [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+timeline: 2552 windows (20.3 s of machine time) in 32.6 s; 8 fault decisions before the onset, 0 healthy after
+N = 0: delay 1 windows; false alarms in 4/20 healthy blocks (6 windows)
+N = 1: delay 2 windows; false alarms in 1/20 healthy blocks (1 windows)
+N = 2: delay 3 windows; false alarms in 0/20 healthy blocks (0 windows)
+N = 3: delay 4 windows; false alarms in 0/20 healthy blocks (0 windows)
+N = 4: delay 5 windows; false alarms in 0/20 healthy blocks (0 windows)
+N = 5: delay 6 windows; false alarms in 0/20 healthy blocks (0 windows)
+N = 6: delay 7 windows; false alarms in 0/20 healthy blocks (0 windows)
+N = 7: delay 8 windows; false alarms in 0/20 healthy blocks (0 windows)
+bit-exact against the reference chain: 2744/2744 windows; wrote results\stream_cwru_d70.json

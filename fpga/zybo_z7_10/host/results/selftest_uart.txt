@@ -1,0 +1,13 @@
+   0.000  
+   0.000  SenseEdge on Zybo Z7-10, wrapper id 0x5E5E0002, protocol 1
+   0.000  SW0=0: on-chip emulator self-test
+   0.000  weights: 53 words written, 0 read-back errors
+   0.000  self-test: 32 bins, 8 features, class: PASS, identical to the RTL audit values
+   0.000  *** SELF-TEST PASSED ***
+   0.032  CLASS:BEARING_WEAR CONF:255 ALARM:0
+   0.032  CLASS:BEARING_WEAR CONF:255 ALARM:1
+   0.032  CLASS:BEARING_WEAR CONF:255 ALARM:1
+   0.032  CLASS:BEARING_WEAR CONF:255 ALARM:1
+   0.032  CLASS:BEARING_WEAR CONF:255 ALARM:1
+   0.032  CLASS:BEARING_WEAR CONF:255 ALARM:1
+   0.032  CLASS:BEARING_WEAR CONF:255 ALARM:1

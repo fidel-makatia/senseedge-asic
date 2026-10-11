@@ -1,0 +1,117 @@
+{
+ "windows": 12764,
+ "sequences": 10,
+ "window_accuracy": 0.8053901598245065,
+ "window_accuracy_ci95": [
+  0.7231926059371818,
+  0.8806519865214325
+ ],
+ "balanced_accuracy": 0.8368893159492985,
+ "sequence_accuracy": 1.0,
+ "sequence_accuracy_ci95": [
+  1.0,
+  1.0
+ ],
+ "recall": [
+  0.9937007874015747,
+  0.7919165580182529,
+  0.8308496732026144,
+  0.7310902451747522
+ ],
+ "precision": [
+  0.8498316498316498,
+  0.7517326732673267,
+  0.7670769973449192,
+  0.9053617571059431
+ ],
+ "confusion": [
+  [
+   1262,
+   1,
+   7,
+   0
+  ],
+  [
+   1,
+   3037,
+   547,
+   250
+  ],
+  [
+   186,
+   418,
+   3178,
+   43
+  ],
+  [
+   36,
+   584,
+   411,
+   2803
+  ]
+ ],
+ "class_names": [
+  "NORMAL",
+  "INNER_RACE",
+  "BALL",
+  "OUTER_RACE"
+ ],
+ "per_condition": {
+  "B007_3hp": {
+   "windows": 1271,
+   "accuracy": 0.933910306845004
+  },
+  "B014_3hp": {
+   "windows": 1277,
+   "accuracy": 0.7447141738449491
+  },
+  "B021_3hp": {
+   "windows": 1277,
+   "accuracy": 0.8144087705559906
+  },
+  "IR007_3hp": {
+   "windows": 1286,
+   "accuracy": 0.8771384136858476
+  },
+  "IR014_3hp": {
+   "windows": 1273,
+   "accuracy": 0.5679497250589159
+  },
+  "IR021_3hp": {
+   "windows": 1276,
+   "accuracy": 0.9294670846394985
+  },
+  "OR007_3hp": {
+   "windows": 1282,
+   "accuracy": 0.8354134165366615
+  },
+  "OR014_3hp": {
+   "windows": 1276,
+   "accuracy": 0.7311912225705329
+  },
+  "OR021_3hp": {
+   "windows": 1276,
+   "accuracy": 0.6261755485893417
+  },
+  "normal_3hp": {
+   "windows": 1270,
+   "accuracy": 0.9937007874015747
+  }
+ },
+ "board_id": "0x5E5E0002",
+ "div": 9,
+ "threshold": 100,
+ "n_consec": 3,
+ "blocks": 202,
+ "bins_checked": 637,
+ "mismatch_bins": 0,
+ "mismatch_features": 0,
+ "mismatch_class_conf": 0,
+ "mismatch_alarm": 0,
+ "elapsed_s": 194.1,
+ "windows_per_s": 65.8,
+ "records": "records/cwru_d70_g512.npz",
+ "weights": "C:\\Users\\fidel\\OneDrive\\Desktop\\SenseEdge\\senseedge-asic\\ml\\records\\cwru_d70_g512_weights.npz",
+ "baud": 115200,
+ "mock": false
+}

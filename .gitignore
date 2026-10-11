@@ -28,3 +28,4 @@ fpga/zybo_z7_10/build/
 fpga/zybo_z7_10/sim/build/
 fpga/zybo_z7_10/host/results/*.csv
 __pycache__/
+fpga/zybo_z7_10/nlviewcommon.logfile

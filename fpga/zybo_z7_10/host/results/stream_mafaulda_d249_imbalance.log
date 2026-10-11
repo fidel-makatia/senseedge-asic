@@ -1,0 +1,12 @@
+board 0x5E5E0002; healthy normal (seq 533, 176 windows), fault imbalance/35g (seq 447, 176 windows); D = 249 (2285.7 S/s, 28.0 ms per window)
+onset block: 64 windows in 2.59 s; decisions [3, 3, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 3, 0, 2, 3, 0, 3, 0, 0, 3, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2]; alarm [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+timeline: 352 windows (9.9 s of machine time) in 13.1 s; 41 fault decisions before the onset, 0 healthy after
+N = 0: delay -23 windows; false alarms in 42/42 healthy blocks (727 windows)
+N = 1: delay -22 windows; false alarms in 36/42 healthy blocks (238 windows)
+N = 2: delay 3 windows; false alarms in 24/42 healthy blocks (87 windows)
+N = 3: delay 4 windows; false alarms in 13/42 healthy blocks (35 windows)
+N = 4: delay 5 windows; false alarms in 6/42 healthy blocks (13 windows)
+N = 5: delay 6 windows; false alarms in 5/42 healthy blocks (7 windows)
+N = 6: delay 7 windows; false alarms in 1/42 healthy blocks (2 windows)
+N = 7: delay 8 windows; false alarms in 1/42 healthy blocks (1 windows)
+bit-exact against the reference chain: 544/544 windows; wrote results\stream_mafaulda_d249_imbalance.json

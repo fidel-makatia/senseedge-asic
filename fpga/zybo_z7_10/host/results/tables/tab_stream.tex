@@ -1,0 +1,9 @@
+\begin{tabular}{@{}lrrrrrr@{}}
+\toprule
+Stream & $f_s$ (kS/s) & Healthy ok & Fault ok & Delay at $N{=}3$ & False-alarm blocks, $N{=}0/1/2$ & Bit-exact \\
+\midrule
+normal 3hp $\to$ IR007 3hp & 2.29 & 312/359 & 363/363 & 4 win. = 112 ms & 6/2/0 of 6 & 914/914 \\
+normal 3hp $\to$ OR007 3hp & 8.05 & 1262/1270 & 1282/1282 & 4 win. = 32 ms & 4/1/0 of 20 & 2744/2744 \\
+\bottomrule
+\end{tabular}
+% stream_demo.py: hardware decisions and alarm, replayed at the deployment divider; threshold 100

@@ -12,10 +12,28 @@ fpga/zybo_z7_10/
   rtl/axil_senseedge.v     AXI4-Lite slave -> Wishbone bridge, emulator, LEDs, around senseedge_top
   rtl/mcp3201_emu.v        MCP3201 emulator fed from a 4096-code RAM written over AXI
   constraints/zybo_z7_10.xdc
-  scripts/build.tcl        Vivado batch build -> build/senseedge_zybo.xsa and .bit
+  scripts/build.tcl        Vivado batch build -> build/senseedge_zybo.xsa and .bit (+ utilization, timing, power reports)
+  scripts/build_zybo.tcl   same, but first installs the Digilent board files from the AMD board store if missing
+  scripts/vitis_build.py   scripted Vitis build of the program: vitis -s scripts/vitis_build.py [build/senseedge_zybo.xsa]
+                           (SE_BAUD=921600 in the environment builds the fast-UART variant)
+  scripts/program.tcl      xsdb: bitstream + ps7_init + ELF over JTAG
   sw/senseedge_zybo.c      bare-metal program for the PS (Vitis standalone)
   sim/tb_axil_senseedge.v  Icarus simulation of the wrapper driven exactly like the program
   sim/run_sim.sh
+  host/run_board_tests.py  the whole board session of TEST_RUNS.md (runs 2-7) in one command
+  host/run_mafaulda.py     MaFaulDa end to end: archives -> records -> weights -> board replay
+  host/paper_figures.py    the paper's figures (PDF + PNG) from host/results/
+  host/paper_tables.py     the paper's LaTeX tables from host/results/ and build/
+```
+
+Scripted flow on a machine with Vivado + Vitis (tested with 2026.1 on Windows, see TEST_RUNS.md):
+
+```
+cd fpga/zybo_z7_10
+vivado -mode batch -source scripts/build_zybo.tcl              # ~6 min
+vitis -s scripts/vitis_build.py                                 # build/senseedge_zybo.elf, build/ps7_init.tcl
+xsdb scripts/program.tcl build/senseedge_zybo.bit build/ps7_init.tcl build/senseedge_zybo.elf
+python host/run_board_tests.py --port COM10                     # results, figures and tables under host/results/
 ```
 
 ## What has been verified, and what has not
