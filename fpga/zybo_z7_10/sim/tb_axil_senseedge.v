@@ -53,7 +53,7 @@ module tb_axil_senseedge;
     exp_feat[4] = 64; exp_feat[5] = 62; exp_feat[6] = 1; exp_feat[7] = 62;
 
     repeat (5) @(posedge clk); aresetn = 1; repeat (5) @(posedge clk);
-    axi_read(16'h1008); if (rd !== 32'h5E5E0001) begin $display("FAIL id %h", rd); errors = errors + 1; end
+    axi_read(16'h1008); if (rd !== 32'h5E5E0002) begin $display("FAIL id %h", rd); errors = errors + 1; end
     // emulator record
     for (i = 0; i < 64; i = i + 1) axi_write(16'h2000 + 4*i, rec[i], 4'hF);
     axi_write(16'h1004, 64, 4'hF);

@@ -64,7 +64,7 @@ hardware with the bitstream.
 3. SW0 down. *Run As > Launch on Hardware*. Expected output:
 
 ```
-SenseEdge on Zybo Z7-10, wrapper id 0x5e5e0001
+SenseEdge on Zybo Z7-10, wrapper id 0x5e5e0002, protocol 1
 SW0=0: on-chip emulator self-test
 weights: 53 words written, 0 read-back errors
 self-test: 32 bins, 8 features, class: PASS, identical to the RTL audit values
@@ -93,14 +93,24 @@ application. The register-map update of the paper is the same 53-word write at r
 | Offset | Register |
 |---|---|
 | 0x0000-0x00FF | the chip's Wishbone registers, unchanged (see `firmware/senseedge_regs.h`) |
-| 0x1000 | EMU_CTRL: bit 0 = 1 selects the emulator, 0 the Pmod ADC |
+| 0x1000 | EMU_CTRL: bit 0 = 1 selects the emulator, 0 the Pmod ADC; bit 1 = write 1 to reset the chip and the emulator (7 clocks, reads back 1 while active; weights, divider and alarm config must be reloaded afterwards) |
 | 0x1004 | EMU_LEN: codes played before wrapping (1..4096) |
-| 0x1008 | ID = 0x5E5E0001 |
+| 0x1008 | ID = 0x5E5E0002 |
 | 0x100C | bits 1:0 = SW1:0; bits 15:8 = next emulator code index |
 | 0x2000-0x5FFF | emulator code RAM, one 12-bit code per word |
 
 To replay any record from the audit harness (`verilog/dv/audit/build/codes.hex`), write its
 codes to 0x2000 onward, set EMU_LEN to the number of codes, and read bins and features back
 through 0x10 and 0x14; the expected values come from `verilog/dv/audit/ref_models.py`.
+
+## Dataset replay from a host PC (no sensor needed)
+
+The program answers a binary protocol on the same UART (see the header of
+`sw/senseedge_zybo.c` and `host/se_link.py`); `host/README.md` describes the pipeline that
+turns a public vibration dataset (MaFaulDa, CWRU) into replay records, trains the weights on
+the bit-exact host model, replays every test window through the board and checks it bit for
+bit.  `sim/run_replay_check.py` runs the same replay in Icarus against the wrapper RTL, and
+`host/test_protocol_mock.py` runs the protocol against a mock chip, so both ends are verified
+before the board is touched.
 
 See `TEST_RUNS.md` for the ordered list of runs, what each one records, and which paper slot it fills.
