@@ -1,0 +1,380 @@
+{
+ "fit": {
+  "windows": 28693,
+  "sequences": 23,
+  "window_accuracy": 0.8002648729655316,
+  "window_accuracy_ci95": [
+   0.7181440229670909,
+   0.8687880675594889
+  ],
+  "balanced_accuracy": 0.8378663068091537,
+  "sequence_accuracy": 0.9130434782608695,
+  "sequence_accuracy_ci95": [
+   0.782608695652174,
+   1.0
+  ],
+  "recall": [
+   0.9915878023133544,
+   0.6820679600762588,
+   0.8972234661889834,
+   0.7805859986580184
+  ],
+  "precision": [
+   0.9119922630560928,
+   0.806631299734748,
+   0.7590452737260844,
+   0.8185762870880732
+  ],
+  "confusion": [
+   [
+    1886,
+    0,
+    15,
+    1
+   ],
+   [
+    15,
+    6082,
+    1736,
+    1084
+   ],
+   [
+    156,
+    300,
+    8014,
+    462
+   ],
+   [
+    11,
+    1158,
+    793,
+    6980
+   ]
+  ],
+  "class_names": [
+   "NORMAL",
+   "INNER_RACE",
+   "BALL",
+   "OUTER_RACE"
+  ],
+  "per_condition": {
+   "B007_0hp": {
+    "windows": 1282,
+    "accuracy": 0.9742589703588144
+   },
+   "B007_2hp": {
+    "windows": 1271,
+    "accuracy": 0.963021243115657
+   },
+   "B014_1hp": {
+    "windows": 1277,
+    "accuracy": 0.8629600626468285
+   },
+   "B014_2hp": {
+    "windows": 1276,
+    "accuracy": 0.853448275862069
+   },
+   "B021_0hp": {
+    "windows": 1276,
+    "accuracy": 0.9059561128526645
+   },
+   "B021_1hp": {
+    "windows": 1273,
+    "accuracy": 0.7894736842105263
+   },
+   "B021_2hp": {
+    "windows": 1277,
+    "accuracy": 0.9310884886452623
+   },
+   "IR007_0hp": {
+    "windows": 1268,
+    "accuracy": 0.9408517350157729
+   },
+   "IR007_1hp": {
+    "windows": 1276,
+    "accuracy": 0.945141065830721
+   },
+   "IR014_0hp": {
+    "windows": 1274,
+    "accuracy": 0.5149136577708007
+   },
+   "IR014_1hp": {
+    "windows": 1274,
+    "accuracy": 0.3092621664050236
+   },
+   "IR014_2hp": {
+    "windows": 1274,
+    "accuracy": 0.3728414442700157
+   },
+   "IR021_0hp": {
+    "windows": 1277,
+    "accuracy": 0.8097102584181676
+   },
+   "IR021_2hp": {
+    "windows": 1274,
+    "accuracy": 0.8822605965463108
+   },
+   "OR007_0hp": {
+    "windows": 1276,
+    "accuracy": 0.8746081504702194
+   },
+   "OR007_1hp": {
+    "windows": 1280,
+    "accuracy": 0.8140625
+   },
+   "OR014_0hp": {
+    "windows": 1274,
+    "accuracy": 0.6350078492935636
+   },
+   "OR014_1hp": {
+    "windows": 1277,
+    "accuracy": 0.9444009397024276
+   },
+   "OR021_0hp": {
+    "windows": 1280,
+    "accuracy": 0.7390625
+   },
+   "OR021_1hp": {
+    "windows": 1276,
+    "accuracy": 0.7617554858934169
+   },
+   "OR021_2hp": {
+    "windows": 1279,
+    "accuracy": 0.6950742767787333
+   },
+   "normal_0hp": {
+    "windows": 637,
+    "accuracy": 0.989010989010989
+   },
+   "normal_1hp": {
+    "windows": 1265,
+    "accuracy": 0.9928853754940712
+   }
+  }
+ },
+ "val": {
+  "windows": 8904,
+  "sequences": 7,
+  "window_accuracy": 0.8887017070979335,
+  "window_accuracy_ci95": [
+   0.8317602864334821,
+   0.9439032785779532
+  ],
+  "balanced_accuracy": 0.9013748534340686,
+  "sequence_accuracy": 1.0,
+  "sequence_accuracy_ci95": [
+   1.0,
+   1.0
+  ],
+  "recall": [
+   0.9897476340694006,
+   0.8818681318681318,
+   0.8604559748427673,
+   0.8734276729559748
+  ],
+  "precision": [
+   0.9009332376166547,
+   0.8902535657686212,
+   0.9105657237936772,
+   0.8602400309717383
+  ],
+  "confusion": [
+   [
+    1255,
+    1,
+    12,
+    0
+   ],
+   [
+    0,
+    2247,
+    70,
+    231
+   ],
+   [
+    135,
+    90,
+    2189,
+    130
+   ],
+   [
+    3,
+    186,
+    133,
+    2222
+   ]
+  ],
+  "class_names": [
+   "NORMAL",
+   "INNER_RACE",
+   "BALL",
+   "OUTER_RACE"
+  ],
+  "per_condition": {
+   "B007_1hp": {
+    "windows": 1270,
+    "accuracy": 0.9669291338582677
+   },
+   "B014_0hp": {
+    "windows": 1274,
+    "accuracy": 0.7543171114599686
+   },
+   "IR007_2hp": {
+    "windows": 1277,
+    "accuracy": 0.9397024275646045
+   },
+   "IR021_1hp": {
+    "windows": 1271,
+    "accuracy": 0.8237608182533438
+   },
+   "OR007_2hp": {
+    "windows": 1270,
+    "accuracy": 0.8559055118110236
+   },
+   "OR014_2hp": {
+    "windows": 1274,
+    "accuracy": 0.890894819466248
+   },
+   "normal_2hp": {
+    "windows": 1268,
+    "accuracy": 0.9897476340694006
+   }
+  }
+ },
+ "test": {
+  "windows": 12764,
+  "sequences": 10,
+  "window_accuracy": 0.8053901598245065,
+  "window_accuracy_ci95": [
+   0.7231926059371818,
+   0.8806519865214325
+  ],
+  "balanced_accuracy": 0.8368893159492985,
+  "sequence_accuracy": 1.0,
+  "sequence_accuracy_ci95": [
+   1.0,
+   1.0
+  ],
+  "recall": [
+   0.9937007874015747,
+   0.7919165580182529,
+   0.8308496732026144,
+   0.7310902451747522
+  ],
+  "precision": [
+   0.8498316498316498,
+   0.7517326732673267,
+   0.7670769973449192,
+   0.9053617571059431
+  ],
+  "confusion": [
+   [
+    1262,
+    1,
+    7,
+    0
+   ],
+   [
+    1,
+    3037,
+    547,
+    250
+   ],
+   [
+    186,
+    418,
+    3178,
+    43
+   ],
+   [
+    36,
+    584,
+    411,
+    2803
+   ]
+  ],
+  "class_names": [
+   "NORMAL",
+   "INNER_RACE",
+   "BALL",
+   "OUTER_RACE"
+  ],
+  "per_condition": {
+   "B007_3hp": {
+    "windows": 1271,
+    "accuracy": 0.933910306845004
+   },
+   "B014_3hp": {
+    "windows": 1277,
+    "accuracy": 0.7447141738449491
+   },
+   "B021_3hp": {
+    "windows": 1277,
+    "accuracy": 0.8144087705559906
+   },
+   "IR007_3hp": {
+    "windows": 1286,
+    "accuracy": 0.8771384136858476
+   },
+   "IR014_3hp": {
+    "windows": 1273,
+    "accuracy": 0.5679497250589159
+   },
+   "IR021_3hp": {
+    "windows": 1276,
+    "accuracy": 0.9294670846394985
+   },
+   "OR007_3hp": {
+    "windows": 1282,
+    "accuracy": 0.8354134165366615
+   },
+   "OR014_3hp": {
+    "windows": 1276,
+    "accuracy": 0.7311912225705329
+   },
+   "OR021_3hp": {
+    "windows": 1276,
+    "accuracy": 0.6261755485893417
+   },
+   "normal_3hp": {
+    "windows": 1270,
+    "accuracy": 0.9937007874015747
+   }
+  }
+ },
+ "rtl_bit_exact": "400/400",
+ "name": "cwru_d70_g512",
+ "records": "fpga/zybo_z7_10/host/records/cwru_d70_g512.npz",
+ "seed": 1,
+ "steps": 6000,
+ "meta": {
+  "dataset": "cwru",
+  "root": "/Users/fidelmakatia/datasets/cwru/raw",
+  "channel": 2,
+  "policy": "fixed",
+  "div": 70,
+  "fs": 8048.289738430583,
+  "gain": 3312.1057198264966,
+  "percentile": 99.9,
+  "percentile_value": 0.15458443760871887,
+  "gain_target": 512.0,
+  "split": "cond:_3hp$",
+  "test_frac": 0.3,
+  "seed": 0,
+  "class_names": [
+   "NORMAL",
+   "INNER_RACE",
+   "BALL",
+   "OUTER_RACE"
+  ],
+  "clip_fraction": {
+   "NORMAL": 0.0,
+   "INNER_RACE": 0.06955678104575164,
+   "BALL": 0.002039286647931508,
+   "OUTER_RACE": 0.09085753916449087
+  },
+  "sequences": 40,
+  "windows": 50361,
+  "created": "2026-10-11"
+ }
+}

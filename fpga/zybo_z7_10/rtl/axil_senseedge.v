@@ -7,8 +7,11 @@
 //   0x0000-0x00FF  senseedge_top Wishbone registers (the chip's own map; word aligned,
 //                  byte strobes forwarded as Wishbone selects)
 //   0x1000  EMU_CTRL   [0] 1 = capture reads the emulator, 0 = the Pmod ADC
+//                      [1] write 1: reset the chip and the emulator (7 clocks, self-clearing;
+//                          reads back 1 while active).  Replay then starts at code 0 with an
+//                          empty sample buffer, so every block of windows is aligned.
 //   0x1004  EMU_LEN    number of codes to play before wrapping (1..4096)
-//   0x1008  ID         0x5E5E0001
+//   0x1008  ID         0x5E5E0002
 //   0x100C  SW         [1:0] board switches, [15:8] next emulator code index
 //   0x2000-0x5FFF  emulator code RAM, one 12-bit code per word (4096 words)
 `default_nettype none
@@ -69,6 +72,8 @@ module axil_senseedge (
 
     // ---------------- local registers and emulator ----------------
     reg         emu_sel;
+    reg  [2:0]  soft_rst;                              // chip + emulator reset pulse
+    wire        chip_rst = rst | (soft_rst != 3'd0);
     reg  [12:0] emu_len;
     wire        emu_miso;
     wire [12:0] emu_idx;
@@ -96,11 +101,12 @@ module axil_senseedge (
             state <= S_IDLE; s_axi_awready <= 1'b0; s_axi_wready <= 1'b0; s_axi_bvalid <= 1'b0;
             s_axi_arready <= 1'b0; s_axi_rvalid <= 1'b0; s_axi_rdata <= 32'd0;
             wb_cyc <= 1'b0; wb_stb <= 1'b0; wb_we <= 1'b0; wb_sel <= 4'd0; wb_adr <= 32'd0; wb_dat_w <= 32'd0;
-            emu_sel <= 1'b0; emu_len <= 13'd64; emu_wr_en <= 1'b0; emu_wr_addr <= 12'd0; emu_wr_data <= 12'd0;
+            emu_sel <= 1'b0; soft_rst <= 3'd0; emu_len <= 13'd64; emu_wr_en <= 1'b0; emu_wr_addr <= 12'd0; emu_wr_data <= 12'd0;
             addr <= 16'd0; wdata <= 32'd0; wstrb <= 4'd0;
         end else begin
             s_axi_awready <= 1'b0; s_axi_wready <= 1'b0; s_axi_arready <= 1'b0;
             emu_wr_en <= 1'b0;
+            if (soft_rst != 3'd0) soft_rst <= soft_rst - 3'd1;
             case (state)
                 S_IDLE: begin
                     if (s_axi_awvalid && s_axi_wvalid) begin
@@ -112,7 +118,10 @@ module axil_senseedge (
                             state <= S_WB_W;
                         end else begin
                             // local write, completes next cycle
-                            if (s_axi_awaddr == 16'h1000) emu_sel <= s_axi_wdata[0];
+                            if (s_axi_awaddr == 16'h1000) begin
+                                emu_sel <= s_axi_wdata[0];
+                                if (s_axi_wdata[1]) soft_rst <= 3'd7;
+                            end
                             if (s_axi_awaddr == 16'h1004) emu_len <= s_axi_wdata[12:0];
                             if (s_axi_awaddr >= 16'h2000 && s_axi_awaddr < 16'h6000) begin
                                 emu_wr_en <= 1'b1; emu_wr_addr <= ram_off[13:2]; emu_wr_data <= s_axi_wdata[11:0];
@@ -127,9 +136,9 @@ module axil_senseedge (
                             state <= S_WB_R;
                         end else begin
                             case (s_axi_araddr)
-                                16'h1000: s_axi_rdata <= {31'd0, emu_sel};
+                                16'h1000: s_axi_rdata <= {30'd0, soft_rst != 3'd0, emu_sel};
                                 16'h1004: s_axi_rdata <= {19'd0, emu_len};
-                                16'h1008: s_axi_rdata <= 32'h5E5E0001;
+                                16'h1008: s_axi_rdata <= 32'h5E5E0002;
                                 16'h100C: s_axi_rdata <= {16'd0, emu_idx[7:0], 6'd0, sw};
                                 default:  s_axi_rdata <= 32'd0;
                             endcase
@@ -168,7 +177,7 @@ module axil_senseedge (
     wire [15:0]  io_in = {15'd0, miso_mux};
 
     senseedge_top u_se (
-        .wb_clk_i(clk), .wb_rst_i(rst),
+        .wb_clk_i(clk), .wb_rst_i(chip_rst),
         .wbs_stb_i(wb_stb), .wbs_cyc_i(wb_cyc), .wbs_we_i(wb_we), .wbs_sel_i(wb_sel),
         .wbs_dat_i(wb_dat_w), .wbs_adr_i(wb_adr), .wbs_ack_o(wb_ack), .wbs_dat_o(wb_dat_r),
         .la_data_in(128'd0), .la_data_out(la_out), .la_oenb({128{1'b1}}),
@@ -179,12 +188,12 @@ module axil_senseedge (
     assign irq      = se_irq[0];
 
     mcp3201_emu #(.AW(12)) u_emu (
-        .clk(clk), .rst(rst), .sclk(io_out[1]), .cs_n(io_out[2]), .miso(emu_miso),
+        .clk(clk), .rst(chip_rst), .sclk(io_out[1]), .cs_n(io_out[2]), .miso(emu_miso),
         .wr_en(emu_wr_en), .wr_addr(emu_wr_addr), .wr_data(emu_wr_data), .len(emu_len), .play_idx(emu_idx));
 
     // LEDs: alarm, status, emulator selected, heartbeat on every decision
     reg hb;
-    always @(posedge clk) if (rst) hb <= 1'b0; else if (la_out[15]) hb <= ~hb;
+    always @(posedge clk) if (chip_rst) hb <= 1'b0; else if (la_out[15]) hb <= ~hb;
     assign led = {hb, emu_sel, io_out[4], io_out[3]};
 endmodule
 `default_nettype wire
