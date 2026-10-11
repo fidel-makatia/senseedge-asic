@@ -56,27 +56,34 @@ def features_cached(records, jobs):
     return X.astype(np.int64)
 
 
-def train(X, y, sw, seed, steps=6000, c1=4000.0, c2=60.0, headroom=30000.0):
-    """train_corrected_exact.train with per-sample weights sw (sum 1)."""
+def train(X, y, sw, seed, steps=6000, c1=4000.0, c2=60.0, headroom=30000.0, batch=0):
+    """train_corrected_exact.train with per-sample weights sw (sum 1); with batch > 0 and more
+    windows than that, every step uses a random subset of `batch` windows (weights renormalised)."""
     rng = np.random.RandomState(seed)
-    Xe = X.astype(np.float64)
+    Xa = X.astype(np.float64)
     W1 = rng.randn(16, 8) * 12; b1 = np.zeros(16)
     W2 = rng.randn(4, 16) * 12; b2 = np.zeros(4)
     project(W1, b1, W2, b2)
     params = [W1, b1, W2, b2]
     m = [np.zeros_like(p) for p in params]; v = [np.zeros_like(p) for p in params]
     lr = [0.6, 2.0, 0.6, 2.0]
-    onehot = np.eye(4)[y]
+    onehot_all = np.eye(4)[y]
+    Xe, onehot = Xa, onehot_all
     for t in range(1, steps + 1):
+        if batch and len(y) > batch:
+            idx = rng.randint(0, len(y), batch)
+            Xe = Xa[idx]; onehot = onehot_all[idx]; sw_t = sw[idx]; sw_t = sw_t / sw_t.sum()
+        else:
+            sw_t = sw
         acc1 = Xe @ W1.T + b1
         h = np.maximum(0, acc1) / c1
         z = (h @ W2.T) / c2 * 8 + b2 / (c1 * c2) * 8
         z -= z.max(1, keepdims=True); p = np.exp(z); p /= p.sum(1, keepdims=True)
-        dz = (p - onehot) * sw[:, None]
+        dz = (p - onehot) * sw_t[:, None]
         gW2 = dz.T @ h / c2 * 8; gb2 = dz.sum(0) / (c1 * c2) * 8
         dh = dz @ W2 / c2 * 8
         over = np.clip(np.abs(acc1) - headroom, 0, None) * np.sign(acc1) * 1e-7
-        dacc = dh * (acc1 > 0) / c1 + over * sw[:, None]
+        dacc = dh * (acc1 > 0) / c1 + over * sw_t[:, None]
         gW1 = dacc.T @ Xe; gb1 = dacc.sum(0)
         for i, (p_, g) in enumerate(zip(params, [gW1, gb1, gW2, gb2])):
             m[i] = 0.9 * m[i] + 0.1 * g; v[i] = 0.999 * v[i] + 0.001 * g * g
@@ -98,6 +105,7 @@ def main():
     ap.add_argument("--seeds", type=int, default=8); ap.add_argument("--steps", type=int, default=6000)
     ap.add_argument("--jobs", type=int, default=8); ap.add_argument("--no-rtl", action="store_true")
     ap.add_argument("--out", type=Path, default=HERE / "records"); ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--batch", type=int, default=16384, help="windows per step when the fit set is larger (0 = full batch)")
     a = ap.parse_args()
     d = np.load(a.records)
     meta = json.loads(str(d["meta"])); names = meta["class_names"]
@@ -123,7 +131,7 @@ def main():
     best = None
     for s in range(a.seeds):
         t0 = time.time()
-        q = train(Xf, yf, sw, s, a.steps)
+        q = train(Xf, yf, sw, s, a.steps, batch=a.batch)
         mv = metrics(y[val_m], model_int(X[val_m], *q)[2], seq[val_m], n_boot=0)
         print(f"  seed {s}: balanced val {100 * mv['balanced_accuracy']:.1f} %, window val {100 * mv['window_accuracy']:.1f} % ({time.time() - t0:.0f} s)")
         if best is None or mv["balanced_accuracy"] > best[0]:

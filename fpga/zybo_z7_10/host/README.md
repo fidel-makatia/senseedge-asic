@@ -39,22 +39,24 @@ files). Neither dataset is redistributed here.
 
 ```sh
 # 1. records (one global gain from the HEALTHY class; mean removed; exact rational resampling)
-python3 prepare_records.py mafaulda --root ~/datasets/mafaulda/extracted --out records/mafaulda_d249.npz
-python3 prepare_records.py cwru     --root ~/datasets/cwru/raw           --out records/cwru_d249.npz
+python3 prepare_records.py mafaulda --root ~/datasets/mafaulda/extracted --out records/mafaulda_d249.npz --gain-target 512
+python3 prepare_records.py cwru     --root ~/datasets/cwru/raw           --out records/cwru_d249_g512.npz --gain-target 512
 #    other sample rates: --div 142 (4.0 kS/s), --div 70 (8.0 kS/s); --policy tracked (f_s = 32 f_rot)
+#    gain target 512 (a quarter of half scale) is the rule used for every result below: at 8 kS/s the
+#    default 1024 clipped 20 % of the inner-race samples for the same accuracy
 # 2. the model is bit-exact to the RTL (proved on 1024 random/tone/corner windows and 1024 dataset windows)
 python3 ../../../verilog/dv/audit/check_fft_model.py --records records/cwru_d249.npz
 # 3. weights on the integer grid of nn_engine.v; test-split metrics are what the board must reproduce
-python3 ../../../ml/train_on_records.py --records records/mafaulda_d249.npz --name mafaulda
+python3 ../../../ml/train_on_records.py --records records/mafaulda_d249.npz --name mafaulda_d249 --seeds 16
 # 4. the whole replay in simulation through the wrapper RTL: bins, features, class, confidence, alarm
-python3 ../sim/run_replay_check.py --records records/mafaulda_d249.npz --weights ../../../ml/records/mafaulda_weights.npz --n 256
+python3 ../sim/run_replay_check.py --records records/mafaulda_d249.npz --weights ../../../ml/records/mafaulda_d249_weights.npz --n 256
 # 5. the protocol against the mock firmware
 python3 test_protocol_mock.py
 # 6. on the board (Vitis: build sw/senseedge_zybo.c, terminal closed, SW0 down)
-python3 replay.py --records records/mafaulda_d249.npz --weights ../../../ml/records/mafaulda_weights.npz \
+python3 replay.py --records records/mafaulda_d249.npz --weights ../../../ml/records/mafaulda_d249_weights.npz \
                   --port /dev/cu.usbserial-XXXX --out results/mafaulda_fpga
-python3 divider_check.py --records records/cwru_d249.npz --weights ../../../ml/records/cwru_weights.npz --port ...
-python3 weight_update.py --records records/mafaulda_d249.npz --weights ../../../ml/records/mafaulda_weights.npz --port ...
+python3 divider_check.py --records records/cwru_d249.npz --weights ../../../ml/records/cwru_d249_g512_weights.npz --port ...
+python3 weight_update.py --records records/mafaulda_d249.npz --weights ../../../ml/records/mafaulda_d249_weights.npz --port ...
 ```
 
 Replay speed: a block of 64 windows is 8 KB over the UART; at 115200 baud about 0.9 s per block
@@ -76,3 +78,17 @@ takes about 25 minutes; CWRU (3.6 k windows) about one minute. Compile the progr
 The host-model numbers (`ml/records/<name>_train.md`) are the expected values: the model is
 proved bit-exact to the RTL and the RTL to the SKY130-mapped netlist, so a board run that
 differs from them is a defect, not a measurement.
+
+## Host-model results so far (what the board must reproduce)
+
+CWRU, four classes, 3-hp load held out (10 files, 3.6 k to 12.8 k windows), best of 16 seeds,
+gain target 512, window accuracy with the 95 % sequence-bootstrap interval:
+
+| records | f_s | window | balanced | sequence majority | recall N / IR / B / OR |
+|---|---|---|---|---|---|
+| `cwru_d249_g512` | 2.29 kS/s (D=249, the reset value) | 75.9 % (57.5-88.4) | 77.7 % | 90 % | 86.9 / 53.7 / 80.4 / 89.9 |
+| `cwru_d142_g512` | 4.0 kS/s (D=142) | 65.1 % (47.0-80.7) | 60.9 % | 80 % | 40.2 / 55.8 / 74.2 / 73.5 |
+| `cwru_d70_g512` | 8.0 kS/s (D=70) | 80.5 % (72.3-88.1) | 83.7 % | 100 % | 99.4 / 79.2 / 83.1 / 73.1 |
+
+The intervals are wide because the unit is the held-out file (ten of them); the three rates are
+three values of one register. MaFaulDa rows follow when its archives are in.
