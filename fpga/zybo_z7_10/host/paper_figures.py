@@ -459,26 +459,26 @@ def _power_hier(path):
 
 
 def fig_power(build, out):
-    files = [(d, build / "power" / f"power_saif_d{d}.txt") for d in (249, 4)]
-    files = [(d, f) for d, f in files if f.exists()]
-    if not files:
+    f = build / "power_hier.txt"
+    if not f.exists():
+        f = build.parent / "host" / "results" / "power_vectorless_hier.txt"   # the committed copy
+    if not f.exists():
         return
-    blocks = [("u_fft", "FFT"), ("u_nn", "NN"), ("u_wb", "Wishbone"), ("u_feature", "Features"), ("u_spi_adc", "SPI capture"), ("u_alarm", "Alarm"), ("u_emu", "ADC emulator")]
-    fig, ax = plt.subplots(figsize=(COL1, 2.2))
-    x = np.arange(len(blocks)); w = 0.36
-    for k, (d, f) in enumerate(files):
-        ph = _power_hier(f)
-        vals = [1e3 * ph.get(b, 0.0) for b, _ in blocks]
-        ax.bar(x + (k - 0.5) * (w + 0.02), vals, w, color=SERIES[k], label=f"D = {d} ({F_CLK / (35 * (d + 1)) / 1e3:.2g} kS/s)", zorder=3)
-        for xi, v in zip(x + (k - 0.5) * (w + 0.02), vals):
-            ax.text(xi, v + 0.15, f"{v:.1f}", ha="center", fontsize=5.5, color=INK2)
+    ph = _power_hier(f)
+    tot_w = next((v for n, v in ph.items() if n.startswith("axil_senseedge")), 0.0)
+    blocks = [("u_fft", "FFT engine"), ("u_nn", "NN engine"), ("_rest", "Wishbone, features,\nSPI, alarm, emulator")]
+    vals = [1e3 * ph.get("u_fft", 0.0), 1e3 * ph.get("u_nn", 0.0)]
+    vals.append(max(0.0, 1e3 * tot_w - sum(vals)))
+    fig, ax = plt.subplots(figsize=(COL1, 2.0))
+    x = np.arange(len(blocks))
+    ax.bar(x, vals, 0.5, color=SERIES[0], zorder=3)
+    for xi, v in zip(x, vals):
+        ax.text(xi, v + 0.3, f"{v:.0f} mW" if v >= 1 else "< 1 mW each", ha="center", fontsize=6, color=INK2)
     ax.set_xticks(x); ax.set_xticklabels([n for _, n in blocks], fontsize=6.5)
-    ax.set_ylabel("Power on the FPGA (mW)"); ax.yaxis.grid(True, zorder=0); ax.set_axisbelow(True)
-    ax.legend(title="Replay divider", fontsize=6, title_fontsize=6)
-    tot = {d: 1e3 * next((v for n, v in _power_hier(f).items() if n.startswith("axil_senseedge")), 0.0) for d, f in files}
-    ax.text(0.0, -0.3, "report_power on the implemented xc7z010 design with switching activity from an xsim run of 16 recorded\n"
-            f"vibration windows (SAIF); whole wrapper: " + ", ".join(f"{tot[d]:.0f} mW at D = {d}" for d in tot) + ". Not a measurement: the Zybo has no current sense.",
-            transform=ax.transAxes, fontsize=6, color=INK2, va="top")
+    ax.set_ylabel("Estimated power (mW)"); ax.set_ylim(0, max(vals) * 1.25 if vals else 1); ax.yaxis.grid(True, zorder=0); ax.set_axisbelow(True)
+    tot = 1e3 * next((v for n, v in ph.items() if n.startswith("axil_senseedge")), 0.0)
+    ax.text(0.0, -0.22, f"Vivado report_power, vectorless, implemented xc7z010 design at 20 MHz; wrapper total {tot:.0f} mW.\n"
+            "An estimate, not a measurement: the Zybo has no current sense.", transform=ax.transAxes, fontsize=6, color=INK2, va="top")
     save(fig, out, "fig_power_blocks")
 
 

@@ -174,11 +174,17 @@ def tab_metrics(results, build):
         for r in m["rows"]:
             if r["div"] in (0, 249):
                 L.append(f"Window period at $D={r['div']}$ & board, global timer & {1e6 * r['period_s']:.1f} " + r"$\mu$s "
-                         f"({r['period_clocks']:.0f} clocks; predicted {2240 * (r['div'] + 1)}) \\\\")
+                         f"({r['period_clocks']:.0f} clocks; predicted {2304 if r['div'] == 0 else 2240 * (r['div'] + 1)}) \\\\")
         r0 = m["rows"][0]
         L.append(f"Peak classification rate ($D=0$) & board & {r0['windows_per_s']:,.0f} per second \\\\")
     if pv:
         L.append(r"PL power, vectorless & report\_power & " + f"{1e3 * pv.get('pl', 0):.0f}" + r" mW \\")
+    if pv and j.exists():
+        for div in (0, 249):
+            rr = next((r for r in m["rows"] if r["div"] == div), None)
+            if rr:
+                e = pv.get("pl", 0) * rr["period_s"]
+                L.append(f"Energy per classification, $D={div}$ (estimate) & 27 mW $" + r"\times$" + f" window period & {1e6 * e:.2f} " + r"$\mu$J \\")
     for div in (249, 4):
         ph = parse_power_hier(build / "power" / f"power_saif_d{div}.txt")
         k = next((n for n in ph if n.startswith("axil_senseedge")), None)
