@@ -137,6 +137,61 @@ def tab_divider(results):
     return "\n".join(L) + "\n"
 
 
+def parse_power_hier(path):
+    """report_power hierarchy section: instance name -> watts (first occurrence)."""
+    out = {}
+    if not path.exists():
+        return out
+    txt = path.read_text(errors="replace")
+    sec = txt.split("Hierarchy", 1)[-1] if "Hierarchy" in txt else txt
+    for line in sec.splitlines():
+        m = re.match(r"^\|\s*([A-Za-z0-9_\[\]\.]+)\s*\|\s*([\d.<]+)\s*\|", line)
+        if m and m.group(1) not in out:
+            try:
+                out[m.group(1)] = float(m.group(2).lstrip("<"))
+            except ValueError:
+                pass
+    return out
+
+
+def tab_metrics(results, build):
+    """One table of the implementation and run-time metrics measured or estimated on the Zybo."""
+    F = 20e6
+    t = parse_timing(build / "timing.txt") if (build / "timing.txt").exists() else {}
+    h = parse_hier(build / "utilization_hier.txt") if (build / "utilization_hier.txt").exists() else {}
+    pv = parse_power(build / "power.txt") if (build / "power.txt").exists() else {}
+    L = [r"\begin{tabular}{@{}llr@{}}", r"\toprule", r"Metric & Source & Value \\", r"\midrule"]
+    if "u_se" in h:
+        lut, ff, bram, dsp = h["u_se"]
+        L.append(f"Macro resources (xc7z010) & implementation & {lut:,} LUT, {ff:,} FF, {dsp} DSP \\\\")
+    if t:
+        L.append(f"Setup / hold slack at 20 MHz & STA & {t['wns']:+.2f} / {t['whs']:+.3f} ns \\\\")
+        L.append(r"$f_\mathrm{max}$ on the FPGA & STA, $1/(50\,\mathrm{ns} - \mathrm{WNS})$ & " + f"{1e3 / (50 - t['wns']):.1f}" + r" MHz \\")
+    L.append(r"Decision latency, buffer full $\to$ class & RTL audit E, reproduced & 728 clocks = 36.4 $\mu$s \\")
+    j = results / "throughput.json"
+    if j.exists():
+        m = json.loads(j.read_text())
+        for r in m["rows"]:
+            if r["div"] in (0, 249):
+                L.append(f"Window period at $D={r['div']}$ & board, global timer & {1e6 * r['period_s']:.1f} " + r"$\mu$s "
+                         f"({r['period_clocks']:.0f} clocks; predicted {2240 * (r['div'] + 1)}) \\\\")
+        r0 = m["rows"][0]
+        L.append(f"Peak classification rate ($D=0$) & board & {r0['windows_per_s']:,.0f} per second \\\\")
+    if pv:
+        L.append(r"PL power, vectorless & report\_power & " + f"{1e3 * pv.get('pl', 0):.0f}" + r" mW \\")
+    for div in (249, 4):
+        ph = parse_power_hier(build / "power" / f"power_saif_d{div}.txt")
+        k = next((n for n in ph if n.startswith("axil_senseedge")), None)
+        if k:
+            L.append(f"PL power, SAIF-annotated, $D={div}$ & xsim activity + " + r"report\_power & " + f"{1e3 * ph[k]:.0f}" + r" mW \\")
+            if j.exists():
+                rr = next((r for r in m["rows"] if r["div"] == div), None)
+                if rr:
+                    L.append(f"Energy per classification, $D={div}$ & power " + r"$	imes$ window period & " + f"{1e6 * ph[k] * rr['period_s']:.2f} " + r"$\mu$J \\")
+    L += [r"\bottomrule", r"\end{tabular}", "% PL = the SenseEdge wrapper on the FPGA; the Zynq PS (1.4 W) is the test host, not the device"]
+    return "\n".join(L) + "\n"
+
+
 def tab_stream(results):
     runs = sorted(results.glob("stream_*.json"))
     if not runs:
@@ -161,7 +216,8 @@ def main():
     ap.add_argument("--prefix", default="fpga"); ap.add_argument("--out", type=Path, default=None)
     a = ap.parse_args()
     out = a.out or (a.results / "tables"); out.mkdir(parents=True, exist_ok=True)
-    tables = {"tab_fpga.tex": tab_fpga(a.build), "tab_divider.tex": tab_divider(a.results), "tab_stream.tex": tab_stream(a.results)}
+    tables = {"tab_fpga.tex": tab_fpga(a.build), "tab_divider.tex": tab_divider(a.results), "tab_stream.tex": tab_stream(a.results),
+              "tab_metrics.tex": tab_metrics(a.results, a.build)}
     for ds in DATASETS:
         runs = load(a.results, a.prefix, ds)
         if runs:

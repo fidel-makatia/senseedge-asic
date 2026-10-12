@@ -442,6 +442,46 @@ def fig_severity(results, out, name):
     save(fig, out, f"fig_{name}_severity")
 
 
+def _power_hier(path):
+    """report_power -hierarchical: instance name -> total W (first occurrence per name)."""
+    import re
+    out = {}
+    txt = path.read_text(errors="replace")
+    sec = txt.split("Hierarchy", 1)[-1]
+    for line in sec.splitlines():
+        m = re.match(r"^\|\s*([A-Za-z0-9_\[\]\.]+)\s*\|\s*([\d.<]+)\s*\|", line)
+        if m and m.group(1) not in out:
+            try:
+                out[m.group(1)] = float(m.group(2).lstrip("<"))
+            except ValueError:
+                pass
+    return out
+
+
+def fig_power(build, out):
+    files = [(d, build / "power" / f"power_saif_d{d}.txt") for d in (249, 4)]
+    files = [(d, f) for d, f in files if f.exists()]
+    if not files:
+        return
+    blocks = [("u_fft", "FFT"), ("u_nn", "NN"), ("u_wb", "Wishbone"), ("u_feature", "Features"), ("u_spi_adc", "SPI capture"), ("u_alarm", "Alarm"), ("u_emu", "ADC emulator")]
+    fig, ax = plt.subplots(figsize=(COL1, 2.2))
+    x = np.arange(len(blocks)); w = 0.36
+    for k, (d, f) in enumerate(files):
+        ph = _power_hier(f)
+        vals = [1e3 * ph.get(b, 0.0) for b, _ in blocks]
+        ax.bar(x + (k - 0.5) * (w + 0.02), vals, w, color=SERIES[k], label=f"D = {d} ({F_CLK / (35 * (d + 1)) / 1e3:.2g} kS/s)", zorder=3)
+        for xi, v in zip(x + (k - 0.5) * (w + 0.02), vals):
+            ax.text(xi, v + 0.15, f"{v:.1f}", ha="center", fontsize=5.5, color=INK2)
+    ax.set_xticks(x); ax.set_xticklabels([n for _, n in blocks], fontsize=6.5)
+    ax.set_ylabel("Power on the FPGA (mW)"); ax.yaxis.grid(True, zorder=0); ax.set_axisbelow(True)
+    ax.legend(title="Replay divider", fontsize=6, title_fontsize=6)
+    tot = {d: 1e3 * next((v for n, v in _power_hier(f).items() if n.startswith("axil_senseedge")), 0.0) for d, f in files}
+    ax.text(0.0, -0.3, "report_power on the implemented xc7z010 design with switching activity from an xsim run of 16 recorded\n"
+            f"vibration windows (SAIF); whole wrapper: " + ", ".join(f"{tot[d]:.0f} mW at D = {d}" for d in tot) + ". Not a measurement: the Zybo has no current sense.",
+            transform=ax.transAxes, fontsize=6, color=INK2, va="top")
+    save(fig, out, "fig_power_blocks")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", type=Path, default=HERE / "results"); ap.add_argument("--prefix", default="fpga")
@@ -462,6 +502,7 @@ def main():
         fig_alarm_depth(a.results, out, name); fig_class_spectra(a.results, out, name)
     for j in sorted(a.results.glob("severity_*.json")):
         fig_severity(a.results, out, j.stem[len("severity_"):])
+    fig_power(a.results.parent.parent / "build", out)
 
 
 if __name__ == "__main__":

@@ -23,6 +23,9 @@
 //                              [8 features if flags&1], [32 bins u16 if flags&2]; payload
 //                              starts with the number of windows completed; status 1 = timeout
 //   'D' off u16             -> one register, u32        'P' off u16, val u32 -> write it
+//   'T' n u8                -> timing: after reset + reload and the first decision, the elapsed
+//                              global-timer ticks over the next n decisions; payload ticks u64,
+//                              ticks per second u32 (the window period at the current divider)
 //   'Q'                     -> back to text mode (chip re-enabled on the selected source)
 // Serial: PS UART1 through the USB-UART, 115200 8N1 unless SE_BAUD is defined at compile time
 // (921600 cuts a replay's transfer time by 8; set the host script's --baud to match).
@@ -33,6 +36,26 @@
 #include "xparameters.h"
 #include "xuartps_hw.h"
 #include "sleep.h"
+
+/* Cortex-A9 global timer (runs at CPU_CLK / 2), read directly: the SDT BSPs do not ship xtime_l.h */
+#define GT_COUNTER_L 0xF8F00200u
+#define GT_COUNTER_H 0xF8F00204u
+#define GT_CONTROL   0xF8F00208u
+#if defined(XPAR_CPU_CORE_CLOCK_FREQ_HZ)            /* SDT BSPs */
+#define COUNTS_PER_SECOND (XPAR_CPU_CORE_CLOCK_FREQ_HZ / 2)
+#elif defined(XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ)  /* classic BSPs */
+#define COUNTS_PER_SECOND (XPAR_CPU_CORTEXA9_0_CPU_CLK_FREQ_HZ / 2)
+#else
+#define COUNTS_PER_SECOND 333333333u          /* Zybo Z7-10 board preset: 666.67 MHz CPU */
+#endif
+typedef uint64_t XTime;
+static void XTime_GetTime(XTime *t)
+{
+    uint32_t hi, lo, hi2;
+    if (!(Xil_In32(GT_CONTROL) & 1u)) Xil_Out32(GT_CONTROL, 1u);
+    do { hi = Xil_In32(GT_COUNTER_H); lo = Xil_In32(GT_COUNTER_L); hi2 = Xil_In32(GT_COUNTER_H); } while (hi != hi2);
+    *t = ((XTime)hi << 32) | lo;
+}
 #include "../../../firmware/nn_weights.h"      /* int8_t all_weights[212] */
 
 #ifndef SE_UART_BASE
@@ -277,6 +300,19 @@ static void handle_frame(void)
     case 'P':
         if (len != 6) { status = 0xFC; break; }
         WR(get16(pay), get32(pay + 2)); break;
+    case 'T': {
+        XTime t0, t1;
+        if (len != 1) { status = 0xFC; break; }
+        n = pay[0];
+        if (chip_reset_reload()) status = 2;
+        WR(SE_CTRL, 1);
+        if (!wait_decision()) { status = 1; WR(SE_CTRL, 0); break; }   /* first window: reset + reload excluded */
+        XTime_GetTime(&t0);
+        for (i = 0; i < n; i++) if (!wait_decision()) { status = 1; break; }
+        XTime_GetTime(&t1);
+        WR(SE_CTRL, 0);
+        put32(resp, (uint32_t)(t1 - t0)); put32(resp + 4, (uint32_t)((t1 - t0) >> 32));
+        put32(resp + 8, (uint32_t)COUNTS_PER_SECOND); resp[12] = (uint8_t)i; rlen = 13; break; }
     case 'Q':
         host_mode = 0; WR(SE_IRQ_FLAGS, 3); WR(SE_CTRL, 1); break;
     default:
