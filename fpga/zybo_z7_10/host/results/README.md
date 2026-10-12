@@ -27,6 +27,11 @@ and `paper_tables.py`; re-measure with `run_board_tests.py`, `run_mafaulda.py`, 
 | `fig_selftest_spectrum` | single | The bin-8 self-test record: 32 bins from the board over the reference (identical) | `selftest_spectrum.json` |
 | `fig_block_design` | | Vivado block design (PS7, AXI interconnect, `axil_senseedge` wrapper) | `build/vivado` |
 
+`paper_figures_compact.py` writes the shortened/compact variants used in the manuscript for the page
+budget: `fig_<stream>_onset_short` (4 panels, 3.9 in), `fig_<stream>_onset_compact` (codes, bins,
+decisions; 2.7 in) and `fig_<name>_severity_compact` (features with the fault share per step,
+decisions; 2.3 in).
+
 ## Tables (`tables/`)
 
 | File | Content |
