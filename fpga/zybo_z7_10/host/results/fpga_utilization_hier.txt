@@ -1,0 +1,45 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2026.1 (win64) Build 6511674 Tue Jun 16 11:02:23 MDT 2026
+| Date         : Sun Oct 11 16:29:01 2026
+| Host         : Makatia running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -hierarchical_depth 6 -file build/utilization_hier.txt
+| Design       : system_wrapper
+| Device       : xc7z010clg400-1
+| Speed File   : -1
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++--------------------------------------------------+---------------------------------------------------------------------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|                     Instance                     |                                            Module                                           | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++--------------------------------------------------+---------------------------------------------------------------------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| system_wrapper                                   |                                                                                       (top) |      11200 |      11084 |      56 |   60 | 6317 |      1 |      1 |          6 |
+|   (system_wrapper)                               |                                                                                       (top) |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   system_i                                       |                                                                                      system |      11200 |      11084 |      56 |   60 | 6317 |      1 |      1 |          6 |
+|     ps7_0_axi_periph                             |                                                                   system_ps7_0_axi_periph_0 |        389 |        330 |       0 |   59 |  482 |      0 |      0 |          0 |
+|       s00_couplers                               |                                                                    s00_couplers_imp_11SE3QO |        389 |        330 |       0 |   59 |  482 |      0 |      0 |          0 |
+|         auto_pc                                  |                                                       system_ps7_0_axi_periph_imp_auto_pc_0 |        389 |        330 |       0 |   59 |  482 |      0 |      0 |          0 |
+|           inst                                   | system_ps7_0_axi_periph_imp_auto_pc_0_axi_protocol_converter_v2_1_38_axi_protocol_converter |        389 |        330 |       0 |   59 |  482 |      0 |      0 |          0 |
+|             gen_axilite.gen_b2s_conv.axilite_b2s |                    system_ps7_0_axi_periph_imp_auto_pc_0_axi_protocol_converter_v2_1_38_b2s |        389 |        330 |       0 |   59 |  482 |      0 |      0 |          0 |
+|     axil_senseedge_0                             |                                                                   system_axil_senseedge_0_0 |      10794 |      10738 |      56 |    0 | 5802 |      1 |      1 |          6 |
+|       inst                                       |                                                    system_axil_senseedge_0_0_axil_senseedge |      10794 |      10738 |      56 |    0 | 5802 |      1 |      1 |          6 |
+|         (inst)                                   |                                                    system_axil_senseedge_0_0_axil_senseedge |         40 |         40 |       0 |    0 |  129 |      0 |      0 |          0 |
+|         u_se                                     |                                                     system_axil_senseedge_0_0_senseedge_top |      10718 |      10662 |      56 |    0 | 5640 |      0 |      0 |          6 |
+|           u_wb                                   |                                                      system_axil_senseedge_0_0_wb_interface |        384 |        384 |       0 |    0 |  153 |      0 |      0 |          0 |
+|           u_feature                              |                                                   system_axil_senseedge_0_0_feature_extract |        162 |        162 |       0 |    0 |  226 |      0 |      0 |          1 |
+|           u_fft                                  |                                                        system_axil_senseedge_0_0_fft_engine |       8762 |       8750 |      12 |    0 | 3163 |      0 |      0 |          4 |
+|           u_nn                                   |                                                         system_axil_senseedge_0_0_nn_engine |       1366 |       1344 |      22 |    0 | 2042 |      0 |      0 |          1 |
+|           u_spi_adc                              |                                                        system_axil_senseedge_0_0_spi_adc_if |         60 |         38 |      22 |    0 |   47 |      0 |      0 |          0 |
++--------------------------------------------------+---------------------------------------------------------------------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
