@@ -69,12 +69,13 @@ takes about 25 minutes, at D = 70 (369 340) about 90, tracked (53 066) about 13;
 
 | Measurement | Script | Paper slot |
 |---|---|---|
-| Bit-exactness of the hardware on recorded vibration: features and decision of every window, bins of every 20th block, alarm of every window, against the reference chain | `replay.py` | Table VII last row; IX-D |
-| Accuracy on MaFaulDa (window, balanced, sequence-majority, 95 % CI by sequence bootstrap, confusion matrix, per condition: severity and speed) with the on-chip network | `replay.py`, `evaluate.py` | VIII (dataset protocol), Table VIII "Accuracy" |
-| Accuracy on CWRU, unseen load, at three sample rates (D = 249, 142, 70) | `replay.py` with the three record files and weight sets | VIII sample-rate policy |
-| Register-map model update: same windows, two weight sets, decisions and alarm as predicted | `weight_update.py` | VIII-D, IX-D |
-| Divider independence and replay time per window | `divider_check.py` | IX-C |
-| Weight read-back (53 words) on every block reset | inside `replay.py` | IX-B |
+| Bit-exactness of the hardware on recorded vibration: features and decision of every window, bins of every 20th block, alarm of every window, against the reference chain | `replay.py` | Table V last row; IX-B |
+| Accuracy on MaFaulDa (window, balanced, sequence-majority, 95 % CI by sequence bootstrap, confusion matrix, per condition: severity and speed) with the on-chip network | `replay.py`, `evaluate.py` | IX-A/C, Table VII, Fig. 7; Table VIII "Accuracy" |
+| Accuracy on CWRU, unseen load, at three sample rates (D = 249, 142, 70) | `replay.py` with the three record files and weight sets | IX-C sample-rate policy |
+| Register-map model update: same windows, two weight sets, decisions and alarm as predicted | `weight_update.py` | VIII-D, Fig. 6 |
+| Divider independence and replay time per window | `divider_check.py` | VIII-D |
+| Weight read-back (53 words) on every block reset | inside `replay.py` | Table V last row |
+| Fault onset in machine time, hardware alarm, alarm depth N = 0..7 (`results/stream_*.json`, `figures/fig_*_onset`, `_alarm_depth`, `_class_spectra`) | `stream_demo.py` | IX-D, Figs. 8-11 |
 
 The host-model numbers (`ml/records/<name>_train.md`) are the expected values: the model is
 proved bit-exact to the RTL and the RTL to the SKY130-mapped netlist, so a board run that
