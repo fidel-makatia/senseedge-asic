@@ -78,7 +78,7 @@ def save(fig, out, name):
     for ext in ("pdf", "png"):
         try:
             fig.savefig(out / f"{name}.{ext}", bbox_inches="tight", pad_inches=0.02)
-        except PermissionError:   # the file is open in a viewer or being synced: keep the previous copy
+        except (PermissionError, OSError):   # the file is open in a viewer or being synced: keep the previous copy
             print(f"  WARNING: {name}.{ext} is locked, not rewritten")
     plt.close(fig)
     print(f"  {name}.pdf / .png")
@@ -400,6 +400,48 @@ def fig_class_spectra(results, out, name):
     save(fig, out, f"fig_{name}_class_spectra")
 
 
+def fig_severity(results, out, name):
+    j = results / f"severity_{name}.json"
+    if not j.exists():
+        return
+    m = json.loads(j.read_text()); segs = m["segments"]; W = m["windows"]; names = m["class_names"]
+    n = len(W); edges = np.cumsum([0] + [s["windows"] for s in segs])
+    fig, axes = plt.subplots(3, 1, figsize=(COL2, 3.6), sharex=True, gridspec_kw=dict(height_ratios=[1.0, 1.0, 0.5]))
+    x = np.arange(n) + 0.5
+    # 1 RMS of the input and the chip's band 1-4 feature
+    axes[0].plot(x, [w["feat"][0] for w in W], lw=1.0, color=SERIES[0], label="Band 1-4 energy (chip feature 0)")
+    axes[0].plot(x, [w["feat"][7] for w in W], lw=1.0, color=SERIES[2], label="Total energy (chip feature 7)")
+    axes[0].set_ylabel("Feature (0-255)"); axes[0].yaxis.grid(True); axes[0].set_axisbelow(True)
+    axes[0].legend(loc="upper left", fontsize=6, handlelength=1.2)
+    # 2 confidence and fault fraction per segment
+    axes[1].plot(x, [w["conf"] for w in W], lw=0.9, color=INK, ls=(0, (2, 1.5)), label="Confidence (per window)")
+    xs = [(edges[i] + edges[i + 1]) / 2 for i in range(len(segs))]
+    axes[1].plot(xs, [100 * s["fault_fraction"] for s in segs], "o-", ms=4, lw=1.2, color=SERIES[1], mec="#fcfcfb", mew=0.8,
+                 label="Windows decided as a fault (% per step)", zorder=4)
+    axes[1].set_ylim(0, 270); axes[1].set_yticks([0, 50, 100, 255]); axes[1].set_ylabel("Confidence / fault %")
+    axes[1].yaxis.grid(True); axes[1].set_axisbelow(True); axes[1].legend(loc="upper left", fontsize=6, handlelength=1.2)
+    # 3 decisions
+    cls = np.array([w["cls"] for w in W])
+    for c in range(4):
+        mm = cls == c
+        if mm.any():
+            axes[2].bar(x[mm], np.ones(mm.sum()), 1.0, color=CLASS_COL[c], label=names[c].replace("_", " ").title(), zorder=3)
+    axes[2].set_yticks([]); axes[2].set_ylim(0, 1.0)
+    for s in axes[2].spines.values():
+        s.set_visible(False)
+    for ax in axes:
+        for e in edges[1:-1]:
+            ax.axvline(e, color=AXIS, lw=0.6)
+    axes[2].set_xticks(xs)
+    axes[2].set_xticklabels([s['cond'].split('/')[-1] + chr(10) + f"{s['speed_hz']:.0f} Hz" for s in segs], fontsize=6)
+    axes[2].set_xlim(0, n)
+    pol = f"tracked f_s = 32 f_rot" if m.get("tracked") else f"{m['fs'] / 1e3:.2f} kS/s"
+    axes[2].set_xlabel(f"{m['per']} windows per step, {pol}; left: {segs[0]['cond']}; then {segs[1]['cond'].split('/')[0]} with increasing severity (shaft speed under each step)", fontsize=6.5)
+    axes[2].legend(ncol=4, fontsize=6, loc="upper center", bbox_to_anchor=(0.5, -0.75), handlelength=0.9, columnspacing=1.0)
+    fig.subplots_adjust(hspace=0.12, left=0.08, right=0.99, top=0.98, bottom=0.26)
+    save(fig, out, f"fig_{name}_severity")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--results", type=Path, default=HERE / "results"); ap.add_argument("--prefix", default="fpga")
@@ -418,6 +460,8 @@ def main():
         print(f"stream {name}")
         fig_stream_onset(a.results, out, name); fig_stream_timeline(a.results, out, name)
         fig_alarm_depth(a.results, out, name); fig_class_spectra(a.results, out, name)
+    for j in sorted(a.results.glob("severity_*.json")):
+        fig_severity(a.results, out, j.stem[len("severity_"):])
 
 
 if __name__ == "__main__":
