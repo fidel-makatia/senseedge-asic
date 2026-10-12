@@ -75,7 +75,9 @@ takes about 25 minutes, at D = 70 (369 340) about 90, tracked (53 066) about 13;
 | Register-map model update: same windows, two weight sets, decisions and alarm as predicted | `weight_update.py` | VIII-D, Fig. 6 |
 | Divider independence and replay time per window | `divider_check.py` | VIII-D |
 | Weight read-back (53 words) on every block reset | inside `replay.py` | Table V last row |
-| Fault onset in machine time, hardware alarm, alarm depth N = 0..7 (`results/stream_*.json`, `figures/fig_*_onset`, `_alarm_depth`, `_class_spectra`) | `stream_demo.py` | IX-D, Figs. 8-11 |
+| Fault onset in machine time, hardware alarm, alarm depth N = 0..7 (`results/stream_*.json`, `figures/fig_*_onset`, `_alarm_depth`, `_class_spectra`) | `stream_demo.py` | IX-D, Figs. 8, 9, 11 |
+| Severity ladder: healthy then imbalance 6-35 g at matched speed, chip band 1-4 feature per step (`results/severity_*.json`, `figures/fig_*_severity`) | `severity_stream.py` | IX-D, Fig. 10 |
+| Window period and throughput with the processor timer (`results/throughput.json`); f_max and activity-annotated power (`tables/tab_metrics.tex`) | `throughput_check.py`, `scripts/power_saif.tcl` | VIII-C/D, Table VI |
 
 The host-model numbers (`ml/records/<name>_train.md`) are the expected values: the model is
 proved bit-exact to the RTL and the RTL to the SKY130-mapped netlist, so a board run that
