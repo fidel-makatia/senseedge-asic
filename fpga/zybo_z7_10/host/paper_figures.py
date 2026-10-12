@@ -43,17 +43,17 @@ COL1, COL2 = 3.5, 7.16     # IEEE column widths in inches
 DATASETS = {
     "cwru": dict(
         variants=[("cwru_d249_g512", "2.29 kS/s", "D = 249"), ("cwru_d142_g512", "4.0 kS/s", "D = 142"), ("cwru_d70_g512", "8.0 kS/s", "D = 70")],
-        held_out="held-out 3 hp load", legend="Sample rate",
+        held_out="the held-out 3 hp load", legend="Sample rate",
         cond_order=["normal_3hp", "IR007_3hp", "IR014_3hp", "IR021_3hp", "B007_3hp", "B014_3hp", "B021_3hp", "OR007_3hp", "OR014_3hp", "OR021_3hp"],
         cond_label=lambda c: c.replace("_3hp", "").replace("normal", "Normal"),
         cond_note="IR = inner race, B = ball, OR = outer race; 007/014/021 = fault diameter in mils.",
         cond_height=2.6),
     "mafaulda": dict(
-        variants=[("mafaulda_d249", "2.29 kS/s", "D = 249"), ("mafaulda_d70", "8.0 kS/s", "D = 70"), ("mafaulda_tracked", "Tracked", "f_s = 32 f_rot")],
-        held_out="held-out sequences (30 %)", legend="Sampling",
-        cond_order=None,
+        variants=[("mafaulda_d249", "2.29 kS/s", "D = 249"), ("mafaulda_d70", "8.0 kS/s", "D = 70"), ("mafaulda_tracked", "Tracked", r"$f_s = 32\,f_\mathrm{rot}$")],
+        held_out="the 30 % held-out sequences", legend="Sampling",
+        cond_order="mafaulda",
         cond_label=lambda c: c.replace("horizontal-misalignment", "H-misalign").replace("vertical-misalignment", "V-misalign")
-                              .replace("_fault", "").replace("underhang/", "UH ").replace("overhang/", "OH ").replace("/", " "),
+                              .replace("_fault", "").replace("outer_race", "outer race").replace("underhang/", "UH ").replace("overhang/", "OH ").replace("/", " "),
         cond_note="UH/OH = underhang/overhang bearing; cage, outer race, ball faults at 0/6/20/35 g; misalignment in mm; imbalance in g.",
         cond_height=4.6),
 }
@@ -154,7 +154,15 @@ def fig_per_condition(ds, runs, out):
                 conds.append(c)
     if not conds:
         return
-    if cfg["cond_order"]:
+    if cfg["cond_order"] == "mafaulda":
+        import re
+        fam = {"normal": 0, "imbalance": 1, "horizontal-misalignment": 2, "vertical-misalignment": 3, "underhang": 4, "overhang": 5}
+        kind = {"cage_fault": 0, "outer_race": 1, "ball_fault": 2}
+        def key(c):
+            parts = c.split("/"); num = re.findall(r"[\d.]+", parts[-1])
+            return (fam.get(parts[0], 9), kind.get(parts[1], 0) if len(parts) > 2 else 0, float(num[0]) if num else 0.0)
+        conds = sorted(conds, key=key)
+    elif cfg["cond_order"]:
         conds = [c for c in cfg["cond_order"] if c in conds] + [c for c in conds if c not in cfg["cond_order"]]
     else:
         conds = sorted(conds)
@@ -165,10 +173,10 @@ def fig_per_condition(ds, runs, out):
         vals = [100 * pc[c]["accuracy"] if c in pc else np.nan for c in conds]
         ax.plot(vals, y, "o", ms=4.5, mec="#fcfcfb", mew=0.8, color=SERIES[k], label=label, zorder=3 + k)
     ax.set_yticks(y); ax.set_yticklabels([cfg["cond_label"](c) for c in conds], fontsize=6 if len(conds) > 12 else 7)
-    ax.invert_yaxis(); ax.set_xlim(0, 100); ax.set_xlabel(f"Window accuracy on the {cfg['held_out']} (%)")
+    ax.invert_yaxis(); ax.set_xlim(0, 100); ax.set_xlabel(f"Window accuracy on {cfg['held_out']} (%)")
     ax.xaxis.grid(True, zorder=0); ax.set_axisbelow(True)
     ax.legend(title=cfg["legend"], loc="lower left", bbox_to_anchor=(0.0, 0.0), handlelength=0.8)
-    ax.text(0, -0.9 / cfg["cond_height"], cfg["cond_note"], transform=ax.transAxes, fontsize=6, color=INK2, va="top", wrap=True)
+    ax.text(0, -0.55 / cfg["cond_height"], cfg["cond_note"], transform=ax.transAxes, fontsize=6, color=INK2, va="top", wrap=True)
     save(fig, out, f"fig_{ds}_per_condition")
 
 
@@ -356,7 +364,7 @@ def fig_alarm_depth(results, out, name):
     fa = [100.0 * d["false_alarm_blocks"] / max(1, d["healthy_blocks"]) for d in D]
     axes[1].bar(N, fa, 0.7, color=SERIES[1], zorder=3)
     for n_, v, d in zip(N, fa, D):
-        axes[1].text(n_, v + 1.5, f"{d['false_alarm_blocks']}/{d['healthy_blocks']}", ha="center", fontsize=5.5, color=INK2)
+        axes[1].text(n_, v + 1.5 + (6 if n_ % 2 else 0), f"{d['false_alarm_blocks']}/{d['healthy_blocks']}", ha="center", fontsize=5.5, color=INK2)
     axes[1].set_xlabel("Alarm depth N"); axes[1].set_ylabel("Healthy blocks with\na false alarm (%)"); axes[1].set_xticks(N)
     axes[1].set_ylim(0, max(10, max(fa) * 1.3)); axes[1].yaxis.grid(True, zorder=0); axes[1].set_axisbelow(True)
     fig.text(0.0, -0.04, f"Hardware alarm logic, threshold {m['threshold']}. Onset: {m['pre']} healthy windows then {m['fault']['cond']}.\n"

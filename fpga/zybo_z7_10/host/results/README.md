@@ -37,10 +37,11 @@ and `paper_tables.py`; re-measure with `run_board_tests.py`, `run_mafaulda.py`, 
 
 ## Headline numbers
 
-- Bit-exactness: CWRU 22,696 + streaming 3,658 windows, 0 mismatches against `ref_models.chain`; every weight word read back equal; self-test bins/features/class identical to the RTL audit values.
+- Bit-exactness: CWRU 22,696 + MaFaulDa 526,246 + streaming 4,746 = **553,688 windows, 0 mismatches** against `ref_models.chain` (bins checked on 27,837 of them); every weight word read back equal; self-test bins/features/class identical to the RTL audit values.
 - CWRU, 3 hp held out: 75.9 % (2.29 kS/s), 65.1 % (4.0), 80.5 % (8.0) window accuracy; sequence majority 90 / 80 / 100 %.
-- Detection: alarm 4 windows after a fault onset at N = 3 (112 ms at 2.29 kS/s, 32 ms at 8 kS/s); zero false alarms on healthy data from N = 2.
+- MaFaulDa, 590 of 1,951 sequences held out: 71.7 % (2.29 kS/s), 63.9 % (8.0), 67.6 % (tracked) window accuracy; balanced 73.6 / 66.5 / 73.5 %; identical to the host model.
+- Detection: alarm 4 windows after a fault onset at N = 3 (112 ms at 2.29 kS/s, 32 ms at 8 kS/s); CWRU healthy data gives zero false alarms from N = 2; MaFaulDa healthy data (72 % recall) 13/42 blocks at N = 3 falling to 1/42 at N = 6.
 - FPGA: macro 10,718 LUT / 5,640 FF / 6 DSP (FFT 8,762 LUT); WNS +8.38 ns at 20 MHz; 27 mW PL power estimate.
 - Latency (RTL audit, reproduced here): 728 clocks from full buffer to decision = 36.4 us at 20 MHz.
 
-MaFaulDa rows are appended by `run_mafaulda.py` when its replay completes (see `mafaulda_session.log`).
+Streaming data: `stream_cwru_d249.json`, `stream_cwru_d70.json`, `stream_mafaulda_d249_imbalance.json`, `stream_mafaulda_d249_bearing.json`; per-window CSVs of the replays are not committed (size) and regenerate with `replay.py`.
