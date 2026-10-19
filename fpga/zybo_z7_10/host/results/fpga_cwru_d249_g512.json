@@ -1,0 +1,117 @@
+{
+ "windows": 3608,
+ "sequences": 10,
+ "window_accuracy": 0.7585920177383592,
+ "window_accuracy_ci95": [
+  0.5752319886429395,
+  0.8836903385057635
+ ],
+ "balanced_accuracy": 0.7770976063961718,
+ "sequence_accuracy": 0.9,
+ "sequence_accuracy_ci95": [
+  0.7,
+  1.0
+ ],
+ "recall": [
+  0.8690807799442897,
+  0.5369003690036901,
+  0.8038852913968547,
+  0.8985239852398524
+ ],
+ "precision": [
+  0.7839195979899497,
+  0.8995363214837713,
+  0.6853312302839116,
+  0.7521235521235521
+ ],
+ "confusion": [
+  [
+   312,
+   14,
+   29,
+   4
+  ],
+  [
+   0,
+   582,
+   309,
+   193
+  ],
+  [
+   81,
+   7,
+   869,
+   124
+  ],
+  [
+   5,
+   44,
+   61,
+   974
+  ]
+ ],
+ "class_names": [
+  "NORMAL",
+  "INNER_RACE",
+  "BALL",
+  "OUTER_RACE"
+ ],
+ "per_condition": {
+  "B007_3hp": {
+   "windows": 359,
+   "accuracy": 0.8272980501392758
+  },
+  "B014_3hp": {
+   "windows": 361,
+   "accuracy": 0.7590027700831025
+  },
+  "B021_3hp": {
+   "windows": 361,
+   "accuracy": 0.8254847645429363
+  },
+  "IR007_3hp": {
+   "windows": 363,
+   "accuracy": 0.9476584022038568
+  },
+  "IR014_3hp": {
+   "windows": 360,
+   "accuracy": 0.016666666666666666
+  },
+  "IR021_3hp": {
+   "windows": 361,
+   "accuracy": 0.6426592797783933
+  },
+  "OR007_3hp": {
+   "windows": 362,
+   "accuracy": 0.9447513812154696
+  },
+  "OR014_3hp": {
+   "windows": 361,
+   "accuracy": 0.8310249307479224
+  },
+  "OR021_3hp": {
+   "windows": 361,
+   "accuracy": 0.9196675900277008
+  },
+  "normal_3hp": {
+   "windows": 359,
+   "accuracy": 0.8690807799442897
+  }
+ },
+ "board_id": "0x5E5E0002",
+ "div": 9,
+ "threshold": 100,
+ "n_consec": 3,
+ "blocks": 60,
+ "bins_checked": 192,
+ "mismatch_bins": 0,
+ "mismatch_features": 0,
+ "mismatch_class_conf": 0,
+ "mismatch_alarm": 0,
+ "elapsed_s": 55.3,
+ "windows_per_s": 65.2,
+ "records": "records/cwru_d249_g512.npz",
+ "weights": "C:\\Users\\fidel\\OneDrive\\Desktop\\SenseEdge\\senseedge-asic\\ml\\records\\cwru_d249_g512_weights.npz",
+ "baud": 115200,
+ "mock": false
+}

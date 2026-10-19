@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 // SenseEdge - SPI ADC Interface
+// Corrected RTL (branch fix/audit-defects): capture slice and mid-scale offset, see S_CS_HIGH.
 // Configurable SPI master for external ADC (e.g., MCP3201, ADS7042)
 // Collects 64 samples into a circular buffer, triggers FFT on completion
 
@@ -113,8 +114,12 @@ module spi_adc_if (
                 S_CS_HIGH: begin
                     spi_cs_n <= 1'b1;
                     spi_clk  <= 1'b0;
-                    // Store sample (sign-extend 12-bit to 16-bit signed)
-                    sample_buf[wr_ptr] <= {{(16-ADC_BITS){shift_reg[ADC_BITS-1]}}, shift_reg[ADC_BITS-1:0]};
+                    // Store sample.  The 16 bits captured on the 16 falling edges of one
+                    // MCP3201 frame are: [15:13] sample period and null bit, [12:1] the
+                    // straight-binary code B11..B0, [0] B1 of the LSB-first repeat.  The
+                    // fabricated revision stored [11:0], one position low (see audit).
+                    // The code is converted to a signed sample centred on mid-scale.
+                    sample_buf[wr_ptr] <= {4'b0000, shift_reg[ADC_BITS:1]} - 16'd2048;
                     wr_ptr <= wr_ptr + 6'd1;
                     if (wr_ptr == 6'd63) begin
                         samples_valid <= 1'b1;

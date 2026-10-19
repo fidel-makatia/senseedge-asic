@@ -12,15 +12,15 @@ RISC-V firmware for the Caravel management core that controls the SenseEdge hard
 
 ## Firmware Flow
 
-1. **Configure GPIOs** for SPI ADC, alarm output, status LED, UART
-2. **Load 212 NN weights** into hardware registers via Wishbone
+1. **Configure GPIOs** for SPI ADC, alarm output, status LED, hardware UART
+2. **Load 212 NN weights** as 53 words via Wishbone and read every word back
 3. **Set ADC clock divider** and alarm thresholds
 4. **Enable hardware pipeline** (SPI → FFT → Features → NN → Alarm)
 5. **Poll for results** and transmit classification via UART to ESP32
 
 ## UART Protocol
 
-Results are sent at 115200 baud:
+Results are sent on the management core's hardware UART (TX on pad 6, RX on pad 5, default baud divider). The ESP32's RX must be wired to pad 6:
 ```
 CLASS:HEALTHY CONF:230 ALARM:0
 CLASS:BEARING_WEAR CONF:185 ALARM:0

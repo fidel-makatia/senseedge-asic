@@ -1,0 +1,245 @@
+{
+ "windows": 53066,
+ "sequences": 590,
+ "window_accuracy": 0.6755738137413787,
+ "window_accuracy_ci95": [
+  0.6420822638764183,
+  0.706148587572738
+ ],
+ "balanced_accuracy": 0.7351363632301539,
+ "sequence_accuracy": 0.6779661016949152,
+ "sequence_accuracy_ci95": [
+  0.640635593220339,
+  0.7136016949152542
+ ],
+ "recall": [
+  0.7748299319727892,
+  0.5959238383282925,
+  0.8498837595483228,
+  0.7199079230712111
+ ],
+ "precision": [
+  0.16754927919976464,
+  0.9376487129569544,
+  0.5554188974099262,
+  0.6947828579618748
+ ],
+ "confusion": [
+  [
+   1139,
+   36,
+   0,
+   295
+  ],
+  [
+   2217,
+   17339,
+   6102,
+   3438
+  ],
+  [
+   315,
+   515,
+   7677,
+   526
+  ],
+  [
+   3127,
+   602,
+   43,
+   9695
+  ]
+ ],
+ "class_names": [
+  "HEALTHY",
+  "BEARING_WEAR",
+  "IMBALANCE",
+  "MISALIGNMENT"
+ ],
+ "per_condition": {
+  "horizontal-misalignment/0.5mm": {
+   "windows": 1326,
+   "accuracy": 0.5716440422322775
+  },
+  "horizontal-misalignment/1.0mm": {
+   "windows": 1328,
+   "accuracy": 0.5112951807228916
+  },
+  "horizontal-misalignment/1.5mm": {
+   "windows": 1335,
+   "accuracy": 0.9565543071161049
+  },
+  "horizontal-misalignment/2.0mm": {
+   "windows": 1151,
+   "accuracy": 0.8766290182450044
+  },
+  "imbalance/10g": {
+   "windows": 1325,
+   "accuracy": 0.8211320754716981
+  },
+  "imbalance/15g": {
+   "windows": 1162,
+   "accuracy": 0.9440619621342513
+  },
+  "imbalance/20g": {
+   "windows": 1318,
+   "accuracy": 0.8869499241274659
+  },
+  "imbalance/25g": {
+   "windows": 1370,
+   "accuracy": 0.9226277372262773
+  },
+  "imbalance/30g": {
+   "windows": 1086,
+   "accuracy": 0.8775322283609577
+  },
+  "imbalance/35g": {
+   "windows": 1274,
+   "accuracy": 0.9992150706436421
+  },
+  "imbalance/6g": {
+   "windows": 1498,
+   "accuracy": 0.5560747663551402
+  },
+  "normal": {
+   "windows": 1470,
+   "accuracy": 0.7748299319727892
+  },
+  "overhang/ball_fault/0g": {
+   "windows": 1447,
+   "accuracy": 0.9640635798203179
+  },
+  "overhang/ball_fault/20g": {
+   "windows": 499,
+   "accuracy": 0.9799599198396793
+  },
+  "overhang/ball_fault/35g": {
+   "windows": 299,
+   "accuracy": 0.9163879598662207
+  },
+  "overhang/ball_fault/6g": {
+   "windows": 1110,
+   "accuracy": 0.9864864864864865
+  },
+  "overhang/cage_fault/0g": {
+   "windows": 1298,
+   "accuracy": 0.5331278890600925
+  },
+  "overhang/cage_fault/20g": {
+   "windows": 1432,
+   "accuracy": 0.8240223463687151
+  },
+  "overhang/cage_fault/35g": {
+   "windows": 1066,
+   "accuracy": 0.6923076923076923
+  },
+  "overhang/cage_fault/6g": {
+   "windows": 1455,
+   "accuracy": 0.6865979381443299
+  },
+  "overhang/outer_race/0g": {
+   "windows": 1453,
+   "accuracy": 0.42188575361321407
+  },
+  "overhang/outer_race/20g": {
+   "windows": 1469,
+   "accuracy": 0.673927842069435
+  },
+  "overhang/outer_race/35g": {
+   "windows": 900,
+   "accuracy": 0.5355555555555556
+  },
+  "overhang/outer_race/6g": {
+   "windows": 1535,
+   "accuracy": 0.6560260586319219
+  },
+  "underhang/ball_fault/0g": {
+   "windows": 1211,
+   "accuracy": 0.9702725020644096
+  },
+  "underhang/ball_fault/20g": {
+   "windows": 1363,
+   "accuracy": 0.9743213499633162
+  },
+  "underhang/ball_fault/35g": {
+   "windows": 868,
+   "accuracy": 0.9354838709677419
+  },
+  "underhang/ball_fault/6g": {
+   "windows": 1380,
+   "accuracy": 0.972463768115942
+  },
+  "underhang/cage_fault/0g": {
+   "windows": 1372,
+   "accuracy": 0.12026239067055394
+  },
+  "underhang/cage_fault/20g": {
+   "windows": 1173,
+   "accuracy": 0.27195225916453536
+  },
+  "underhang/cage_fault/35g": {
+   "windows": 1248,
+   "accuracy": 0.16025641025641027
+  },
+  "underhang/cage_fault/6g": {
+   "windows": 1388,
+   "accuracy": 0.5180115273775217
+  },
+  "underhang/outer_race/0g": {
+   "windows": 1296,
+   "accuracy": 0.07716049382716049
+  },
+  "underhang/outer_race/20g": {
+   "windows": 1478,
+   "accuracy": 0.29837618403247634
+  },
+  "underhang/outer_race/35g": {
+   "windows": 878,
+   "accuracy": 0.17198177676537585
+  },
+  "underhang/outer_race/6g": {
+   "windows": 1478,
+   "accuracy": 0.4282814614343708
+  },
+  "vertical-misalignment/0.51mm": {
+   "windows": 1519,
+   "accuracy": 0.5299539170506913
+  },
+  "vertical-misalignment/0.63mm": {
+   "windows": 1159,
+   "accuracy": 0.5996548748921484
+  },
+  "vertical-misalignment/1.27mm": {
+   "windows": 1282,
+   "accuracy": 0.8042121684867395
+  },
+  "vertical-misalignment/1.40mm": {
+   "windows": 1416,
+   "accuracy": 0.7874293785310734
+  },
+  "vertical-misalignment/1.78mm": {
+   "windows": 1560,
+   "accuracy": 0.8038461538461539
+  },
+  "vertical-misalignment/1.90mm": {
+   "windows": 1391,
+   "accuracy": 0.7706685837526959
+  }
+ },
+ "board_id": "0x5E5E0002",
+ "div": "tracked",
+ "threshold": 100,
+ "n_consec": 3,
+ "blocks": 1112,
+ "bins_checked": 2592,
+ "mismatch_bins": 0,
+ "mismatch_features": 0,
+ "mismatch_class_conf": 0,
+ "mismatch_alarm": 0,
+ "elapsed_s": 3041.2,
+ "windows_per_s": 17.4,
+ "records": "records/mafaulda_tracked.npz",
+ "weights": "C:\\Users\\fidel\\OneDrive\\Desktop\\SenseEdge\\senseedge-asic\\ml\\records\\mafaulda_tracked_weights.npz",
+ "baud": 921600,
+ "mock": false
+}

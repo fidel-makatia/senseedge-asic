@@ -1,0 +1,120 @@
+
+=== 4 replay d70
+    C:/Users/fidel/OneDrive/Desktop/SenseEdge/.venv/Scripts/python.exe -I replay.py --records records/mafaulda_d70.npz --weights C:\Users\fidel\OneDrive\Desktop\SenseEdge\senseedge-asic\ml\records\mafaulda_d70_weights.npz --split test --out results/fpga_mafaulda_d70 --port COM10 --baud 921600
+board: id 0x5E5E0002, protocol 1; 590 sequences of split 'test', 369340 windows, div 9
+  10/590 sequences, 6260 windows, 221 windows/s, mismatches feat 0 cls 0 bins 0/320 alarm 0
+  20/590 sequences, 12520 windows, 221 windows/s, mismatches feat 0 cls 0 bins 0/640 alarm 0
+  30/590 sequences, 18780 windows, 221 windows/s, mismatches feat 0 cls 0 bins 0/960 alarm 0
+  40/590 sequences, 25040 windows, 222 windows/s, mismatches feat 0 cls 0 bins 0/1280 alarm 0
+  50/590 sequences, 31300 windows, 222 windows/s, mismatches feat 0 cls 0 bins 0/1600 alarm 0
+  60/590 sequences, 37560 windows, 221 windows/s, mismatches feat 0 cls 0 bins 0/1920 alarm 0
+  70/590 sequences, 43820 windows, 221 windows/s, mismatches feat 0 cls 0 bins 0/2240 alarm 0
+  80/590 sequences, 50080 windows, 221 windows/s, mismatches feat 0 cls 0 bins 0/2560 alarm 0
+  90/590 sequences, 56340 windows, 220 windows/s, mismatches feat 0 cls 0 bins 0/2880 alarm 0
+  100/590 sequences, 62600 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/3200 alarm 0
+  110/590 sequences, 68860 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/3520 alarm 0
+  120/590 sequences, 75120 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/3840 alarm 0
+  130/590 sequences, 81380 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/4160 alarm 0
+  140/590 sequences, 87640 windows, 217 windows/s, mismatches feat 0 cls 0 bins 0/4480 alarm 0
+  150/590 sequences, 93900 windows, 217 windows/s, mismatches feat 0 cls 0 bins 0/4800 alarm 0
+  160/590 sequences, 100160 windows, 217 windows/s, mismatches feat 0 cls 0 bins 0/5120 alarm 0
+  170/590 sequences, 106420 windows, 217 windows/s, mismatches feat 0 cls 0 bins 0/5440 alarm 0
+  180/590 sequences, 112680 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/5760 alarm 0
+  190/590 sequences, 118940 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/6080 alarm 0
+  200/590 sequences, 125200 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/6400 alarm 0
+  210/590 sequences, 131460 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/6720 alarm 0
+  220/590 sequences, 137720 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/7040 alarm 0
+  230/590 sequences, 143980 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/7360 alarm 0
+  240/590 sequences, 150240 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/7680 alarm 0
+  250/590 sequences, 156500 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/8000 alarm 0
+  260/590 sequences, 162760 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/8320 alarm 0
+  270/590 sequences, 169020 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/8640 alarm 0
+  280/590 sequences, 175280 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/8960 alarm 0
+  290/590 sequences, 181540 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/9280 alarm 0
+  300/590 sequences, 187800 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/9600 alarm 0
+  310/590 sequences, 194060 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/9920 alarm 0
+  320/590 sequences, 200320 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/10240 alarm 0
+  330/590 sequences, 206580 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/10560 alarm 0
+  340/590 sequences, 212840 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/10880 alarm 0
+  350/590 sequences, 219100 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/11200 alarm 0
+  360/590 sequences, 225360 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/11520 alarm 0
+  370/590 sequences, 231620 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/11840 alarm 0
+  380/590 sequences, 237880 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/12160 alarm 0
+  390/590 sequences, 244140 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/12480 alarm 0
+  400/590 sequences, 250400 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/12800 alarm 0
+  410/590 sequences, 256660 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/13120 alarm 0
+  420/590 sequences, 262920 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/13440 alarm 0
+  430/590 sequences, 269180 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/13760 alarm 0
+  440/590 sequences, 275440 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/14080 alarm 0
+  450/590 sequences, 281700 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/14400 alarm 0
+  460/590 sequences, 287960 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/14720 alarm 0
+  470/590 sequences, 294220 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/15040 alarm 0
+  480/590 sequences, 300480 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/15360 alarm 0
+  490/590 sequences, 306740 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/15680 alarm 0
+  500/590 sequences, 313000 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/16000 alarm 0
+  510/590 sequences, 319260 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/16320 alarm 0
+  520/590 sequences, 325520 windows, 219 windows/s, mismatches feat 0 cls 0 bins 0/16640 alarm 0
+  530/590 sequences, 331780 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/16960 alarm 0
+  540/590 sequences, 338040 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/17280 alarm 0
+  550/590 sequences, 344300 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/17600 alarm 0
+  560/590 sequences, 350560 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/17920 alarm 0
+  570/590 sequences, 356820 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/18240 alarm 0
+  580/590 sequences, 363080 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/18560 alarm 0
+  590/590 sequences, 369340 windows, 218 windows/s, mismatches feat 0 cls 0 bins 0/18880 alarm 0
+windows 369340, sequences 590
+window accuracy 63.87 % (95 % CI 61.36 to 66.08), balanced 66.51 %, sequence majority 71.69 % (CI 67.8 to 75.1)
+
+| true \ pred | HEALTHY | BEARING_WEAR | IMBALANCE | MISALIGNMENT | recall |
+|---|---|---|---|---|---|
+| HEALTHY | 7152 | 330 | 443 | 1465 | 76.2 % |
+| BEARING_WEAR | 22824 | 134944 | 31907 | 13775 | 66.3 % |
+| IMBALANCE | 11745 | 4688 | 44417 | 1750 | 71.0 % |
+| MISALIGNMENT | 36730 | 5236 | 2567 | 49367 | 52.6 % |
+
+| condition | windows | accuracy |
+|---|---|---|
+| horizontal-misalignment/0.5mm | 9390 | 28.1 % |
+| horizontal-misalignment/1.0mm | 9390 | 27.5 % |
+| horizontal-misalignment/1.5mm | 9390 | 86.9 % |
+| horizontal-misalignment/2.0mm | 9390 | 84.8 % |
+| imbalance/10g | 8764 | 61.7 % |
+| imbalance/15g | 8764 | 67.0 % |
+| imbalance/20g | 9390 | 70.9 % |
+| imbalance/25g | 8764 | 78.9 % |
+| imbalance/30g | 8764 | 83.0 % |
+| imbalance/35g | 8764 | 88.5 % |
+| imbalance/6g | 9390 | 48.4 % |
+| normal | 9390 | 76.2 % |
+| overhang/ball_fault/0g | 9390 | 99.7 % |
+| overhang/ball_fault/20g | 5008 | 99.9 % |
+| overhang/ball_fault/35g | 3756 | 99.7 % |
+| overhang/ball_fault/6g | 8138 | 99.8 % |
+| overhang/cage_fault/0g | 9390 | 64.0 % |
+| overhang/cage_fault/20g | 9390 | 73.5 % |
+| overhang/cage_fault/35g | 7512 | 75.3 % |
+| overhang/cage_fault/6g | 9390 | 73.6 % |
+| overhang/outer_race/0g | 9390 | 79.9 % |
+| overhang/outer_race/20g | 9390 | 81.5 % |
+| overhang/outer_race/35g | 7512 | 73.6 % |
+| overhang/outer_race/6g | 9390 | 82.9 % |
+| underhang/ball_fault/0g | 9390 | 85.7 % |
+| underhang/ball_fault/20g | 9390 | 96.0 % |
+| underhang/ball_fault/35g | 6886 | 89.7 % |
+| underhang/ball_fault/6g | 9390 | 91.6 % |
+| underhang/cage_fault/0g | 9390 | 6.5 % |
+| underhang/cage_fault/20g | 9390 | 26.8 % |
+| underhang/cage_fault/35g | 8138 | 34.0 % |
+| underhang/cage_fault/6g | 8764 | 26.4 % |
+| underhang/outer_race/0g | 9390 | 56.0 % |
+| underhang/outer_race/20g | 9390 | 32.8 % |
+| underhang/outer_race/35g | 6886 | 29.3 % |
+| underhang/outer_race/6g | 9390 | 46.5 % |
+| vertical-misalignment/0.51mm | 9390 | 32.8 % |
+| vertical-misalignment/0.63mm | 9390 | 25.1 % |
+| vertical-misalignment/1.27mm | 9390 | 58.9 % |
+| vertical-misalignment/1.40mm | 9390 | 58.8 % |
+| vertical-misalignment/1.78mm | 9390 | 60.1 % |
+| vertical-misalignment/1.90mm | 9390 | 62.7 % |
+
+bit-exact: features 369340/369340, class+confidence 369340/369340, bins 18880/18880, alarm 369340/369340; 1697 s
+=== 4 replay d70: OK

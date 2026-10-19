@@ -1,0 +1,17 @@
+\begin{tabular}{@{}llr@{}}
+\toprule
+Metric & Source & Value \\
+\midrule
+Macro resources (xc7z010) & implementation & 10,718 LUT, 5,640 FF, 6 DSP \\
+Setup / hold slack at 20 MHz & STA & +8.38 / +0.040 ns \\
+$f_\mathrm{max}$ on the FPGA & STA, $1/(50\,\mathrm{ns} - \mathrm{WNS})$ & 24.0 MHz \\
+Decision latency, buffer full $\to$ class & RTL audit E, reproduced & 728 clocks = 36.4 $\mu$s \\
+Window period at $D=0$ & board, global timer & 115.2 $\mu$s (2304 clocks; predicted 2304) \\
+Window period at $D=249$ & board, global timer & 28000.0 $\mu$s (560000 clocks; predicted 560000) \\
+Peak classification rate ($D=0$) & board & 8,681 per second \\
+PL power, vectorless & report\_power & 27 mW \\
+Energy per classification, $D=0$ (estimate) & 27 mW $\times$ window period & 3.11 $\mu$J \\
+Energy per classification, $D=249$ (estimate) & 27 mW $\times$ window period & 756.00 $\mu$J \\
+\bottomrule
+\end{tabular}
+% PL = the SenseEdge wrapper on the FPGA; the Zynq PS (1.4 W) is the test host, not the device

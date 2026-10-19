@@ -154,12 +154,13 @@ module tb_senseedge_top;
         end
     endtask
 
-    task wb_write_weight;
-        input [7:0] addr;
-        input [7:0] data;
+    // Weight image, 212 INT8 bytes; loaded as 53 words (byte lane k of word w = weight[4w+k])
+    reg [7:0] wimg [0:211];
+    task wb_load_weights;
+        integer w;
         begin
-            // Weight register base = 0x20, each word holds 1 byte (byte 0)
-            wb_write(32'h20 + {24'd0, addr}, {24'd0, data});
+            for (w = 0; w < 53; w = w + 1)
+                wb_write(32'h20 + 4*w, {wimg[4*w+3], wimg[4*w+2], wimg[4*w+1], wimg[4*w]});
         end
     endtask
 
@@ -204,37 +205,33 @@ module tb_senseedge_top;
         $display("");
         $display("[PHASE 1] Loading neural network weights...");
 
-        // Layer 1 weights: 128 entries (all zero except diagonal-ish)
-        for (i = 0; i < 128; i = i + 1)
-            wb_write_weight(i[7:0], 8'd0);
-
-        // Set up weights so each output class responds to a different band
-        // Neuron 0 → input 0 (low band)
-        wb_write_weight(8'd0, 8'd127);
-        // Neuron 1 → input 1 (mid-low band)
-        wb_write_weight(8'd9, 8'd127);
-        // Neuron 2 → input 2 (mid-hi band)
-        wb_write_weight(8'd18, 8'd127);
-        // Neuron 3 → input 3 (high band)
-        wb_write_weight(8'd27, 8'd127);
-
-        // Layer 1 biases: all zero
-        for (i = 128; i < 144; i = i + 1)
-            wb_write_weight(i[7:0], 8'd0);
-
-        // Layer 2 weights: map hidden to output classes
-        for (i = 144; i < 208; i = i + 1)
-            wb_write_weight(i[7:0], 8'd0);
-
-        wb_write_weight(8'd144, 8'd127); // Class 0 ← Hidden 0
-        wb_write_weight(8'd161, 8'd127); // Class 1 ← Hidden 1
-        wb_write_weight(8'd178, 8'd127); // Class 2 ← Hidden 2
-        wb_write_weight(8'd195, 8'd127); // Class 3 ← Hidden 3
-
-        // Layer 2 biases
-        for (i = 208; i < 212; i = i + 1)
-            wb_write_weight(i[7:0], 8'd0);
-
+        // Every weight zero, then: neuron k <- input k (band k), class k <- hidden k
+        for (i = 0; i < 212; i = i + 1) wimg[i] = 8'd0;
+        wimg[0]   = 8'd127;   // neuron 0, input 0 (low band)
+        wimg[9]   = 8'd127;   // neuron 1, input 1 (mid-low band)
+        wimg[18]  = 8'd127;   // neuron 2, input 2 (mid-high band)
+        wimg[27]  = 8'd127;   // neuron 3, input 3 (high band)
+        wimg[144] = 8'd127;   // class 0 <- hidden 0
+        wimg[161] = 8'd127;   // class 1 <- hidden 1
+        wimg[178] = 8'd127;   // class 2 <- hidden 2
+        wimg[195] = 8'd127;   // class 3 <- hidden 3
+        wb_load_weights();
+        // read back every word through the bus
+        begin : wreadback
+            integer w, bad;
+            bad = 0;
+            for (w = 0; w < 53; w = w + 1) begin
+                wb_read(32'h20 + 4*w, rd_data);
+                if (rd_data !== {wimg[4*w+3], wimg[4*w+2], wimg[4*w+1], wimg[4*w]}) bad = bad + 1;
+            end
+            if (bad == 0) begin
+                $display("  PASS: 53 weight words read back as written");
+                pass_count = pass_count + 1;
+            end else begin
+                $display("  FAIL: %0d weight words differ on read-back", bad);
+                fail_count = fail_count + 1;
+            end
+        end
         $display("  212 weights loaded");
 
         // ==================================================================
@@ -291,12 +288,13 @@ module tb_senseedge_top;
         $display("  CLASS_RESULT: class=%0d, confidence=%0d",
                  rd_data[1:0], rd_data[9:2]);
 
-        if (rd_data[9:2] > 0) begin
-            $display("  PASS: Classification produced non-zero confidence");
+        // Tone at bin 8 lies in the mid-low band (bins 5-10) -> hidden 1 -> class 1, saturated confidence
+        if (rd_data[1:0] == 2'd1 && rd_data[9:2] == 8'd255) begin
+            $display("  PASS: Class 1 (mid-low band) with confidence 255, as the weight image dictates");
             pass_count = pass_count + 1;
         end else begin
-            $display("  INFO: Zero confidence (may be valid for this input)");
-            pass_count = pass_count + 1; // Not necessarily a failure
+            $display("  FAIL: Expected class 1 with confidence 255");
+            fail_count = fail_count + 1;
         end
 
         // Read status
