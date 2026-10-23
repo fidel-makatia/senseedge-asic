@@ -466,6 +466,12 @@ For detailed hardware specifications and register maps, refer to the following o
 * **[Caravel Technical Reference Manual (TRM)](https://github.com/chipfoundry/caravel/blob/main/docs/caravel_datasheet_2_register_TRM_r2.pdf)**: Complete register maps and programming guides for the management SoC.
 * **[ChipFoundry Marketplace](https://platform.chipfoundry.io/marketplace)**: Access additional IP blocks, EDA tools, and shuttle services.
 
+Project documentation in this repository:
+
+* **[docs/silicon_test_plan](docs/silicon_test_plan/)**: the Rev. A silicon characterization plan (test IDs A-F) and the pre-silicon predictions it will be read against.
+* **[fpga/zybo_z7_10/TEST_RUNS.md](fpga/zybo_z7_10/TEST_RUNS.md)**: the corrected RTL (Rev. B) measured on a Zybo Z7-10: 553,688 replayed windows of the MaFaulDa and CWRU datasets bit-exact to the reference, accuracy, fault-onset and alarm-depth results; measured data, figures and tables under [fpga/zybo_z7_10/host/results](fpga/zybo_z7_10/host/results/).
+* **[rtl_fix](rtl_fix/)**: the five audit findings and their corrections.
+
 ---
 
 ## Prerequisites
