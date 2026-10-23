@@ -1,6 +1,6 @@
 # AI Prompts Used in SenseEdge Development
 
-The following prompts were used with Claude (Anthropic) during the development of this project.
+The following prompts were used with an AI assistant during the development of this project.
 
 ---
 
